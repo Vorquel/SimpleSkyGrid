@@ -1,0 +1,21 @@
+[
+{
+  "modid": "SimpleSkyGrid",
+  "name": "Simple Sky Grid",
+  "description": "A forge implementation of Sethbling's original Sky Grid map",
+  "version": "${modVersion}",
+  "mcversion": "${mcVersion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "Vorquel"
+  ],
+  "credits": "Sethbling for the original idea, Bacon Donut for the inspiration to make it",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent": "",
+  "dependencies": [
+  ]
+}
+]
