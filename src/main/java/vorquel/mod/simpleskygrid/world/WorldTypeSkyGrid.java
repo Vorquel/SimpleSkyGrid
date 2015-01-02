@@ -1,6 +1,5 @@
 package vorquel.mod.simpleskygrid.world;
 
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -27,7 +26,7 @@ public class WorldTypeSkyGrid extends WorldType {
     }
 
     @Override
-    public int getSpawnFuzz() {
-        return 1;
+    public boolean hasVoidParticles(boolean flag) {
+        return false;
     }
 }

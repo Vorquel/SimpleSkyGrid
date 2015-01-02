@@ -22,6 +22,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
     private World world;
 
+    private Block bedrock = GameData.getBlockRegistry().getObject("minecraft:bedrock");
     private Block chest = GameData.getBlockRegistry().getObject("minecraft:chest");
 
     public ChunkProviderSkyGrid(World world) {
@@ -39,9 +40,15 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         Random random = new Random();
         random.setSeed(world.getSeed()+xChunk*1340661669L+zChunk*345978359L);
 
-        for(int y=0; y<128; y+=4) {
+        ExtendedBlockStorage extendedblockstorage = new ExtendedBlockStorage(0, !world.provider.hasNoSky);
+        chunk.getBlockStorageArray()[0] = extendedblockstorage;
+        for(int x=0; x<16; x+=4)
+            for(int z=0; z<16; z+=4)
+                extendedblockstorage.func_150818_a(x, 0, z, bedrock);
+
+        for(int y=4; y<128; y+=4) {
             int y4 = y >> 4;
-            ExtendedBlockStorage extendedblockstorage = chunk.getBlockStorageArray()[y4];
+            extendedblockstorage = chunk.getBlockStorageArray()[y4];
 
             if (extendedblockstorage == null)
             {

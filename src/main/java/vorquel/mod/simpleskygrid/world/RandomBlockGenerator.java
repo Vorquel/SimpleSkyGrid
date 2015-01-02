@@ -28,7 +28,7 @@ public class RandomBlockGenerator {
         totalWeight += weight;
     }
 
-    public class BlockComplex {
+    public static class BlockComplex {
         public Block block;
         public int metadata;
         public BlockComplex(Block block, int metadata) {
