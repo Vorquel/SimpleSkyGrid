@@ -7,6 +7,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NBTString {
 
@@ -28,7 +30,45 @@ public class NBTString {
     }
 
     private static ArrayList<Token> tokenize(String in) {
-        return null;
+        String goodIn = in.replaceAll("\\s+", "");
+        Pattern pattern = Pattern.compile("");
+        Matcher matcher = pattern.matcher(goodIn);
+        int length = matcher.groupCount();
+        ArrayList<Token> out = new ArrayList<Token>();
+        for(int i=0; i<length; ++i) {
+            String temp = matcher.group(i);
+            if(temp.equals(":"))
+                out.add(new Token(Type.COLON));
+            else if(temp.equals(","))
+                out.add(new Token(Type.COMMA));
+            else if(temp.equals("{"))
+                out.add(new Token(Type.LEFT_BRACE));
+            else if(temp.equals("}"))
+                out.add(new Token(Type.RIGHT_BRACE));
+            else if(temp.equals("["))
+                out.add(new Token(Type.LEFT_SQUARE));
+            else if(temp.equals("]"))
+                out.add(new Token(Type.RIGHT_SQUARE));
+            else if(temp.equals("b["))
+                out.add(new Token(Type.OPEN_BYTE_ARRAY));
+            else if(temp.equals("i["))
+                out.add(new Token(Type.OPEN_INT_ARRAY));
+            else if(temp.startsWith("b"))
+                out.add(new Token(Type.LIT_BYTE, Byte.decode(temp.substring(1))));
+            else if(temp.startsWith("s"))
+                out.add(new Token(Type.LIT_SHORT, Short.decode(temp.substring(1))));
+            else if(temp.startsWith("i"))
+                out.add(new Token(Type.LIT_INT, Integer.decode(temp.substring(1))));
+            else if(temp.startsWith("l"))
+                out.add(new Token(Type.LIT_LONG, Long.decode(temp.substring(1))));
+            else if(temp.startsWith("f"))
+                out.add(new Token(Type.LIT_FLOAT, Float.valueOf(temp.substring(1))));
+            else if(temp.startsWith("d"))
+                out.add(new Token(Type.LIT_DOUBLE, Double.valueOf(temp.substring(1))));
+            else
+                out.add(new Token(Type.LIT_STRING, temp.substring(1, temp.length()-1)));
+        }
+        return out;
     }
 
     private static NBTTagCompound readTokens(ArrayList<Token> tokens) {
@@ -43,17 +83,17 @@ public class NBTString {
 
     private static void appendTag(StringBuilder out, NBTBase in) {
         switch(in.getId()) {
-            case 1: appendByte(out,           (NBTTagByte) in); break;
-            case 2: appendShort(out,         (NBTTagShort) in); break;
-            case 3: appendInt(out,             (NBTTagInt) in); break;
-            case 4: appendLong(out,           (NBTTagLong) in); break;
-            case 5: appendFloat(out,         (NBTTagFloat) in); break;
-            case 6: appendDouble(out,       (NBTTagDouble) in); break;
-            case 7: appendByteArray(out, (NBTTagByteArray) in); break;
-            case 8: appendString(out,       (NBTTagString) in); break;
-            case 9: appendList(out,           (NBTTagList) in); break;
-            case 10: appendCompound(out,  (NBTTagCompound) in); break;
-            case 11: appendIntArray(out,  (NBTTagIntArray) in); break;
+            case 1:  appendByte(     out,      (NBTTagByte) in); break;
+            case 2:  appendShort(    out,     (NBTTagShort) in); break;
+            case 3:  appendInt(      out,       (NBTTagInt) in); break;
+            case 4:  appendLong(     out,      (NBTTagLong) in); break;
+            case 5:  appendFloat(    out,     (NBTTagFloat) in); break;
+            case 6:  appendDouble(   out,    (NBTTagDouble) in); break;
+            case 7:  appendByteArray(out, (NBTTagByteArray) in); break;
+            case 8:  appendString(   out,    (NBTTagString) in); break;
+            case 9:  appendList(     out,      (NBTTagList) in); break;
+            case 10: appendCompound( out,  (NBTTagCompound) in); break;
+            case 11: appendIntArray( out,  (NBTTagIntArray) in); break;
         }
     }
 
@@ -93,7 +133,7 @@ public class NBTString {
             out.append(b);
             out.append(',');
         }
-        out.setCharAt(out.length()-1, ']');
+        out.setCharAt(out.length() - 1, ']');
     }
 
     private static void appendString(StringBuilder out, NBTTagString in) {
@@ -103,13 +143,16 @@ public class NBTString {
     }
 
     private static void appendList(StringBuilder out, NBTTagList in) {
-        out.append('[');
         try {
             Field field = NBTTagList.class.getDeclaredField("tagList");
             field.setAccessible(true);
-            for(NBTBase tag : (List<NBTBase>)field.get(in)) {
+            List<NBTBase> tags = (List<NBTBase>)field.get(in);
+            out.append('[');
+            for(NBTBase tag : tags) {
                 appendTag(out, tag);
+                out.append(',');
             }
+            out.setCharAt(out.length() - 1, ']');
         } catch(Exception e) {
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
@@ -119,8 +162,6 @@ public class NBTString {
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
         }
-        //TODO finish this garbage thing
-        out.setCharAt(out.length() - 1, ']');
     }
 
     private static void appendCompound(StringBuilder out, NBTTagCompound in) {
@@ -133,7 +174,7 @@ public class NBTString {
             appendTag(out, in.getTag(key));
             out.append(',');
         }
-        out.setCharAt(out.length()-1, '}');
+        out.setCharAt(out.length() - 1, '}');
     }
 
     private static void appendIntArray(StringBuilder out, NBTTagIntArray in) {
@@ -145,9 +186,16 @@ public class NBTString {
         out.setCharAt(out.length()-1, ']');
     }
 
-    private class Token {
+    private static class Token {
         public Type type;
         public Object value;
+        public Token(Type type, Object value) {
+            this.type = type;
+            this.value = value;
+        }
+        public Token(Type type) {
+            this(type, null);
+        }
     }
 
     private enum Type {
