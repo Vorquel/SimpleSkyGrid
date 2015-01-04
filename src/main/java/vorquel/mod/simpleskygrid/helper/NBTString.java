@@ -5,6 +5,7 @@ import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -31,48 +32,80 @@ public class NBTString {
 
     private static ArrayList<Token> tokenize(String in) {
         String goodIn = in.replaceAll("\\s+", "");
-        Pattern pattern = Pattern.compile("");
+        Pattern pattern = Pattern.compile("[:,\\{\\}\\]]|[bi]?\\[|[bsil]-?(0|[1-9]\\d*)|[fd]-?(0?|[1-9]\\d*)\\.\\d*|\".+?\"");
         Matcher matcher = pattern.matcher(goodIn);
-        int length = matcher.groupCount();
         ArrayList<Token> out = new ArrayList<Token>();
-        for(int i=0; i<length; ++i) {
-            String temp = matcher.group(i);
-            if(temp.equals(":"))
-                out.add(new Token(Type.COLON));
-            else if(temp.equals(","))
-                out.add(new Token(Type.COMMA));
-            else if(temp.equals("{"))
-                out.add(new Token(Type.LEFT_BRACE));
-            else if(temp.equals("}"))
-                out.add(new Token(Type.RIGHT_BRACE));
-            else if(temp.equals("["))
-                out.add(new Token(Type.LEFT_SQUARE));
-            else if(temp.equals("]"))
-                out.add(new Token(Type.RIGHT_SQUARE));
-            else if(temp.equals("b["))
-                out.add(new Token(Type.OPEN_BYTE_ARRAY));
-            else if(temp.equals("i["))
-                out.add(new Token(Type.OPEN_INT_ARRAY));
-            else if(temp.startsWith("b"))
-                out.add(new Token(Type.LIT_BYTE, Byte.decode(temp.substring(1))));
-            else if(temp.startsWith("s"))
-                out.add(new Token(Type.LIT_SHORT, Short.decode(temp.substring(1))));
-            else if(temp.startsWith("i"))
-                out.add(new Token(Type.LIT_INT, Integer.decode(temp.substring(1))));
-            else if(temp.startsWith("l"))
-                out.add(new Token(Type.LIT_LONG, Long.decode(temp.substring(1))));
-            else if(temp.startsWith("f"))
-                out.add(new Token(Type.LIT_FLOAT, Float.valueOf(temp.substring(1))));
-            else if(temp.startsWith("d"))
-                out.add(new Token(Type.LIT_DOUBLE, Double.valueOf(temp.substring(1))));
-            else
-                out.add(new Token(Type.LIT_STRING, temp.substring(1, temp.length()-1)));
+        try {
+            int end = 0;
+            while(matcher.find()) {
+                end = matcher.end();
+                String temp = goodIn.substring(matcher.start(), end);
+                if(temp.equals(":"))
+                    out.add(new Token(Type.COLON));
+                else if(temp.equals(","))
+                    out.add(new Token(Type.COMMA));
+                else if(temp.equals("{"))
+                    out.add(new Token(Type.LEFT_BRACE));
+                else if(temp.equals("}"))
+                    out.add(new Token(Type.RIGHT_BRACE));
+                else if(temp.equals("["))
+                    out.add(new Token(Type.LEFT_SQUARE));
+                else if(temp.equals("]"))
+                    out.add(new Token(Type.RIGHT_SQUARE));
+                else if(temp.equals("b["))
+                    out.add(new Token(Type.OPEN_BYTE_ARRAY));
+                else if(temp.equals("i["))
+                    out.add(new Token(Type.OPEN_INT_ARRAY));
+                else if(temp.startsWith("b"))
+                    out.add(new Token(Type.LIT_BYTE, Byte.decode(temp.substring(1))));
+                else if(temp.startsWith("s"))
+                    out.add(new Token(Type.LIT_SHORT, Short.decode(temp.substring(1))));
+                else if(temp.startsWith("i"))
+                    out.add(new Token(Type.LIT_INT, Integer.decode(temp.substring(1))));
+                else if(temp.startsWith("l"))
+                    out.add(new Token(Type.LIT_LONG, Long.decode(temp.substring(1))));
+                else if(temp.startsWith("f"))
+                    out.add(new Token(Type.LIT_FLOAT, Float.valueOf(temp.substring(1))));
+                else if(temp.startsWith("d"))
+                    out.add(new Token(Type.LIT_DOUBLE, Double.valueOf(temp.substring(1))));
+                else if(temp.startsWith("\"") && temp.endsWith("\""))
+                    out.add(new Token(Type.LIT_STRING, temp.substring(1, temp.length() - 1)));
+                else
+                    throw new IllegalArgumentException("type1");
+            }
+            if(end != goodIn.length())
+                throw new IllegalArgumentException("type2");
+        } catch(NumberFormatException e) {
+            SimpleSkyGrid.logger.error("Syntax error in NBT data: malformed numeric data.");
+            out.clear();
+            out.add(new Token(Type.LEFT_BRACE));
+            out.add(new Token(Type.RIGHT_BRACE));
+        } catch(IllegalArgumentException e) {
+            if(e.getMessage().equals("type1")) {
+                SimpleSkyGrid.logger.fatal("********************************************");
+                SimpleSkyGrid.logger.fatal("********************************************");
+                SimpleSkyGrid.logger.fatal("********************************************");
+                SimpleSkyGrid.logger.fatal("Go complain to Vorquel. His NBT parser broke");
+                SimpleSkyGrid.logger.fatal("Input string could not be properly tokenized");
+                SimpleSkyGrid.logger.fatal("********************************************");
+                SimpleSkyGrid.logger.fatal("********************************************");
+                SimpleSkyGrid.logger.fatal("********************************************");
+            } else if(e.getMessage().equals("type2")) {
+                SimpleSkyGrid.logger.error("Syntax error in NBT data: unrecognized tokens.");
+            } else {
+                SimpleSkyGrid.logger.fatal("Unrecognized error in NBT data.");
+            }
+            out.clear();
+            out.add(new Token(Type.LEFT_BRACE));
+            out.add(new Token(Type.RIGHT_BRACE));
         }
         return out;
     }
 
     private static NBTTagCompound readTokens(ArrayList<Token> tokens) {
-        return null;
+        if(tokens.isEmpty())
+            return null;
+        Iterator<Token> iterator = tokens.iterator();
     }
 
     public static String getStringFromNBT(NBTTagCompound in) {
@@ -158,6 +191,7 @@ public class NBTString {
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("Go complain to Vorquel. His NBT parser broke");
+            SimpleSkyGrid.logger.fatal("His reflection didnt account for obfuscation");
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
