@@ -4,10 +4,7 @@ import net.minecraft.nbt.*;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,6 +103,113 @@ public class NBTString {
         if(tokens.isEmpty())
             return null;
         Iterator<Token> iterator = tokens.iterator();
+        try {
+            readToken(iterator, Type.LEFT_BRACE);
+            return readCompound(iterator);
+        } catch(IllegalStateException e) {
+            SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected tokens.");
+            return null;
+        } catch(NoSuchElementException e) {
+            SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected end of tokens.");
+            return null;
+        }
+    }
+
+    private static Object readToken(Iterator<Token> iterator, Type type) {
+        Token token = iterator.next();
+        if(token.type != type)
+            throw new IllegalStateException();
+        return token.value;
+    }
+
+    private static NBTTagCompound readCompound(Iterator<Token> iterator) {
+        NBTTagCompound tag = new NBTTagCompound();
+        while(true) {
+            String key = (String) readToken(iterator, Type.LIT_STRING);
+            readToken(iterator, Type.COLON);
+            Token token = iterator.next();
+            switch(token.type) {
+                case LIT_BYTE:        tag.setByte(     key,      (Byte) token.value); break;
+                case LIT_SHORT:       tag.setShort(    key,     (Short) token.value); break;
+                case LIT_INT:         tag.setInteger(  key,   (Integer) token.value); break;
+                case LIT_LONG:        tag.setLong(     key,      (Long) token.value); break;
+                case LIT_FLOAT:       tag.setFloat(    key,     (Float) token.value); break;
+                case LIT_DOUBLE:      tag.setDouble(   key,    (Double) token.value); break;
+                case LIT_STRING:      tag.setString(   key,    (String) token.value); break;
+                case OPEN_BYTE_ARRAY: tag.setByteArray(key, readByteArray(iterator)); break;
+                case OPEN_INT_ARRAY:  tag.setIntArray( key, readIntArray( iterator)); break;
+                case LEFT_SQUARE:     tag.setTag(      key, readList(     iterator)); break;
+                case LEFT_BRACE:      tag.setTag(      key, readCompound( iterator)); break;
+                default: throw new IllegalStateException();
+            }
+            token = iterator.next();
+            if(token.type == Type.RIGHT_BRACE)
+                break;
+            else if(token.type != Type.COMMA)
+                throw new IllegalStateException();
+        }
+        return tag;
+    }
+
+    private static byte[] readByteArray(Iterator<Token> iterator) {
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        while(true) {
+            bytes.add((Byte) readToken(iterator, Type.LIT_BYTE));
+            Token token = iterator.next();
+            if(token.type == Type.RIGHT_SQUARE)
+                break;
+            else if(token.type != Type.COMMA)
+                throw new IllegalStateException();
+        }
+        byte[] out = new byte[bytes.size()];
+        for(int i=0; i<out.length; ++i)
+            out[i] = bytes.get(i);
+        return out;
+    }
+
+    private static int[] readIntArray(Iterator<Token> iterator) {
+        ArrayList<Integer> ints = new ArrayList<Integer>();
+        while(true) {
+            ints.add((Integer) readToken(iterator, Type.LIT_INT));
+            Token token = iterator.next();
+            if(token.type == Type.RIGHT_SQUARE)
+                break;
+            else if(token.type != Type.COMMA)
+                throw new IllegalStateException();
+        }
+        int[] out = new int[ints.size()];
+        for(int i=0; i<out.length; ++i)
+            out[i] = ints.get(i);
+        return out;
+    }
+
+    private static NBTTagList readList(Iterator<Token> iterator) {
+        NBTTagList tag = new NBTTagList();
+        while(true) {
+            String key = (String) readToken(iterator, Type.LIT_STRING);
+            readToken(iterator, Type.COLON);
+            Token token = iterator.next();
+            switch(token.type) {
+                case LIT_BYTE:        tag.appendTag(new NBTTagByte(          (Byte) token.value)); break;
+                case LIT_SHORT:       tag.appendTag(new NBTTagShort(        (Short) token.value)); break;
+                case LIT_INT:         tag.appendTag(new NBTTagInt(        (Integer) token.value)); break;
+                case LIT_LONG:        tag.appendTag(new NBTTagLong(          (Long) token.value)); break;
+                case LIT_FLOAT:       tag.appendTag(new NBTTagFloat(        (Float) token.value)); break;
+                case LIT_DOUBLE:      tag.appendTag(new NBTTagDouble(      (Double) token.value)); break;
+                case LIT_STRING:      tag.appendTag(new NBTTagString(      (String) token.value)); break;
+                case OPEN_BYTE_ARRAY: tag.appendTag(new NBTTagByteArray(readByteArray(iterator))); break;
+                case OPEN_INT_ARRAY:  tag.appendTag(new NBTTagIntArray( readIntArray( iterator))); break;
+                case LEFT_SQUARE:     tag.appendTag(                    readList(     iterator));  break;
+                case LEFT_BRACE:      tag.appendTag(                    readCompound( iterator));  break;
+                default: throw new IllegalStateException();
+            }
+            token = iterator.next();
+            if(token.type == Type.RIGHT_BRACE)
+                break;
+            else if(token.type != Type.COMMA)
+                throw new IllegalStateException();
+        }
+        return tag;
     }
 
     public static String getStringFromNBT(NBTTagCompound in) {
