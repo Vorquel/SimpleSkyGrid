@@ -1,8 +1,9 @@
 package vorquel.mod.simpleskygrid.world;
 
-import cpw.mods.fml.common.registry.GameData;
-import net.minecraft.block.Block;
+import static vorquel.mod.simpleskygrid.helper.BlockCache.*;
+
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -13,6 +14,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ChestGenHooks;
+import vorquel.mod.simpleskygrid.helper.NBTString;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
 import java.util.List;
@@ -21,9 +23,6 @@ import java.util.Random;
 public class ChunkProviderSkyGrid implements IChunkProvider {
 
     private World world;
-
-    private Block bedrock = GameData.getBlockRegistry().getObject("minecraft:bedrock");
-    private Block chest = GameData.getBlockRegistry().getObject("minecraft:chest");
 
     public ChunkProviderSkyGrid(World world) {
         this.world = world;
@@ -61,7 +60,12 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
                     RandomBlockGenerator.BlockComplex complex = Ref.randomBlockGenerator.getNextBlock(random);
                     extendedblockstorage.func_150818_a(x, y & 15, z, complex.block);
                     extendedblockstorage.setExtBlockMetadata(x, y & 15, z, complex.metadata);
-                    if(complex.block == chest) {
+                    if(complex.nbt != null) {
+                        TileEntity tileEntity = complex.block.createTileEntity(world, complex.metadata);
+                        NBTString.localizeNBT(complex.nbt, xChunk*16 + x, y, zChunk*16 + z);
+                        tileEntity.readFromNBT(complex.nbt);
+                        chunk.addTileEntity(tileEntity);
+                    } else if(complex.block == chest) {
                         TileEntityChest te = new TileEntityChest();
                         te.xCoord = xChunk*16 + x;
                         te.yCoord = y;

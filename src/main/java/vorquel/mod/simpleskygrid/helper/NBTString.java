@@ -110,7 +110,7 @@ public class NBTString {
             SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected tokens.");
             return null;
         } catch(NoSuchElementException e) {
-            SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected end of tokens.");
+            SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected end of token stream.");
             return null;
         }
     }
@@ -124,42 +124,57 @@ public class NBTString {
 
     private static NBTTagCompound readCompound(Iterator<Token> iterator) {
         NBTTagCompound tag = new NBTTagCompound();
+        Token token = iterator.next();
+        if(token.type == Type.RIGHT_BRACE)
+            return tag;
+        else if(token.type != Type.LIT_STRING)
+            throw new IllegalStateException();
+        readComplex(iterator, (String) token.value, tag);
         while(true) {
-            String key = (String) readToken(iterator, Type.LIT_STRING);
-            readToken(iterator, Type.COLON);
-            Token token = iterator.next();
-            switch(token.type) {
-                case LIT_BYTE:        tag.setByte(     key,      (Byte) token.value); break;
-                case LIT_SHORT:       tag.setShort(    key,     (Short) token.value); break;
-                case LIT_INT:         tag.setInteger(  key,   (Integer) token.value); break;
-                case LIT_LONG:        tag.setLong(     key,      (Long) token.value); break;
-                case LIT_FLOAT:       tag.setFloat(    key,     (Float) token.value); break;
-                case LIT_DOUBLE:      tag.setDouble(   key,    (Double) token.value); break;
-                case LIT_STRING:      tag.setString(   key,    (String) token.value); break;
-                case OPEN_BYTE_ARRAY: tag.setByteArray(key, readByteArray(iterator)); break;
-                case OPEN_INT_ARRAY:  tag.setIntArray( key, readIntArray( iterator)); break;
-                case LEFT_SQUARE:     tag.setTag(      key, readList(     iterator)); break;
-                case LEFT_BRACE:      tag.setTag(      key, readCompound( iterator)); break;
-                default: throw new IllegalStateException();
-            }
             token = iterator.next();
             if(token.type == Type.RIGHT_BRACE)
                 break;
             else if(token.type != Type.COMMA)
                 throw new IllegalStateException();
+            readComplex(iterator, (String) readToken(iterator, Type.LIT_STRING), tag);
         }
         return tag;
     }
 
+    private static void readComplex(Iterator<Token> iterator, String key, NBTTagCompound tag) {
+        readToken(iterator, Type.COLON);
+        Token token = iterator.next();
+        switch(token.type) {
+            case LIT_BYTE:        tag.setByte(     key,      (Byte) token.value); break;
+            case LIT_SHORT:       tag.setShort(    key,     (Short) token.value); break;
+            case LIT_INT:         tag.setInteger(  key,   (Integer) token.value); break;
+            case LIT_LONG:        tag.setLong(     key,      (Long) token.value); break;
+            case LIT_FLOAT:       tag.setFloat(    key,     (Float) token.value); break;
+            case LIT_DOUBLE:      tag.setDouble(   key,    (Double) token.value); break;
+            case LIT_STRING:      tag.setString(   key,    (String) token.value); break;
+            case OPEN_BYTE_ARRAY: tag.setByteArray(key, readByteArray(iterator)); break;
+            case OPEN_INT_ARRAY:  tag.setIntArray( key, readIntArray( iterator)); break;
+            case LEFT_SQUARE:     tag.setTag(      key, readList(     iterator)); break;
+            case LEFT_BRACE:      tag.setTag(      key, readCompound( iterator)); break;
+            default: throw new IllegalStateException();
+        }
+    }
+
     private static byte[] readByteArray(Iterator<Token> iterator) {
+        Token token = iterator.next();
+        if(token.type == Type.RIGHT_SQUARE)
+            return new byte[0];
+        else if(token.type != Type.LIT_BYTE)
+            throw new IllegalStateException();
         ArrayList<Byte> bytes = new ArrayList<Byte>();
+        bytes.add((Byte) token.value);
         while(true) {
-            bytes.add((Byte) readToken(iterator, Type.LIT_BYTE));
-            Token token = iterator.next();
+            token = iterator.next();
             if(token.type == Type.RIGHT_SQUARE)
                 break;
             else if(token.type != Type.COMMA)
                 throw new IllegalStateException();
+            bytes.add((Byte) readToken(iterator, Type.LIT_BYTE));
         }
         byte[] out = new byte[bytes.size()];
         for(int i=0; i<out.length; ++i)
@@ -168,14 +183,20 @@ public class NBTString {
     }
 
     private static int[] readIntArray(Iterator<Token> iterator) {
+        Token token = iterator.next();
+        if(token.type == Type.RIGHT_SQUARE)
+            return new int[0];
+        else if(token.type != Type.LIT_INT)
+            throw new IllegalStateException();
         ArrayList<Integer> ints = new ArrayList<Integer>();
+        ints.add((Integer) token.value);
         while(true) {
-            ints.add((Integer) readToken(iterator, Type.LIT_INT));
-            Token token = iterator.next();
+            token = iterator.next();
             if(token.type == Type.RIGHT_SQUARE)
                 break;
             else if(token.type != Type.COMMA)
                 throw new IllegalStateException();
+            ints.add((Integer) readToken(iterator, Type.LIT_INT));
         }
         int[] out = new int[ints.size()];
         for(int i=0; i<out.length; ++i)
@@ -185,31 +206,37 @@ public class NBTString {
 
     private static NBTTagList readList(Iterator<Token> iterator) {
         NBTTagList tag = new NBTTagList();
+        Token token = iterator.next();
+        if(token.type == Type.RIGHT_BRACE)
+            return tag;
+        readElement(iterator, token, tag);
         while(true) {
-            String key = (String) readToken(iterator, Type.LIT_STRING);
-            readToken(iterator, Type.COLON);
-            Token token = iterator.next();
-            switch(token.type) {
-                case LIT_BYTE:        tag.appendTag(new NBTTagByte(          (Byte) token.value)); break;
-                case LIT_SHORT:       tag.appendTag(new NBTTagShort(        (Short) token.value)); break;
-                case LIT_INT:         tag.appendTag(new NBTTagInt(        (Integer) token.value)); break;
-                case LIT_LONG:        tag.appendTag(new NBTTagLong(          (Long) token.value)); break;
-                case LIT_FLOAT:       tag.appendTag(new NBTTagFloat(        (Float) token.value)); break;
-                case LIT_DOUBLE:      tag.appendTag(new NBTTagDouble(      (Double) token.value)); break;
-                case LIT_STRING:      tag.appendTag(new NBTTagString(      (String) token.value)); break;
-                case OPEN_BYTE_ARRAY: tag.appendTag(new NBTTagByteArray(readByteArray(iterator))); break;
-                case OPEN_INT_ARRAY:  tag.appendTag(new NBTTagIntArray( readIntArray( iterator))); break;
-                case LEFT_SQUARE:     tag.appendTag(                    readList(     iterator));  break;
-                case LEFT_BRACE:      tag.appendTag(                    readCompound( iterator));  break;
-                default: throw new IllegalStateException();
-            }
             token = iterator.next();
             if(token.type == Type.RIGHT_BRACE)
                 break;
             else if(token.type != Type.COMMA)
                 throw new IllegalStateException();
+            readToken(iterator, Type.COLON);
+            readElement(iterator, iterator.next(), tag);
         }
         return tag;
+    }
+
+    private static void readElement(Iterator<Token> iterator, Token token, NBTTagList tag) {
+        switch(token.type) {
+            case LIT_BYTE:        tag.appendTag(new NBTTagByte(          (Byte) token.value)); break;
+            case LIT_SHORT:       tag.appendTag(new NBTTagShort(        (Short) token.value)); break;
+            case LIT_INT:         tag.appendTag(new NBTTagInt(        (Integer) token.value)); break;
+            case LIT_LONG:        tag.appendTag(new NBTTagLong(          (Long) token.value)); break;
+            case LIT_FLOAT:       tag.appendTag(new NBTTagFloat(        (Float) token.value)); break;
+            case LIT_DOUBLE:      tag.appendTag(new NBTTagDouble(      (Double) token.value)); break;
+            case LIT_STRING:      tag.appendTag(new NBTTagString(      (String) token.value)); break;
+            case OPEN_BYTE_ARRAY: tag.appendTag(new NBTTagByteArray(readByteArray(iterator))); break;
+            case OPEN_INT_ARRAY:  tag.appendTag(new NBTTagIntArray( readIntArray( iterator))); break;
+            case LEFT_SQUARE:     tag.appendTag(                    readList(     iterator));  break;
+            case LEFT_BRACE:      tag.appendTag(                    readCompound( iterator));  break;
+            default: throw new IllegalStateException();
+        }
     }
 
     public static String getStringFromNBT(NBTTagCompound in) {
@@ -270,7 +297,10 @@ public class NBTString {
             out.append(b);
             out.append(',');
         }
-        out.setCharAt(out.length() - 1, ']');
+        if(out.charAt(out.length()-1) == ',')
+            out.setCharAt(out.length() - 1, ']');
+        else
+            out.append(']');
     }
 
     private static void appendString(StringBuilder out, NBTTagString in) {
@@ -289,7 +319,10 @@ public class NBTString {
                 appendTag(out, tag);
                 out.append(',');
             }
-            out.setCharAt(out.length() - 1, ']');
+            if(out.charAt(out.length()-1) == ',')
+                out.setCharAt(out.length() - 1, ']');
+            else
+                out.append(']');
         } catch(Exception e) {
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
@@ -312,7 +345,10 @@ public class NBTString {
             appendTag(out, in.getTag(key));
             out.append(',');
         }
-        out.setCharAt(out.length() - 1, '}');
+        if(out.charAt(out.length()-1) == ',')
+            out.setCharAt(out.length() - 1, '}');
+        else
+            out.append('}');
     }
 
     private static void appendIntArray(StringBuilder out, NBTTagIntArray in) {
@@ -321,7 +357,10 @@ public class NBTString {
             out.append(i);
             out.append(',');
         }
-        out.setCharAt(out.length()-1, ']');
+        if(out.charAt(out.length()-1) == ',')
+            out.setCharAt(out.length() - 1, ']');
+        else
+            out.append(']');
     }
 
     private static class Token {

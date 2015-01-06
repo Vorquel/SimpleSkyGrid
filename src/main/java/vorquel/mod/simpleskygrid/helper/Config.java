@@ -1,5 +1,9 @@
 package vorquel.mod.simpleskygrid.helper;
 
+import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
@@ -21,9 +25,8 @@ public class Config {
             2, 3, 5, 5, 1, 1, 1, 8, 4, 8, 20, 5, 5, 15};
     private static final int length = blockDefaults.length;
 
-    static ArrayList<String> blocks = new ArrayList<String>();
-    static ArrayList<Integer> metas = new ArrayList<Integer>();
-    static ArrayList<Integer> weights = new ArrayList<Integer>();
+    private static ArrayList<String> blocks = new ArrayList<String>();
+    private static ArrayList<Integer> weights = new ArrayList<Integer>();
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -33,31 +36,71 @@ public class Config {
         for(int i=0; i<count; ++i) {
             String temp = i<length ? blockDefaults[i] : "null";
             int weight = i<length ? weightDefaults[i] : 0;
-            temp = config.getString(String.format("block%06d", i), "overworld", temp, "The identifier for block number "+i);
+            blocks.add(config.getString(String.format("block%06d", i), "overworld", temp, "The identifier for block number " + i));
             weight = config.getInt(String.format("block%06dweight", i), "overworld", weight, 0, Integer.MAX_VALUE, "The spawn rate for block number "+i);
-            int place = temp.indexOf("::");
-            if(place == -1) {
-                blocks.add(temp);
-                metas.add(0);
-            } else {
-                blocks.add(temp.substring(0, place));
-                try {
-                    int meta = Integer.decode(temp.substring(place+2));
-                    if(meta >=0 && meta <= 15) {
-                        metas.add(meta);
-                    } else {
-                        SimpleSkyGrid.logger.log(Level.ERROR, String.format("Invalid metadata %d found", meta));
-                        metas.add(0);
-                    }
-                } catch(NumberFormatException e) {
-                    SimpleSkyGrid.logger.log(Level.ERROR, "Non-numeric metadata found in config.");
-                    metas.add(0);
-                }
-            }
             weights.add(weight);
         }
         if(config.hasChanged())
             config.save();
+    }
 
+    public static int size() {
+        return blocks.size();
+    }
+
+    public static Block getBlock(int index) {
+        String string = blocks.get(index);
+        String name;
+        int metaStart = string.indexOf("::");
+        int nbtStart = string.indexOf('{');
+        if(metaStart != -1)
+            name = string.substring(0, metaStart);
+        else if(nbtStart != -1)
+            name = string.substring(0, nbtStart);
+        else
+            name = blocks.get(index);
+        Block block = GameData.getBlockRegistry().getObject(name);
+        if(block == BlockCache.air && !name.equals("minecraft:air"))
+            SimpleSkyGrid.logger.error(String.format("Unrecognized block name: %s", name));
+        return block;
+    }
+
+    public static int getMetadata(int index) {
+        String string = blocks.get(index);
+        int meta = 0;
+        int metaStart = string.indexOf("::");
+        int nbtStart = string.indexOf('{');
+        if(metaStart == -1)
+            return 0;
+        String number = "";
+        try {
+            if(nbtStart != -1) {
+                number = string.substring(metaStart+2, nbtStart);
+                meta = Integer.decode(number);
+            } else {
+                number = string.substring(metaStart+2);
+                meta = Integer.decode(number);
+            }
+        } catch(NumberFormatException e) {
+            SimpleSkyGrid.logger.error(String.format("Non-numeric metadata encountered: %s", number));
+            return 0;
+        }
+        if(meta < 0 || meta >= 16) {
+            SimpleSkyGrid.logger.error(String.format("Invalid metadata encountered: %d", meta));
+            return 0;
+        }
+        return meta;
+    }
+
+    public static NBTTagCompound getNBT(int index) {
+        String string = blocks.get(index);
+        int nbtStart = string.indexOf('{');
+        if(nbtStart == -1)
+            return null;
+        return NBTString.getNBTFromString(string.substring(nbtStart));
+    }
+
+    public static int getWeight(int index) {
+        return weights.get(index);
     }
 }

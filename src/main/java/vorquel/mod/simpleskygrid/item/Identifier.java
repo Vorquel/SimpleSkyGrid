@@ -8,8 +8,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
+import vorquel.mod.simpleskygrid.helper.NBTString;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -28,14 +31,23 @@ public class Identifier extends Item {
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xIn, float yIn, float zIn) {
-        if(!world.isRemote)
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float xIn, float yIn, float zIn) {
+        if(world.isRemote)
             return true;
-        String name = GameData.getBlockRegistry().getNameForObject(world.getBlock(x, y, z))
-                + "::" + world.getBlockMetadata(x, y, z);
-        player.addChatMessage(new ChatComponentText(name));
+        String name = GameData.getBlockRegistry().getNameForObject(world.getBlock(x, y, z));
+        String meta = String.valueOf(world.getBlockMetadata(x, y, z));
+        String nbt = "";
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if(tileEntity != null) {
+            NBTTagCompound tag = new NBTTagCompound();
+            tileEntity.writeToNBT(tag);
+            NBTString.sanitizeNBT(tag);
+            nbt = NBTString.getStringFromNBT(tag);
+        }
+        String id = name+"::"+meta+nbt;
+        player.addChatMessage(new ChatComponentText(id));
         if(player.isSneaking())
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(name), null);
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(id), null);
         return true;
     }
 }
