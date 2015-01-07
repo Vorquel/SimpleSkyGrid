@@ -20,9 +20,8 @@ public class Ref {
     public static void postInit() {
         worldType = new WorldTypeSkyGrid();
         randomBlockGenerator = new RandomBlockGenerator();
-        for(int i=0; i<Config.blocks.size(); ++i) {
-            Block block = GameData.getBlockRegistry().getObject(Config.blocks.get(i));
-            randomBlockGenerator.addBlock(block, Config.metas.get(i), Config.weights.get(i));
+        for(int i=0; i<Config.size(); ++i) {
+            randomBlockGenerator.addBlock(Config.getBlock(i), Config.getMetadata(i), Config.getNBT(i), Config.getWeight(i));
         }
     }
 }

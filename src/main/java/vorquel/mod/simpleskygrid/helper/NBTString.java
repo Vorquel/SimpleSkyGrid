@@ -1,9 +1,9 @@
 package vorquel.mod.simpleskygrid.helper;
 
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.*;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +37,7 @@ public class NBTString {
             while(matcher.find()) {
                 end = matcher.end();
                 String temp = goodIn.substring(matcher.start(), end);
+                System.out.print(temp + " ");
                 if(temp.equals(":"))
                     out.add(new Token(Type.COLON));
                 else if(temp.equals(","))
@@ -311,9 +312,7 @@ public class NBTString {
 
     private static void appendList(StringBuilder out, NBTTagList in) {
         try {
-            Field field = NBTTagList.class.getDeclaredField("tagList");
-            field.setAccessible(true);
-            List<NBTBase> tags = (List<NBTBase>)field.get(in);
+            List<NBTBase> tags = ReflectionHelper.getPrivateValue(NBTTagList.class, in, "b", "field_74747_a", "tagList");
             out.append('[');
             for(NBTBase tag : tags) {
                 appendTag(out, tag);
@@ -328,7 +327,7 @@ public class NBTString {
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("Go complain to Vorquel. His NBT parser broke");
-            SimpleSkyGrid.logger.fatal("His reflection didnt account for obfuscation");
+            SimpleSkyGrid.logger.fatal("His reflection didn't do obfuscation correct");
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");
             SimpleSkyGrid.logger.fatal("********************************************");

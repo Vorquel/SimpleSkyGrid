@@ -1,6 +1,7 @@
 package vorquel.mod.simpleskygrid.world;
 
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,8 +23,8 @@ public class RandomBlockGenerator {
         return complexes.get(i);
     }
 
-    public void addBlock(Block block, int metadata, int weight) {
-        complexes.add(new BlockComplex(block, metadata));
+    public void addBlock(Block block, int metadata, NBTTagCompound nbt, int weight) {
+        complexes.add(new BlockComplex(block, metadata, nbt));
         weights.add(weight);
         totalWeight += weight;
     }
@@ -31,9 +32,11 @@ public class RandomBlockGenerator {
     public static class BlockComplex {
         public Block block;
         public int metadata;
-        public BlockComplex(Block block, int metadata) {
+        public NBTTagCompound nbt;
+        public BlockComplex(Block block, int metadata, NBTTagCompound nbt) {
             this.block = block;
             this.metadata = metadata;
+            this.nbt = nbt;
         }
     }
 }
