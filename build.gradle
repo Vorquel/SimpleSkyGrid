@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'forge'
 
 def mcVersion = "1.7.10"
-def modVersion = "1.0.3"
+def modVersion = "1.1.0"
 
 version = mcVersion + "-" + modVersion
 group= "vorquel.mod.simpleskygrid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
