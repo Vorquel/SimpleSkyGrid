@@ -45,7 +45,6 @@ public class Identifier extends Item {
             nbt = NBTString.getStringFromNBT(tag);
         }
         String id = name+"::"+meta+nbt;
-        NBTString.getNBTFromString(nbt);
         player.addChatMessage(new ChatComponentText(id));
         if(player.isSneaking())
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(id), null);

@@ -35,9 +35,11 @@ public class NBTString {
         try {
             int end = 0;
             while(matcher.find()) {
+                if(matcher.start() != end)
+                    throw new IllegalArgumentException("type2");
                 end = matcher.end();
                 String temp = goodIn.substring(matcher.start(), end);
-                System.out.print(temp + " ");
+//                System.out.print("<" + temp + "> ");
                 if(temp.equals(":"))
                     out.add(new Token(Type.COLON));
                 else if(temp.equals(","))
@@ -71,6 +73,7 @@ public class NBTString {
                 else
                     throw new IllegalArgumentException("type1");
             }
+//            System.out.println();
             if(end != goodIn.length())
                 throw new IllegalArgumentException("type2");
         } catch(NumberFormatException e) {
@@ -107,8 +110,11 @@ public class NBTString {
         try {
             readToken(iterator, Type.LEFT_BRACE);
             return readCompound(iterator);
-        } catch(IllegalStateException e) {
-            SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected tokens.");
+        } catch(IllegalTokenException e) {
+            SimpleSkyGrid.logger.error(String.format("Syntax error in %s, unexpected token: %s", e.getLocation(), e.getToken()));
+            return null;
+        } catch(IllegalTypeException e) {
+            SimpleSkyGrid.logger.error(String.format("Syntax error building NBT expected %s, found %s", e.getExpected(), e.getActual()));
             return null;
         } catch(NoSuchElementException e) {
             SimpleSkyGrid.logger.error("Syntax error in NBT data: unexpected end of token stream.");
@@ -119,7 +125,7 @@ public class NBTString {
     private static Object readToken(Iterator<Token> iterator, Type type) {
         Token token = iterator.next();
         if(token.type != type)
-            throw new IllegalStateException();
+            throw new IllegalTypeException(type.toString(), token.toString());
         return token.value;
     }
 
@@ -129,14 +135,14 @@ public class NBTString {
         if(token.type == Type.RIGHT_BRACE)
             return tag;
         else if(token.type != Type.LIT_STRING)
-            throw new IllegalStateException();
+            throw new IllegalTokenException("NBT tag compound", token.toString());
         readComplex(iterator, (String) token.value, tag);
         while(true) {
             token = iterator.next();
             if(token.type == Type.RIGHT_BRACE)
                 break;
             else if(token.type != Type.COMMA)
-                throw new IllegalStateException();
+                throw new IllegalTokenException("NBT tag compound", token.toString());
             readComplex(iterator, (String) readToken(iterator, Type.LIT_STRING), tag);
         }
         return tag;
@@ -157,7 +163,7 @@ public class NBTString {
             case OPEN_INT_ARRAY:  tag.setIntArray( key, readIntArray( iterator)); break;
             case LEFT_SQUARE:     tag.setTag(      key, readList(     iterator)); break;
             case LEFT_BRACE:      tag.setTag(      key, readCompound( iterator)); break;
-            default: throw new IllegalStateException();
+            default: throw new IllegalTokenException("NBT tag compound", token.toString());
         }
     }
 
@@ -166,7 +172,7 @@ public class NBTString {
         if(token.type == Type.RIGHT_SQUARE)
             return new byte[0];
         else if(token.type != Type.LIT_BYTE)
-            throw new IllegalStateException();
+            throw new IllegalTokenException("NBT tag byte array", token.toString());
         ArrayList<Byte> bytes = new ArrayList<Byte>();
         bytes.add((Byte) token.value);
         while(true) {
@@ -174,7 +180,7 @@ public class NBTString {
             if(token.type == Type.RIGHT_SQUARE)
                 break;
             else if(token.type != Type.COMMA)
-                throw new IllegalStateException();
+                throw new IllegalTokenException("NBT tag byte array", token.toString());
             bytes.add((Byte) readToken(iterator, Type.LIT_BYTE));
         }
         byte[] out = new byte[bytes.size()];
@@ -188,7 +194,7 @@ public class NBTString {
         if(token.type == Type.RIGHT_SQUARE)
             return new int[0];
         else if(token.type != Type.LIT_INT)
-            throw new IllegalStateException();
+            throw new IllegalTokenException("NBT tag int array", token.toString());
         ArrayList<Integer> ints = new ArrayList<Integer>();
         ints.add((Integer) token.value);
         while(true) {
@@ -196,7 +202,7 @@ public class NBTString {
             if(token.type == Type.RIGHT_SQUARE)
                 break;
             else if(token.type != Type.COMMA)
-                throw new IllegalStateException();
+                throw new IllegalTokenException("NBT tag int array", token.toString());
             ints.add((Integer) readToken(iterator, Type.LIT_INT));
         }
         int[] out = new int[ints.size()];
@@ -208,16 +214,15 @@ public class NBTString {
     private static NBTTagList readList(Iterator<Token> iterator) {
         NBTTagList tag = new NBTTagList();
         Token token = iterator.next();
-        if(token.type == Type.RIGHT_BRACE)
+        if(token.type == Type.RIGHT_SQUARE)
             return tag;
         readElement(iterator, token, tag);
         while(true) {
             token = iterator.next();
-            if(token.type == Type.RIGHT_BRACE)
+            if(token.type == Type.RIGHT_SQUARE)
                 break;
             else if(token.type != Type.COMMA)
-                throw new IllegalStateException();
-            readToken(iterator, Type.COLON);
+                throw new IllegalTokenException("NBT tag list", token.toString());
             readElement(iterator, iterator.next(), tag);
         }
         return tag;
@@ -236,7 +241,7 @@ public class NBTString {
             case OPEN_INT_ARRAY:  tag.appendTag(new NBTTagIntArray( readIntArray( iterator))); break;
             case LEFT_SQUARE:     tag.appendTag(                    readList(     iterator));  break;
             case LEFT_BRACE:      tag.appendTag(                    readCompound( iterator));  break;
-            default: throw new IllegalStateException();
+            default: throw new IllegalTokenException("NBT tag list", token.toString());
         }
     }
 
@@ -370,12 +375,77 @@ public class NBTString {
             this.value = value;
         }
         public Token(Type type) {
-            this(type, null);
+            this(type, createNull(type));
+        }
+        private static Object createNull(Type type) {
+            switch(type) {
+                case LIT_BYTE:        return (byte) 0;
+                case LIT_SHORT:       return (short) 0;
+                case LIT_INT:         return 0;
+                case LIT_LONG:        return 0l;
+                case LIT_FLOAT:       return 0f;
+                case LIT_DOUBLE:      return 0d;
+                case LIT_STRING:      return "";
+                default:              return null;
+            }
+        }
+        @Override
+        public String toString() {
+            switch(type) {
+                case LIT_BYTE:        return "b" + value.toString();
+                case LIT_SHORT:       return "s" + value.toString();
+                case LIT_INT:         return "i" + value.toString();
+                case LIT_LONG:        return "l" + value.toString();
+                case LIT_FLOAT:       return "f" + value.toString();
+                case LIT_DOUBLE:      return "d" + value.toString();
+                case LIT_STRING:      return "\"" + value.toString() + "\"";
+                case COLON:           return ":";
+                case COMMA:           return ",";
+                case LEFT_BRACE:      return "{";
+                case RIGHT_BRACE:     return "}";
+                case LEFT_SQUARE:     return "[";
+                case RIGHT_SQUARE:    return "]";
+                case OPEN_BYTE_ARRAY: return "b[";
+                case OPEN_INT_ARRAY:  return "i[";
+                default:              return "";
+            }
         }
     }
 
-    private enum Type {
+    private static enum Type {
         LIT_BYTE, LIT_SHORT, LIT_INT, LIT_LONG, LIT_FLOAT, LIT_DOUBLE, LIT_STRING, COLON, COMMA,
         LEFT_BRACE, RIGHT_BRACE, LEFT_SQUARE, RIGHT_SQUARE, OPEN_BYTE_ARRAY, OPEN_INT_ARRAY
+    }
+
+    private static class IllegalTokenException extends RuntimeException {
+        private String location;
+        private String token;
+        public IllegalTokenException(String location, String token) {
+            super();
+            this.location = location;
+            this.token = token;
+        }
+        public String getLocation() {
+            return location;
+        }
+        public String getToken() {
+            return token;
+        }
+    }
+
+    private static class IllegalTypeException extends RuntimeException{
+        private String expected;
+        private String actual;
+        public IllegalTypeException(String expected, String actual) {
+            super();
+            this.expected = expected;
+            this.actual = actual;
+        }
+        public String getExpected() {
+            return expected;
+        }
+        public String getActual() {
+            return actual;
+        }
     }
 }
