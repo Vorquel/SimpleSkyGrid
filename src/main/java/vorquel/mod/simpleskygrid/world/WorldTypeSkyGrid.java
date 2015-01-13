@@ -12,7 +12,7 @@ public class WorldTypeSkyGrid extends WorldType {
 
     @Override
     public IChunkProvider getChunkGenerator(World world, String generatorOptions) {
-        return new ChunkProviderSkyGrid(world);
+        return new ChunkProviderSkyGrid(world, world.getSeed(), "Surface");
     }
 
     @Override

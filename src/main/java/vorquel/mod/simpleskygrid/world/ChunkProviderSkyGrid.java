@@ -23,9 +23,13 @@ import java.util.Random;
 public class ChunkProviderSkyGrid implements IChunkProvider {
 
     private World world;
+    private long seed;
+    private RandomBlockGenerator randomBlockGenerator;
 
-    public ChunkProviderSkyGrid(World world) {
+    public ChunkProviderSkyGrid(World world, long seed, String name) {
         this.world = world;
+        this.seed = seed;
+        randomBlockGenerator = Ref.getGenerator(name);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     public Chunk provideChunk(int xChunk, int zChunk) {
         Chunk chunk = new Chunk(world, xChunk, zChunk);
         Random random = new Random();
-        random.setSeed(world.getSeed()+xChunk*1340661669L+zChunk*345978359L);
+        random.setSeed(seed+xChunk*1340661669L+zChunk*345978359L);
 
         ExtendedBlockStorage extendedblockstorage = new ExtendedBlockStorage(0, !world.provider.hasNoSky);
         chunk.getBlockStorageArray()[0] = extendedblockstorage;
@@ -57,7 +61,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
             for(int x=0; x<16; x+=4)
                 for(int z=0; z<16; z+=4) {
-                    RandomBlockGenerator.BlockComplex complex = Ref.randomBlockGenerator.getNextBlock(random);
+                    RandomBlockGenerator.BlockComplex complex = randomBlockGenerator.getNextBlock(random);
                     extendedblockstorage.func_150818_a(x, y & 15, z, complex.block);
                     extendedblockstorage.setExtBlockMetadata(x, y & 15, z, complex.metadata);
                     if(complex.nbt != null) {
