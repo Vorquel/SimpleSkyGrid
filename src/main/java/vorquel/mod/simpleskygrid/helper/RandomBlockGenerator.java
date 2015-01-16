@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.world;
+package vorquel.mod.simpleskygrid.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
