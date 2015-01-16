@@ -3,6 +3,7 @@ package vorquel.mod.simpleskygrid.world;
 import static vorquel.mod.simpleskygrid.helper.BlockCache.*;
 
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.IProgressUpdate;
@@ -15,6 +16,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ChestGenHooks;
 import vorquel.mod.simpleskygrid.helper.NBTString;
+import vorquel.mod.simpleskygrid.helper.RandomBlockGenerator;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
 import java.util.List;
@@ -24,12 +26,23 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
     private World world;
     private long seed;
+    private int dimensionID;
     private RandomBlockGenerator randomBlockGenerator;
+    private ChunkPosition endPortalLocation;
 
-    public ChunkProviderSkyGrid(World world, long seed, String name) {
+    public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
         this.world = world;
         this.seed = seed;
-        randomBlockGenerator = Ref.getGenerator(name);
+        this.dimensionID = dimensionId;
+        randomBlockGenerator = Ref.getGenerator(dimensionId);
+        if(dimensionId == 0) {
+            Random random = new Random(seed);
+            double angle = random.nextDouble()*Math.PI*2;
+            int x = 8 + 16*(int)(62.5*Math.cos(angle));
+            int y = 4;
+            int z = 8 + 16*(int)(62.5*Math.sin(angle));
+            endPortalLocation = new ChunkPosition(x, y, z);
+        }
     }
 
     @Override
@@ -40,8 +53,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     @Override
     public Chunk provideChunk(int xChunk, int zChunk) {
         Chunk chunk = new Chunk(world, xChunk, zChunk);
-        Random random = new Random();
-        random.setSeed(seed+xChunk*1340661669L+zChunk*345978359L);
+        Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
 
         ExtendedBlockStorage extendedblockstorage = new ExtendedBlockStorage(0, !world.provider.hasNoSky);
         chunk.getBlockStorageArray()[0] = extendedblockstorage;
@@ -98,7 +110,39 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     }
 
     @Override
-    public void populate(IChunkProvider p_73153_1_, int xChunk, int zChunk) {}
+    public void populate(IChunkProvider p_73153_1_, int xChunk, int zChunk) {
+        switch(dimensionID) {
+            case 0:
+                if(endPortalLocation == null)
+                    return;
+                if(xChunk != endPortalLocation.chunkPosX/16 || zChunk != endPortalLocation.chunkPosZ/16)
+                    return;
+                int x = endPortalLocation.chunkPosX;
+                int y = endPortalLocation.chunkPosY;
+                int z = endPortalLocation.chunkPosZ;
+                world.setBlockToAir(x, y, z);
+                world.setBlock(x-1, y, z-2, endPortalFrame, 0, 3);
+                world.setBlock(x  , y, z-2, endPortalFrame, 0, 3);
+                world.setBlock(x+1, y, z-2, endPortalFrame, 0, 3);
+                world.setBlock(x+2, y, z-1, endPortalFrame, 1, 3);
+                world.setBlock(x+2, y, z  , endPortalFrame, 1, 3);
+                world.setBlock(x+2, y, z+1, endPortalFrame, 1, 3);
+                world.setBlock(x+1, y, z+2, endPortalFrame, 2, 3);
+                world.setBlock(x  , y, z+2, endPortalFrame, 2, 3);
+                world.setBlock(x-1, y, z+2, endPortalFrame, 2, 3);
+                world.setBlock(x-2, y, z+1, endPortalFrame, 3, 3);
+                world.setBlock(x-2, y, z  , endPortalFrame, 3, 3);
+                world.setBlock(x-2, y, z-1, endPortalFrame, 3, 3);
+                break;
+            case 1:
+                if(xChunk != 0 || zChunk != 0)
+                    return;
+                EntityDragon dragon = new EntityDragon(world);
+                Random random = new Random();
+                dragon.setLocationAndAngles(0, 128, 0, random.nextFloat()*360, 0);
+                break;
+        }
+    }
 
     @Override
     public boolean saveChunks(boolean bool, IProgressUpdate progressUpdate) {
@@ -128,7 +172,9 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
     @Override
     public ChunkPosition func_147416_a(World world, String structure, int x, int y, int z) {
-        return null;
+        if(!structure.equals("Stronghold") || endPortalLocation == null)
+            return null;
+        return endPortalLocation;
     }
 
     @Override

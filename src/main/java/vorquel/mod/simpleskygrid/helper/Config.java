@@ -8,89 +8,120 @@ import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Config {
 
-    private static final String[] blockDefaultsOverworld = {"minecraft:stone", "minecraft:grass", "minecraft:dirt", "minecraft:water",
-            "minecraft:lava", "minecraft:sand", "minecraft:gravel", "minecraft:gold_ore", "minecraft:iron_ore", "minecraft:coal_ore",
-            "minecraft:log", "minecraft:leaves", "minecraft:glass", "minecraft:lapis_ore", "minecraft:sandstone", "minecraft:sticky_piston",
-            "minecraft:web", "minecraft:piston", "minecraft:wool", "minecraft:tnt", "minecraft:bookshelf", "minecraft:mossy_cobblestone",
-            "minecraft:obsidian", "minecraft:mob_spawner", "minecraft:chest", "minecraft:diamond_ore", "minecraft:redstone_ore",
-            "minecraft:ice", "minecraft:snow", "minecraft:clay", "minecraft:pumpkin", "minecraft:melon_block", "minecraft:mycelium"};
-    private static final int[] weightDefaultsOverworld = {120, 80, 20, 10, 5, 20, 10, 10, 20, 40, 100, 40, 1, 5, 10, 1, 10, 1, 25,
-            2, 3, 5, 5, 1, 1, 1, 8, 4, 8, 20, 5, 5, 15};
-    private static final int lengthOverworld = blockDefaultsOverworld.length;
+    private static HashMap<String, String[]> blockDefaults;
+    private static HashMap<String, Integer[]> weightDefaults;
+    private static HashMap<Integer, String> dimensionDefaults;
 
-    private static final String[] blockDefaultsNether = {"minecraft:lava", "minecraft:gravel", "minecraft:mob_spawner",
-            "minecraft:chest", "minecraft:netherrack", "minecraft:soul_sand", "minecraft:glowstone", "minecraft:nether_brick",
-            "minecraft:nether_brick_fence", "minecraft:nether_brick_stairs"};
-    private static final int[] weightDefaultsNether = {50, 30, 2, 1, 300, 100, 50, 30, 10, 15};
-    private static final int lengthNether = blockDefaultsNether.length;
+    private static HashMap<String, ArrayList<String>> blocks;
+    private static HashMap<String, ArrayList<Integer>> weights;
+    private static HashMap<Integer, WorldSettings> settings;
 
-    private static final String[] blockDefaultsEnd = {"minecraft:endstone", "minecraft:obsidian"};
-    private static final int[] weightDefaultsEnd = {80, 20};
-    private static final int lengthEnd = blockDefaultsEnd.length;
+    static {
+        blockDefaults = new HashMap<String, String[]>();
+        weightDefaults = new HashMap<String, Integer[]>();
+        dimensionDefaults = new HashMap<Integer, String>();
+        blocks = new HashMap<String, ArrayList<String>>();
+        weights = new HashMap<String, ArrayList<Integer>>();
+        settings = new HashMap<Integer, WorldSettings>();
 
-    private static ArrayList<String> blocksOverworld = new ArrayList<String>();
-    private static ArrayList<Integer> weightsOverworld = new ArrayList<Integer>();
+        blockDefaults.put("overworld", new String[] {"minecraft:stone", "minecraft:grass", "minecraft:dirt",
+                "minecraft:water", "minecraft:lava", "minecraft:sand", "minecraft:gravel", "minecraft:gold_ore",
+                "minecraft:iron_ore", "minecraft:coal_ore", "minecraft:log", "minecraft:leaves", "minecraft:glass",
+                "minecraft:lapis_ore", "minecraft:sandstone", "minecraft:sticky_piston", "minecraft:web",
+                "minecraft:piston", "minecraft:wool", "minecraft:tnt", "minecraft:bookshelf",
+                "minecraft:mossy_cobblestone", "minecraft:obsidian", "minecraft:mob_spawner", "minecraft:chest",
+                "minecraft:diamond_ore", "minecraft:redstone_ore", "minecraft:ice", "minecraft:snow", "minecraft:clay",
+                "minecraft:pumpkin", "minecraft:melon_block", "minecraft:mycelium"});
+        weightDefaults.put("overworld", new Integer[]{120, 80, 20, 10, 5, 20, 10, 10, 20, 40, 100, 40, 1, 5, 10, 1, 10,
+                1, 25, 2, 3, 5, 5, 1, 1, 1, 8, 4, 8, 20, 5, 5, 15});
+        dimensionDefaults.put(0, "$overworld");
 
-    private static ArrayList<String> blocksNether = new ArrayList<String>();
-    private static ArrayList<Integer> weightsNether = new ArrayList<Integer>();
+        blockDefaults.put("nether", new String[] {"minecraft:lava", "minecraft:gravel", "minecraft:mob_spawner",
+                "minecraft:chest", "minecraft:netherrack", "minecraft:soul_sand", "minecraft:glowstone",
+                "minecraft:nether_brick", "minecraft:nether_brick_fence", "minecraft:nether_brick_stairs"});
+        weightDefaults.put("nether", new Integer[] {50, 30, 2, 1, 300, 100, 50, 30, 10, 15});
+        dimensionDefaults.put(-1, "$nether");
 
-    private static ArrayList<String> blocksEnd = new ArrayList<String>();
-    private static ArrayList<Integer> weightsEnd = new ArrayList<Integer>();
+        blockDefaults.put("end", new String[] {"minecraft:end_stone", "minecraft:obsidian"});
+        weightDefaults.put("end", new Integer[] {80, 20});
+        dimensionDefaults.put(1, "$end");
+    }
 
     public static void init(File file) {
         Configuration config = new Configuration(file);
 
-        int count = config.getInt("_blockCount", "overworld", 33, 1, Integer.MAX_VALUE, "The number of blocks in this list");
-        config.addCustomCategoryComment("overworld", "Be sure that the sum of the block weights is less than 2 billion or so. Otherwise things will break.");
-        for(int i=0; i<count; ++i) {
-            String temp = i < lengthOverworld ? blockDefaultsOverworld[i] : "null";
-            int weight = i < lengthOverworld ? weightDefaultsOverworld[i] : 0;
-            blocksOverworld.add(config.getString(String.format("block%06d", i), "overworld", temp, "The identifier for block number " + i));
-            weight = config.getInt(String.format("block%06dweight", i), "overworld", weight, 0, Integer.MAX_VALUE, "The spawn rate for block number " + i);
-            weightsOverworld.add(weight);
+        int[] dimensions = config.get("general", "_dimensions", new int[] {0, -1, 1}, "The list of dimension ids that get Sky Grid generation").getIntList();
+        ArrayList<String> labels = new ArrayList<String>();
+        HashMap<String, Integer> dimensionLabels = new HashMap<String, Integer>();
+        for(int i : dimensions) {
+            String defaultName = dimensionDefaults.containsKey(i) ? dimensionDefaults.get(i) : "null";
+            String name = config.getString(String.format("dimension%dname", i), "general", defaultName, "The label for this dimension");
+            if(!labels.contains(name)) {
+                labels.add(name);
+                dimensionLabels.put(name.substring(1), i);
+            }
         }
 
-        count = config.getInt("_blockCount", "nether", 33, 1, Integer.MAX_VALUE, "The number of blocks in this list");
-        config.addCustomCategoryComment("nether", "Be sure that the sum of the block weights is less than 2 billion or so. Otherwise things will break.");
-        for(int i=0; i<count; ++i) {
-            String temp = i < lengthNether ? blockDefaultsNether[i] : "null";
-            int weight = i < lengthNether ? weightDefaultsNether[i] : 0;
-            blocksNether.add(config.getString(String.format("block%06d", i), "nether", temp, "The identifier for block number " + i));
-            weight = config.getInt(String.format("block%06dweight", i), "nether", weight, 0, Integer.MAX_VALUE, "The spawn rate for block number " + i);
-            weightsNether.add(weight);
-        }
-
-        count = config.getInt("_blockCount", "end", 33, 1, Integer.MAX_VALUE, "The number of blocks in this list");
-        config.addCustomCategoryComment("end", "Be sure that the sum of the block weights is less than 2 billion or so. Otherwise things will break.");
-        for(int i=0; i<count; ++i) {
-            String temp = i < lengthEnd ? blockDefaultsEnd[i] : "null";
-            int weight = i < lengthEnd ? weightDefaultsEnd[i] : 0;
-            blocksEnd.add(config.getString(String.format("block%06d", i), "end", temp, "The identifier for block number " + i));
-            weight = config.getInt(String.format("block%06dweight", i), "end", weight, 0, Integer.MAX_VALUE, "The spawn rate for block number " + i);
-            weightsEnd.add(weight);
+        for(int i=0; i<labels.size(); ++i) { //TODO: topologically sort the labels
+            String label = labels.get(i).substring(1);
+            blocks.put(label, new ArrayList<String>());
+            weights.put(label, new ArrayList<Integer>());
+            int countDefault = blockDefaults.containsKey(label) ? blockDefaults.get(label).length : 1;
+            int count = config.getInt("_blockCount", label, countDefault, 1, Integer.MAX_VALUE, "The number of blocks in this list");
+            if(dimensionLabels.containsKey(label)) {
+                //TODO: put finite dimensions and other stuff here
+                settings.put(dimensionLabels.get(label), new WorldSettings(label));
+            }
+            for(int j=0; j<count; ++j) {
+                String defaultName = getDefaultName(label, j);
+                int defaultWeight = getDefaultWeight(label, j);
+                String name = config.getString(String.format("block%06d", j), label, defaultName, "The identifier for block number " + j);
+                int weight = config.getInt(String.format("block%06dweight", j), label, defaultWeight, 0, Integer.MAX_VALUE, "The spawn rate for block number " + j);
+                blocks.get(label).add(name);
+                weights.get(label).add(weight);
+                if(name.startsWith("$") && !labels.contains(name))
+                    labels.add(name);
+            }
         }
 
         if(config.hasChanged())
             config.save();
     }
 
-    public static int sizeOverworld() {
-        return blocksOverworld.size();
+    private static String getDefaultName(String label, int index) {
+        if(!blockDefaults.containsKey(label) || index >= blockDefaults.get(label).length)
+            return "null";
+        else
+            return blockDefaults.get(label)[index];
     }
 
-    public static int sizeNether() {
-        return blocksNether.size();
+    private static int getDefaultWeight(String label, int index) {
+        if(!weightDefaults.containsKey(label) || index >= weightDefaults.get(label).length)
+            return 0;
+        else
+            return weightDefaults.get(label)[index];
     }
 
-    public static int sizeEnd() {
-        return blocksEnd.size();
+    public static Set<Integer> getDimensions() {
+        return settings.keySet();
     }
 
-    public static Block getBlock(int index) { //TODO finish specification of dimension
-        String string = blocksOverworld.get(index);
+    public static String getLabel(int dimension) {
+        return settings.get(dimension).label;
+    }
+
+    public static int size(String label) {
+        return blocks.get(label).size();
+    }
+
+    public static Block getBlock(String label, int index) {
+        String string = blocks.get(label).get(index);
         String name;
         int metaStart = string.indexOf("::");
         int nbtStart = string.indexOf('{');
@@ -99,16 +130,16 @@ public class Config {
         else if(nbtStart != -1)
             name = string.substring(0, nbtStart);
         else
-            name = blocksOverworld.get(index);
+            name = string;
         Block block = GameData.getBlockRegistry().getObject(name);
         if(block == BlockCache.air && !name.equals("minecraft:air"))
             SimpleSkyGrid.logger.error(String.format("Unrecognized block name: %s", name));
         return block;
     }
 
-    public static int getMetadata(int index) { //TODO finish specification of dimension
-        String string = blocksOverworld.get(index);
-        int meta = 0;
+    public static int getMetadata(String label, int index) {
+        String string = blocks.get(label).get(index);
+        int meta;
         int metaStart = string.indexOf("::");
         int nbtStart = string.indexOf('{');
         if(metaStart == -1)
@@ -133,15 +164,22 @@ public class Config {
         return meta;
     }
 
-    public static NBTTagCompound getNBT(int index) { //TODO finish specification of dimension
-        String string = blocksOverworld.get(index);
+    public static NBTTagCompound getNBT(String label, int index) {
+        String string = blocks.get(label).get(index);
         int nbtStart = string.indexOf('{');
         if(nbtStart == -1)
             return null;
         return NBTString.getNBTFromString(string.substring(nbtStart));
     }
 
-    public static int getWeight(int index) { //TODO finish specification of dimension
-        return weightsOverworld.get(index);
+    public static int getWeight(String label, int index) { //TODO finish specification of dimension
+        return weights.get(label).get(index);
+    }
+
+    public static class WorldSettings {
+        public String label;
+        public WorldSettings(String label) {
+            this.label = label;
+        }
     }
 }
