@@ -1,56 +1,129 @@
 package vorquel.mod.simpleskygrid.helper;
 
-import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Config {
 
-    private static HashMap<String, String[]> blockDefaults;
-    private static HashMap<String, Integer[]> weightDefaults;
+    private static BlockConfig defaults;
     private static HashMap<Integer, String> dimensionDefaults;
 
-    private static HashMap<String, ArrayList<String>> blocks;
-    private static HashMap<String, ArrayList<Integer>> weights;
+    private static BlockConfig blockConfig;
     private static HashMap<Integer, WorldSettings> settings;
 
     static {
-        blockDefaults = new HashMap<String, String[]>();
-        weightDefaults = new HashMap<String, Integer[]>();
+        defaults = new BlockConfig();
         dimensionDefaults = new HashMap<Integer, String>();
-        blocks = new HashMap<String, ArrayList<String>>();
-        weights = new HashMap<String, ArrayList<Integer>>();
+        blockConfig = new BlockConfig();
         settings = new HashMap<Integer, WorldSettings>();
 
-        blockDefaults.put("overworld", new String[] {"minecraft:stone", "minecraft:grass", "minecraft:dirt",
-                "minecraft:water", "minecraft:lava", "minecraft:sand", "minecraft:gravel", "minecraft:gold_ore",
-                "minecraft:iron_ore", "minecraft:coal_ore", "minecraft:log", "minecraft:leaves", "minecraft:glass",
-                "minecraft:lapis_ore", "minecraft:sandstone", "minecraft:sticky_piston", "minecraft:web",
-                "minecraft:piston", "minecraft:wool", "minecraft:tnt", "minecraft:bookshelf",
-                "minecraft:mossy_cobblestone", "minecraft:obsidian", "minecraft:mob_spawner", "minecraft:chest",
-                "minecraft:diamond_ore", "minecraft:redstone_ore", "minecraft:ice", "minecraft:snow", "minecraft:clay",
-                "minecraft:pumpkin", "minecraft:melon_block", "minecraft:mycelium"});
-        weightDefaults.put("overworld", new Integer[]{120, 80, 20, 10, 5, 20, 10, 10, 20, 40, 100, 40, 1, 5, 10, 1, 10,
-                1, 25, 2, 3, 5, 5, 1, 1, 1, 8, 4, 8, 20, 5, 5, 15});
-        dimensionDefaults.put(0, "$overworld");
+        dimensionDefaults.put(0, "%overworld");
+        defaults.put("overworld", "$ground", 100);
+        defaults.put("overworld", "$nature",  50);
+        defaults.put("overworld", "$fluid",   10);
+        defaults.put("overworld", "$ore",      5);
+        defaults.put("overworld", "$spawner",  2);
+        defaults.put("overworld", "$rare",     1);
 
-        blockDefaults.put("nether", new String[] {"minecraft:lava", "minecraft:gravel", "minecraft:mob_spawner",
-                "minecraft:chest", "minecraft:netherrack", "minecraft:soul_sand", "minecraft:glowstone",
-                "minecraft:nether_brick", "minecraft:nether_brick_fence", "minecraft:nether_brick_stairs"});
-        weightDefaults.put("nether", new Integer[] {50, 30, 2, 1, 300, 100, 50, 30, 10, 15});
-        dimensionDefaults.put(-1, "$nether");
+        defaults.put("ground", "minecraft:stone",              1000);
+        defaults.put("ground", "minecraft:grass",              1000);
+        defaults.put("ground", "minecraft:dirt",                100);
+        defaults.put("ground", "minecraft:gravel",              100);
+        defaults.put("ground", "minecraft:sand",                100);
+        defaults.put("ground", "minecraft:sandstone",            50);
+        defaults.put("ground", "minecraft:clay",                 50);
+        defaults.put("ground", "minecraft:hardened_clay",        50);
+        defaults.put("ground", "minecraft:sand::1",              10);
+        defaults.put("ground", "minecraft:snow",                 50);
+        defaults.put("ground", "minecraft:ice",                  20);
+        defaults.put("ground", "minecraft:packed_ice",            1);
+        defaults.put("ground", "minecraft:obsidian",             20);
+        defaults.put("ground", "minecraft:mycelium",              2);
 
-        blockDefaults.put("end", new String[] {"minecraft:end_stone", "minecraft:obsidian"});
-        weightDefaults.put("end", new Integer[] {80, 20});
-        dimensionDefaults.put(1, "$end");
+        defaults.put("nature", "minecraft:log::0",             1000);
+        defaults.put("nature", "minecraft:log::1",              500);
+        defaults.put("nature", "minecraft:log::2",              500);
+        defaults.put("nature", "minecraft:log::3",              500);
+        defaults.put("nature", "minecraft:log2::0",             200);
+        defaults.put("nature", "minecraft:log2::1",             200);
+        defaults.put("nature", "minecraft:leaves::0",           500);
+        defaults.put("nature", "minecraft:leaves::1",           250);
+        defaults.put("nature", "minecraft:leaves::2",           250);
+        defaults.put("nature", "minecraft:leaves::3",           250);
+        defaults.put("nature", "minecraft:leaves2::0",          100);
+        defaults.put("nature", "minecraft:pumpkin",              50);
+        defaults.put("nature", "minecraft:melon_block",          50);
+        defaults.put("nature", "minecraft:wool",                 50);
+        defaults.put("nature", "minecraft:web",                  10);
+        defaults.put("ground", "minecraft:red_mushroom_block",   10);
+        defaults.put("ground", "minecraft:brown_mushroom_block", 10);
+
+        defaults.put("fluid", "minecraft:water", 1000);
+        defaults.put("fluid", "minecraft:lava",    50);
+
+        defaults.put("ore", "minecraft:coal_ore",    1000);
+        defaults.put("ore", "minecraft:iron_ore",     500);
+        defaults.put("ore", "minecraft:redstone_ore", 200);
+        defaults.put("ore", "minecraft:gold_ore",      50);
+        defaults.put("ore", "minecraft:lapis_ore",     10);
+        defaults.put("ore", "minecraft:diamond_ore",   10);
+        defaults.put("ore", "minecraft:emerald_old",    5);
+
+        defaults.put("spawner", spawnerNBT("Pig"), 10000);//todo finish this new list
+
+        defaults.put("rare", "minecraft:glass",          1000);
+        defaults.put("rare", "minecraft:bookshelf",       100);
+        defaults.put("rare", "minecraft:noteblock",        50);
+        defaults.put("rare", "minecraft:jukebox",          10);
+        defaults.put("rare", "minecraft:piston",          100);
+        defaults.put("rare", "minecraft:sticky_piston",   100);
+        defaults.put("rare", "minecraft:chest",            50);
+        defaults.put("rare", "minecraft:furnace",          50);
+        defaults.put("rare", "minecraft:hopper",           20);
+        defaults.put("rare", "minecraft:dropper",          20);
+        defaults.put("rare", "minecraft:dispenser",        20);
+        defaults.put("rare", "minecraft:enchanting_table", 10);
+        defaults.put("rare", "minecraft:brewing_stand",    10);
+        defaults.put("rare", "minecraft:anvil",            10);
+
+        dimensionDefaults.put(-1, "%nether");
+        defaults.put("nether", "$nether_ground",  100);
+        defaults.put("nether", "$nether_nature",   10);
+        defaults.put("nether", "$nether_fluid",    50);
+        defaults.put("nether", "$nether_ore",      20);
+        defaults.put("nether", "$nether_spawner",   5);
+        defaults.put("nether", "$nether_rare",      1);
+
+        defaults.put("nether_ground", "", 0);
+
+        defaults.put("nether_nature", "", 0);
+
+        defaults.put("nether_fluid", "", 0);
+
+        defaults.put("nether_ore", "", 0);
+
+        defaults.put("nether_spawner", "", 0);
+
+        defaults.put("nether_rare", "", 0);
+
+        dimensionDefaults.put(1, "%end");
+        defaults.put("end", "$end_ground",  100);
+        defaults.put("end", "$end_nature",    5);
+        defaults.put("end", "$end_fluid",    10);
+        defaults.put("end", "$end_ore",      10);
+        defaults.put("end", "$end_spawner",  10);
+        defaults.put("end", "$end_rare",      1);
+
+    }
+
+    private static String spawnerNBT(String entityName) {
+        return String.format( "minecraft:mob_spawner{\"id\":\"MobSpawner\",\"Delay\":s0,\"EntityId\":\"%s\"}", entityName);
     }
 
     public static void init(File file) {
@@ -68,12 +141,10 @@ public class Config {
             }
         }
 
-        for(int i=0; i<labels.size(); ++i) { //TODO: topologically sort the labels
+        for(int i=0; i<labels.size(); ++i) {
             String label = labels.get(i).substring(1);
-            blocks.put(label, new ArrayList<String>());
-            weights.put(label, new ArrayList<Integer>());
-            int countDefault = blockDefaults.containsKey(label) ? blockDefaults.get(label).length : 1;
-            int count = config.getInt("_blockCount", label, countDefault, 1, Integer.MAX_VALUE, "The number of blocks in this list");
+            int countDefault = defaults.size(label);
+            int count = config.getInt("_blockCount", label, countDefault, 0, Integer.MAX_VALUE, "The number of blocks in this list");
             if(dimensionLabels.containsKey(label)) {
                 //TODO: put finite dimensions and other stuff here
                 settings.put(dimensionLabels.get(label), new WorldSettings(label));
@@ -83,9 +154,8 @@ public class Config {
                 int defaultWeight = getDefaultWeight(label, j);
                 String name = config.getString(String.format("block%06d", j), label, defaultName, "The identifier for block number " + j);
                 int weight = config.getInt(String.format("block%06dweight", j), label, defaultWeight, 0, Integer.MAX_VALUE, "The spawn rate for block number " + j);
-                blocks.get(label).add(name);
-                weights.get(label).add(weight);
-                if(name.startsWith("$") && !labels.contains(name))
+                blockConfig.put(label, name, weight);
+                if(name.startsWith("$") || name.startsWith("%") && !labels.contains(name))
                     labels.add(name);
             }
         }
@@ -95,17 +165,17 @@ public class Config {
     }
 
     private static String getDefaultName(String label, int index) {
-        if(!blockDefaults.containsKey(label) || index >= blockDefaults.get(label).length)
+        if(index >= defaults.size(label))
             return "null";
         else
-            return blockDefaults.get(label)[index];
+            return defaults.getEntry(label, index);
     }
 
     private static int getDefaultWeight(String label, int index) {
-        if(!weightDefaults.containsKey(label) || index >= weightDefaults.get(label).length)
+        if(index >= defaults.size(label))
             return 0;
         else
-            return weightDefaults.get(label)[index];
+            return defaults.getWeight(label, index);
     }
 
     public static Set<Integer> getDimensions() {
@@ -117,63 +187,35 @@ public class Config {
     }
 
     public static int size(String label) {
-        return blocks.get(label).size();
+        return blockConfig.size(label);
+    }
+
+    public static boolean isLabel(String label, int index) {
+        return blockConfig.isLabel(label, index);
+    }
+
+    public static boolean isAbsolute(String label, int index) {
+        return blockConfig.isAbsolute(label, index);
+    }
+
+    public static String getLabel(String label, int index) {
+        return blockConfig.getLabel(label, index);
     }
 
     public static Block getBlock(String label, int index) {
-        String string = blocks.get(label).get(index);
-        String name;
-        int metaStart = string.indexOf("::");
-        int nbtStart = string.indexOf('{');
-        if(metaStart != -1)
-            name = string.substring(0, metaStart);
-        else if(nbtStart != -1)
-            name = string.substring(0, nbtStart);
-        else
-            name = string;
-        Block block = GameData.getBlockRegistry().getObject(name);
-        if(block == BlockCache.air && !name.equals("minecraft:air"))
-            SimpleSkyGrid.logger.error(String.format("Unrecognized block name: %s", name));
-        return block;
+        return blockConfig.getBlock(label, index);
     }
 
     public static int getMetadata(String label, int index) {
-        String string = blocks.get(label).get(index);
-        int meta;
-        int metaStart = string.indexOf("::");
-        int nbtStart = string.indexOf('{');
-        if(metaStart == -1)
-            return 0;
-        String number = "";
-        try {
-            if(nbtStart != -1) {
-                number = string.substring(metaStart+2, nbtStart);
-                meta = Integer.decode(number);
-            } else {
-                number = string.substring(metaStart+2);
-                meta = Integer.decode(number);
-            }
-        } catch(NumberFormatException e) {
-            SimpleSkyGrid.logger.error(String.format("Non-numeric metadata encountered: %s", number));
-            return 0;
-        }
-        if(meta < 0 || meta >= 16) {
-            SimpleSkyGrid.logger.error(String.format("Invalid metadata encountered: %d", meta));
-            return 0;
-        }
-        return meta;
+        return blockConfig.getMetadata(label, index);
     }
 
     public static NBTTagCompound getNBT(String label, int index) {
-        String string = blocks.get(label).get(index);
-        int nbtStart = string.indexOf('{');
-        if(nbtStart == -1)
-            return null;
-        return NBTString.getNBTFromString(string.substring(nbtStart));
+        return blockConfig.getNBT(label, index);
     }
 
-    public static int getWeight(String label, int index) { //TODO finish specification of dimension
-        return weights.get(label).get(index);
+    public static int getWeight(String label, int index) {
+        return blockConfig.getWeight(label, index);
     }
 
     public static class WorldSettings {

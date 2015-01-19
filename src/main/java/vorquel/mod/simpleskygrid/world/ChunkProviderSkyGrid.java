@@ -1,6 +1,6 @@
 package vorquel.mod.simpleskygrid.world;
 
-import static vorquel.mod.simpleskygrid.helper.BlockCache.*;
+import static net.minecraft.init.Blocks.*;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.boss.EntityDragon;
@@ -121,18 +121,18 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
                 int y = endPortalLocation.chunkPosY;
                 int z = endPortalLocation.chunkPosZ;
                 world.setBlockToAir(x, y, z);
-                world.setBlock(x-1, y, z-2, endPortalFrame, 0, 3);
-                world.setBlock(x  , y, z-2, endPortalFrame, 0, 3);
-                world.setBlock(x+1, y, z-2, endPortalFrame, 0, 3);
-                world.setBlock(x+2, y, z-1, endPortalFrame, 1, 3);
-                world.setBlock(x+2, y, z  , endPortalFrame, 1, 3);
-                world.setBlock(x+2, y, z+1, endPortalFrame, 1, 3);
-                world.setBlock(x+1, y, z+2, endPortalFrame, 2, 3);
-                world.setBlock(x  , y, z+2, endPortalFrame, 2, 3);
-                world.setBlock(x-1, y, z+2, endPortalFrame, 2, 3);
-                world.setBlock(x-2, y, z+1, endPortalFrame, 3, 3);
-                world.setBlock(x-2, y, z  , endPortalFrame, 3, 3);
-                world.setBlock(x-2, y, z-1, endPortalFrame, 3, 3);
+                world.setBlock(x-1, y, z-2, end_portal_frame, 0, 3);
+                world.setBlock(x  , y, z-2, end_portal_frame, 0, 3);
+                world.setBlock(x+1, y, z-2, end_portal_frame, 0, 3);
+                world.setBlock(x+2, y, z-1, end_portal_frame, 1, 3);
+                world.setBlock(x+2, y, z  , end_portal_frame, 1, 3);
+                world.setBlock(x+2, y, z+1, end_portal_frame, 1, 3);
+                world.setBlock(x+1, y, z+2, end_portal_frame, 2, 3);
+                world.setBlock(x  , y, z+2, end_portal_frame, 2, 3);
+                world.setBlock(x-1, y, z+2, end_portal_frame, 2, 3);
+                world.setBlock(x-2, y, z+1, end_portal_frame, 3, 3);
+                world.setBlock(x-2, y, z  , end_portal_frame, 3, 3);
+                world.setBlock(x-2, y, z-1, end_portal_frame, 3, 3);
                 break;
             case 1:
                 if(xChunk != 0 || zChunk != 0)

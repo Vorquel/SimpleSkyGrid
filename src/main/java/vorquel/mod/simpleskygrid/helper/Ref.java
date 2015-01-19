@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldProvider;
+import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.item.Identifier;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
 
@@ -22,22 +23,37 @@ public class Ref {
 
     public static void postInit() {
         worldType = new WorldTypeSkyGrid();
-        for(int i : Config.getDimensions()) {
-            RandomBlockGenerator randomBlockGenerator = new RandomBlockGenerator();
-            String label = Config.getLabel(i);
-            for(int j=0; j<Config.size(label); ++j) {
-                Block block = Config.getBlock(label, j);
-                int metaData = Config.getMetadata(label, j);
-                NBTTagCompound nbt = Config.getNBT(label, j);
-                int weight = Config.getWeight(label, j);
-                randomBlockGenerator.addBlock(block, metaData, nbt, weight);
-            }
-            randomBlockGenerators.put(i, randomBlockGenerator);
+        try{
+            for(int i : Config.getDimensions())
+                randomBlockGenerators.put(i, makeGenerator(Config.getLabel(i)));
+        } catch(Error e) {
+            SimpleSkyGrid.logger.fatal("Fatal Error: Cyclical dependency in config.");
+            throw new Error();
         }
     }
 
+    private static RandomBlockGenerator makeGenerator(String label) {
+        RandomBlockGenerator randomBlockGenerator = new RandomBlockGenerator();
+        for(int i=0; i<Config.size(label); ++i) {
+            int weight = Config.getWeight(label, i);
+            if(Config.isLabel(label, i)) {
+                String newLabel = Config.getLabel(label, i);
+                if(Config.size(newLabel) > 0)
+                    randomBlockGenerator.addGenerator(makeGenerator(newLabel), weight);
+                else
+                    SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
+            } else {
+                Block block = Config.getBlock(label, i);
+                int metaData = Config.getMetadata(label, i);
+                NBTTagCompound nbt = Config.getNBT(label, i);
+                randomBlockGenerator.addBlock(block, metaData, nbt, weight);
+            }
+        }
+        randomBlockGenerator.normalize();
+        return randomBlockGenerator;
+    }
+
     public static RandomBlockGenerator getGenerator(int dimensionId) {
-        System.out.println("Loading Dimension: " + dimensionId);
         return randomBlockGenerators.get(dimensionId);
     }
 
