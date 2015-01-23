@@ -140,6 +140,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
                 EntityDragon dragon = new EntityDragon(world);
                 Random random = new Random();
                 dragon.setLocationAndAngles(0, 128, 0, random.nextFloat()*360, 0);
+                world.spawnEntityInWorld(dragon);
                 break;
         }
     }
