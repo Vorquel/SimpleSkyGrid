@@ -25,21 +25,22 @@ public class Ref {
         worldType = new WorldTypeSkyGrid();
         try{
             for(int i : Config.getDimensions())
-                randomBlockGenerators.put(i, makeGenerator(Config.getLabel(i)));
+                randomBlockGenerators.put(i, makeGenerator(Config.getLabel(i), true));
         } catch(Error e) {
             SimpleSkyGrid.logger.fatal("Fatal Error: Cyclical dependency in config.");
             throw new Error();
         }
     }
 
-    private static RandomBlockGenerator makeGenerator(String label) {
+    private static RandomBlockGenerator makeGenerator(String label, boolean doNormalize) {
         RandomBlockGenerator randomBlockGenerator = new RandomBlockGenerator();
         for(int i=0; i<Config.size(label); ++i) {
             int weight = Config.getWeight(label, i);
             if(Config.isLabel(label, i)) {
                 String newLabel = Config.getLabel(label, i);
+                boolean newDoNormalize = !Config.isAbsolute(label, i);
                 if(Config.size(newLabel) > 0)
-                    randomBlockGenerator.addGenerator(makeGenerator(newLabel), weight);
+                    randomBlockGenerator.addGenerator(makeGenerator(newLabel, newDoNormalize), weight);
                 else
                     SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
             } else {
@@ -49,7 +50,8 @@ public class Ref {
                 randomBlockGenerator.addBlock(block, metaData, nbt, weight);
             }
         }
-        randomBlockGenerator.normalize();
+        if(doNormalize)
+            randomBlockGenerator.normalize();
         return randomBlockGenerator;
     }
 

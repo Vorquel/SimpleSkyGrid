@@ -17,7 +17,7 @@ public class Config {
     private static BlockConfig blockConfig;
     private static HashMap<Integer, WorldSettings> settings;
 
-    static {
+    static { //todo finish for all dimensions
         defaults = new BlockConfig();
         dimensionDefaults = new HashMap<Integer, String>();
         blockConfig = new BlockConfig();
@@ -25,7 +25,7 @@ public class Config {
 
         dimensionDefaults.put(0, "%overworld");
         defaults.put("overworld", "$ground", 100);
-        defaults.put("overworld", "$nature",  50);
+        defaults.put("overworld", "$nature",  20);
         defaults.put("overworld", "$fluid",   10);
         defaults.put("overworld", "$ore",      5);
         defaults.put("overworld", "$spawner",  2);
