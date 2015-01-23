@@ -15,6 +15,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ChestGenHooks;
+import vorquel.mod.simpleskygrid.helper.Config;
 import vorquel.mod.simpleskygrid.helper.NBTString;
 import vorquel.mod.simpleskygrid.helper.RandomBlockGenerator;
 import vorquel.mod.simpleskygrid.helper.Ref;
@@ -28,6 +29,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private long seed;
     private int dimensionID;
     private RandomBlockGenerator randomBlockGenerator;
+    private Config.WorldSettings worldSettings;
     private ChunkPosition endPortalLocation;
 
     public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
@@ -35,6 +37,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         this.seed = seed;
         this.dimensionID = dimensionId;
         randomBlockGenerator = Ref.getGenerator(dimensionId);
+        worldSettings = Config.getSettings(dimensionId);
         if(dimensionId == 0) {
             Random random = new Random(seed);
             double angle = random.nextDouble()*Math.PI*2;
@@ -53,6 +56,8 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     @Override
     public Chunk provideChunk(int xChunk, int zChunk) {
         Chunk chunk = new Chunk(world, xChunk, zChunk);
+        if(worldSettings.isFinite() && !worldSettings.inRadius(xChunk, zChunk))
+            return chunk;
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
 
         ExtendedBlockStorage extendedblockstorage = new ExtendedBlockStorage(0, !world.provider.hasNoSky);
@@ -61,7 +66,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
             for(int z=0; z<16; z+=4)
                 extendedblockstorage.func_150818_a(x, 0, z, bedrock);
 
-        for(int y=4; y<128; y+=4) {
+        for(int y=4; y<worldSettings.height; y+=4) {
             int y4 = y >> 4;
             extendedblockstorage = chunk.getBlockStorageArray()[y4];
 

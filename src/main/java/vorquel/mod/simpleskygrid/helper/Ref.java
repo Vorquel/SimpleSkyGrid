@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Ref {
 
     public static WorldTypeSkyGrid worldType;
+    public static int spawnHeight = 65;
     public static Identifier itemIdentifier = new Identifier();
     private static HashMap<Integer, RandomBlockGenerator> randomBlockGenerators = new HashMap<Integer, RandomBlockGenerator>();
     private static HashMap<Integer, Class<? extends WorldProvider>> worldProviderProxyClasses = new HashMap<Integer, Class<? extends WorldProvider>>();

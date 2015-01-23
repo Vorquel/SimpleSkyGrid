@@ -3,6 +3,7 @@ package vorquel.mod.simpleskygrid.event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.world.chunk.Chunk;
+import vorquel.mod.simpleskygrid.helper.Ref;
 
 public class SpawnFixer {
 
@@ -23,7 +24,7 @@ public class SpawnFixer {
         x -= x%4;
         z -= z%4;
         Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(x, z);
-        for(y=chunk.getTopFilledSegment()+16; y>0; --y) {
+        for(y=Math.min(chunk.getTopFilledSegment()+16, Ref.spawnHeight); y>0; --y) {
             if(chunk.getBlock(x&15, y-1, z&15).getMaterial().blocksMovement())
                 break;
         }

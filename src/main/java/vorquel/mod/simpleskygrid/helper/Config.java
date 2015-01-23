@@ -12,18 +12,18 @@ import java.util.Set;
 public class Config {
 
     private static BlockConfig defaults;
-    private static HashMap<Integer, String> dimensionDefaults;
+    private static HashMap<Integer, WorldSettings> settingsDefaults;
 
     private static BlockConfig blockConfig;
     private static HashMap<Integer, WorldSettings> settings;
 
     static { //todo finish for all dimensions
         defaults = new BlockConfig();
-        dimensionDefaults = new HashMap<Integer, String>();
+        settingsDefaults = new HashMap<Integer, WorldSettings>();
         blockConfig = new BlockConfig();
         settings = new HashMap<Integer, WorldSettings>();
 
-        dimensionDefaults.put(0, "%overworld");
+        settingsDefaults.put(0, new WorldSettings("$overworld"));
         defaults.put("overworld", "$ground", 100);
         defaults.put("overworld", "$nature",  20);
         defaults.put("overworld", "$fluid",   10);
@@ -92,7 +92,7 @@ public class Config {
         defaults.put("rare", "minecraft:brewing_stand",    10);
         defaults.put("rare", "minecraft:anvil",            10);
 
-        dimensionDefaults.put(-1, "%nether");
+        settingsDefaults.put(-1, new WorldSettings("$nether"));
         defaults.put("nether", "$nether_ground",  100);
         defaults.put("nether", "$nether_nature",   10);
         defaults.put("nether", "$nether_fluid",    50);
@@ -112,7 +112,8 @@ public class Config {
 
         defaults.put("nether_rare", "", 0);
 
-        dimensionDefaults.put(1, "%end");
+        settingsDefaults.put(1, new WorldSettings("$end"));
+        settingsDefaults.get(1).radius = 16;
         defaults.put("end", "$end_ground",  100);
         defaults.put("end", "$end_nature",    5);
         defaults.put("end", "$end_fluid",    10);
@@ -133,7 +134,7 @@ public class Config {
         ArrayList<String> labels = new ArrayList<String>();
         HashMap<String, Integer> dimensionLabels = new HashMap<String, Integer>();
         for(int i : dimensions) {
-            String defaultName = dimensionDefaults.containsKey(i) ? dimensionDefaults.get(i) : "null";
+            String defaultName = settingsDefaults.containsKey(i) ? settingsDefaults.get(i).label : "dim" + i;
             String name = config.getString(String.format("dimension%dname", i), "general", defaultName, "The label for this dimension");
             if(!labels.contains(name)) {
                 labels.add(name);
@@ -141,13 +142,17 @@ public class Config {
             }
         }
 
+        Ref.spawnHeight = config.getInt("spawnHeight", "general", 65, 1, 256, "The height at which you spawn in the world");
+
         for(int i=0; i<labels.size(); ++i) {
             String label = labels.get(i).substring(1);
             int countDefault = defaults.size(label);
             int count = config.getInt("_blockCount", label, countDefault, 0, Integer.MAX_VALUE, "The number of blocks in this list");
             if(dimensionLabels.containsKey(label)) {
-                //TODO: put finite dimensions and other stuff here
-                settings.put(dimensionLabels.get(label), new WorldSettings(label));
+                WorldSettings worldSettings = new WorldSettings(label);
+                worldSettings.height = config.getInt("_worldHeight", label, getDefaultHeight(dimensionLabels.get(label)), 0, 256, "The height for this dimension");
+                worldSettings.radius = config.getInt("_worldRadius", label, getDefaultRadius(dimensionLabels.get(label)), -1, Integer.MAX_VALUE, "The radius of this dimension in chunks. (-1 is infinite)");
+                settings.put(dimensionLabels.get(label), worldSettings);
             }
             for(int j=0; j<count; ++j) {
                 String defaultName = getDefaultName(label, j);
@@ -162,6 +167,20 @@ public class Config {
 
         if(config.hasChanged())
             config.save();
+    }
+
+    private static int getDefaultHeight(int dim) {
+        if(settingsDefaults.containsKey(dim))
+            return settingsDefaults.get(dim).height;
+        else
+            return 128;
+    }
+
+    private static int getDefaultRadius(int dim) {
+        if(settingsDefaults.containsKey(dim))
+            return settingsDefaults.get(dim).radius;
+        else
+            return -1;
     }
 
     private static String getDefaultName(String label, int index) {
@@ -180,6 +199,10 @@ public class Config {
 
     public static Set<Integer> getDimensions() {
         return settings.keySet();
+    }
+
+    public static WorldSettings getSettings(int dimension) {
+        return settings.get(dimension);
     }
 
     public static String getLabel(int dimension) {
@@ -220,8 +243,18 @@ public class Config {
 
     public static class WorldSettings {
         public String label;
+        public int radius = -1;
+        public int height = 128;
         public WorldSettings(String label) {
             this.label = label;
+        }
+        public boolean isFinite() {
+            return radius != -1;
+        }
+        public boolean inRadius(int xChunk, int zChunk) {
+            xChunk = xChunk < 0 ? -xChunk : xChunk+1;
+            zChunk = zChunk < 0 ? -zChunk : zChunk+1;
+            return xChunk <= radius && zChunk <= radius;
         }
     }
 }
