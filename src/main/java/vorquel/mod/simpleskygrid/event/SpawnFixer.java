@@ -19,7 +19,7 @@ public class SpawnFixer {
         int x = (int) event.player.posX;
         int y = (int) event.player.posY;
         int z = (int) event.player.posZ;
-        if(y>0)
+        if(y > 0 && y < Ref.spawnHeight)
             return;
         x -= x%4;
         z -= z%4;
