@@ -4,7 +4,6 @@ import static net.minecraft.init.Blocks.*;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -16,8 +15,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ChestGenHooks;
 import vorquel.mod.simpleskygrid.helper.Config;
-import vorquel.mod.simpleskygrid.helper.NBTString;
-import vorquel.mod.simpleskygrid.helper.RandomBlockGenerator;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
 import java.util.List;
@@ -28,7 +25,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private World world;
     private long seed;
     private int dimensionID;
-    private RandomBlockGenerator randomBlockGenerator;
+    private RandomIGeneratedObject randomIGeneratedObject;
     private Config.WorldSettings worldSettings;
     private ChunkPosition endPortalLocation;
 
@@ -36,7 +33,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         this.world = world;
         this.seed = seed;
         this.dimensionID = dimensionId;
-        randomBlockGenerator = Ref.getGenerator(dimensionId);
+        randomIGeneratedObject = Ref.getGenerator(dimensionId);
         worldSettings = Config.getSettings(dimensionId);
         if(dimensionId == 0) {
             Random random = new Random(seed);
@@ -60,33 +57,18 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
             return chunk;
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
 
-        ExtendedBlockStorage extendedblockstorage = new ExtendedBlockStorage(0, !world.provider.hasNoSky);
-        chunk.getBlockStorageArray()[0] = extendedblockstorage;
+        for(int i=0; i<worldSettings.height>>4; ++i)
+            chunk.getBlockStorageArray()[i] = new ExtendedBlockStorage(i*16, !world.provider.hasNoSky);
+        ExtendedBlockStorage extendedblockstorage = chunk.getBlockStorageArray()[0];
         for(int x=0; x<16; x+=4)
             for(int z=0; z<16; z+=4)
                 extendedblockstorage.func_150818_a(x, 0, z, bedrock);
 
         for(int y=4; y<worldSettings.height; y+=4) {
-            int y4 = y >> 4;
-            extendedblockstorage = chunk.getBlockStorageArray()[y4];
-
-            if (extendedblockstorage == null)
-            {
-                extendedblockstorage = new ExtendedBlockStorage(y, !world.provider.hasNoSky);
-                chunk.getBlockStorageArray()[y4] = extendedblockstorage;
-            }
-
             for(int x=0; x<16; x+=4)
                 for(int z=0; z<16; z+=4) {
-                    RandomBlockGenerator.BlockComplex complex = randomBlockGenerator.getNextBlock(random);
-                    extendedblockstorage.func_150818_a(x, y & 15, z, complex.block);
-                    extendedblockstorage.setExtBlockMetadata(x, y & 15, z, complex.metadata);
-                    if(complex.nbt != null) {
-                        TileEntity tileEntity = complex.block.createTileEntity(world, complex.metadata);
-                        NBTString.localizeNBT(complex.nbt, xChunk*16 + x, y, zChunk*16 + z);
-                        tileEntity.readFromNBT(complex.nbt);
-                        chunk.addTileEntity(tileEntity);
-                    } else if(complex.block == chest) {
+                    randomIGeneratedObject.getNext(random).provideObject(world, chunk, x, y, z);
+                    if(chunk.getBlock(x, y, z) == chest && chunk.getTileEntityUnsafe(x, y, z) == null) {
                         TileEntityChest te = new TileEntityChest();
                         te.xCoord = xChunk*16 + x;
                         te.yCoord = y;

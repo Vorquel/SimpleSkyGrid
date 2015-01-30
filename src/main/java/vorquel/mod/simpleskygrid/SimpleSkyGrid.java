@@ -65,12 +65,6 @@ public class SimpleSkyGrid {
                 ourProviderIds.put(superClass, currentId);
                 newId = currentId;
             }
-            try {
-                Object object = providers.get(newId).newInstance();
-                System.out.println("Provider " + newId + " is Provider? " + (object instanceof Object));
-            } catch(Exception e) {
-                System.out.println("Provider " + newId + " is not an Object?!");
-            }
             DimensionManager.registerDimension(dim, newId);
         }
     }

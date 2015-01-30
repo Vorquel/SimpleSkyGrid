@@ -2,13 +2,16 @@ package vorquel.mod.simpleskygrid.helper;
 
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.world.GeneratedBlock;
+import vorquel.mod.simpleskygrid.world.GeneratedEntity;
+import vorquel.mod.simpleskygrid.world.IGeneratedObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class BlockConfig {
     private HashMap<String, ArrayList<String>> entries = new HashMap<String, ArrayList<String>>();
@@ -35,10 +38,6 @@ public class BlockConfig {
             return entries.get(label).size();
         else
             return 0;
-    }
-
-    public Set<String> getLabels() {
-        return entries.keySet();
     }
 
     public String getEntry(String label, int index) {
@@ -75,67 +74,85 @@ public class BlockConfig {
             return null;
     }
 
-    public Block getBlock(String label, int index) {
-        if(entries.containsKey(label)) {
-            String entry = entries.get(label).get(index);
+    public IGeneratedObject getIGeneratedObject(String label, int index) {
+        String entry = entries.get(label).get(index);
+        if(entry.equals("")) {
+            SimpleSkyGrid.logger.error(String.format("Empty label: Section %s, entry %d", label, index));
+            return null;
+        } else if(entry.startsWith("@")) {
+            int nbtStart = entry.indexOf('{');
             String name;
-            int metaStart = entry.indexOf("::");
-            int nbtStart = entry.indexOf('{');
-            if(metaStart != -1)
-                name = entry.substring(0, metaStart);
-            else if(nbtStart != -1)
-                name = entry.substring(0, nbtStart);
-            else
-                name = entry;
-            Block block = GameData.getBlockRegistry().getObject(name);
-            if(block == Blocks.air && !name.equals("minecraft:air")) {
-                SimpleSkyGrid.logger.error(String.format("Unrecognized block name: %s", name));
+            NBTTagCompound nbt = null;
+            if(nbtStart == -1) {
+                name = entry.substring(1);
+            } else {
+                name = entry.substring(1, nbtStart);
+                nbt = NBTString.getNBTFromString(entry.substring(nbtStart));
+            }
+            if(EntityList.stringToClassMapping.containsKey(name))
+                return new GeneratedEntity(name, nbt);
+            else {
+                SimpleSkyGrid.logger.error(String.format("Unrecognized Entity name: %s", name));
                 return null;
             }
-            return block;
-        } else
-            return null;
-    }
-
-    public int getMetadata(String label, int index) {
-        if(entries.containsKey(label)) {
-            String entry = entries.get(label).get(index);
-            int meta;
+        } else {
             int metaStart = entry.indexOf("::");
             int nbtStart = entry.indexOf('{');
-            if(metaStart == -1)
-                return 0;
-            String number = "";
-            try {
+            String blockName;
+            String metaString = null;
+            String nbtString = null;
+            if(metaStart != -1) {
+                blockName = entry.substring(0, metaStart);
                 if(nbtStart != -1) {
-                    number = entry.substring(metaStart+2, nbtStart);
-                    meta = Integer.decode(number);
-                } else {
-                    number = entry.substring(metaStart+2);
-                    meta = Integer.decode(number);
-                }
-            } catch(NumberFormatException e) {
-                SimpleSkyGrid.logger.error(String.format("Non-numeric metadata encountered: %s", number));
-                return 0;
-            }
-            if(meta < 0 || meta >= 16) {
-                SimpleSkyGrid.logger.error(String.format("Invalid metadata encountered: %d", meta));
-                return 0;
-            }
-            return meta;
-        } else
-            return 0;
+                    metaString = entry.substring(metaStart, nbtStart);
+                    nbtString = entry.substring(nbtStart);
+                } else
+                    metaString = entry.substring(metaStart);
+            } else {
+                if(nbtStart != -1) {
+                    blockName = entry.substring(0, nbtStart);
+                    nbtString = entry.substring(nbtStart);
+                } else
+                    blockName = entry;
+           }
+            Block block = getBlock(blockName);
+            int metadata = getMetadata(metaString);
+            NBTTagCompound nbt = getNBT(nbtString);
+            return new GeneratedBlock(block, metadata, nbt);
+        }
     }
 
-    public NBTTagCompound getNBT(String label, int index) {
-        if(entries.containsKey(label)) {
-            String entry = entries.get(label).get(index);
-            int nbtStart = entry.indexOf('{');
-            if(nbtStart == -1)
-                return null;
-            return NBTString.getNBTFromString(entry.substring(nbtStart));
-        } else
+    private Block getBlock(String blockName) {
+        Block block = GameData.getBlockRegistry().getObject(blockName);
+        if(block == Blocks.air && !blockName.equals("minecraft:air")) {
+            SimpleSkyGrid.logger.error(String.format("Unrecognized block name: %s", blockName));
             return null;
+        }
+        return block;
+    }
+
+    private int getMetadata(String numberString) {
+        if(numberString == null)
+            return 0;
+        int meta;
+        try {
+            meta = Integer.decode(numberString);
+        } catch(NumberFormatException e) {
+            SimpleSkyGrid.logger.error(String.format("Non-numeric metadata encountered: %s", numberString));
+            return 0;
+        }
+        if(meta < 0 || meta >= 16) {
+            SimpleSkyGrid.logger.error(String.format("Invalid metadata encountered: %d", meta));
+            return 0;
+        }
+        return meta;
+    }
+
+    private NBTTagCompound getNBT(String nbtString) {
+        if(nbtString == null)
+            return null;
+        else
+            return NBTString.getNBTFromString(nbtString);
     }
 
     public int getWeight(String label, int index) {

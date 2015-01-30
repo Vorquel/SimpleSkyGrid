@@ -22,6 +22,14 @@ public class NBTString {
         tag.setInteger("z", z);
     }
 
+    public static void localizeNBT(NBTTagCompound tag, double x, double y, double z) {
+        NBTTagList list = new NBTTagList();
+        list.appendTag(new NBTTagDouble(x));
+        list.appendTag(new NBTTagDouble(y));
+        list.appendTag(new NBTTagDouble(z));
+        tag.setTag("Pos", list);
+    }
+
     public static NBTTagCompound getNBTFromString(String in) {
         ArrayList<Token> tokens = tokenize(in);
         return readTokens(tokens);

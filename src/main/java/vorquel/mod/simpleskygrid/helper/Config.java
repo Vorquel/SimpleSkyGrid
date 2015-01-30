@@ -1,8 +1,7 @@
 package vorquel.mod.simpleskygrid.helper;
 
-import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
+import vorquel.mod.simpleskygrid.world.IGeneratedObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,110 +16,89 @@ public class Config {
     private static BlockConfig blockConfig;
     private static HashMap<Integer, WorldSettings> settings;
 
-    static { //todo finish for all dimensions
+    static { //todo: Find balance for new config
         defaults = new BlockConfig();
         settingsDefaults = new HashMap<Integer, WorldSettings>();
         blockConfig = new BlockConfig();
         settings = new HashMap<Integer, WorldSettings>();
 
         settingsDefaults.put(0, new WorldSettings("$overworld"));
-        defaults.put("overworld", "$ground", 100);
-        defaults.put("overworld", "$nature",  20);
-        defaults.put("overworld", "$fluid",   10);
-        defaults.put("overworld", "$ore",      5);
-        defaults.put("overworld", "$spawner",  2);
-        defaults.put("overworld", "$rare",     1);
+        defaults.put("overworld", "minecraft:stone",    120);
+        defaults.put("overworld", "minecraft:grass",     80);
+        defaults.put("overworld", "minecraft:dirt",      20);
+        defaults.put("overworld", "minecraft:sand",      20);
+        defaults.put("overworld", "minecraft:clay",      20);
+        defaults.put("overworld", "minecraft:mycelium",  15);
+        defaults.put("overworld", "minecraft:sandstone", 10);
+        defaults.put("overworld", "minecraft:gravel",    10);
+        defaults.put("overworld", "minecraft:coal_ore",    40);
+        defaults.put("overworld", "minecraft:iron_ore",    20);
+        defaults.put("overworld", "minecraft:gold_ore",    10);
+        defaults.put("overworld", "minecraft:redstone_ore", 8);
+        defaults.put("overworld", "minecraft:lapis_ore",    5);
+        defaults.put("overworld", "minecraft:diamond_ore",  1);
+        defaults.put("overworld", "minecraft:log",       100);
+        defaults.put("overworld", "minecraft:leaves",     40);
+        defaults.put("overworld", "minecraft:wool",       25);
+        defaults.put("overworld", "minecraft:web",        10);
+        defaults.put("overworld", "minecraft:pumpkin",     5);
+        defaults.put("overworld", "minecraft:melon_block", 5);
+        defaults.put("overworld", "minecraft:water", 10);
+        defaults.put("overworld", "minecraft:lava",   5);
+        defaults.put("overworld", "minecraft:snow", 8);
+        defaults.put("overworld", "minecraft:ice",  4);
+        defaults.put("overworld", "minecraft:mossy_cobblestone", 5);
+        defaults.put("overworld", "minecraft:obsidian",          5);
+        defaults.put("overworld", "minecraft:bookshelf",         3);
+        defaults.put("overworld", "minecraft:tnt",               2);
+        defaults.put("overworld", "minecraft:glass",             1);
+        defaults.put("overworld", "minecraft:piston",            1);
+        defaults.put("overworld", "minecraft:sticky_piston",     1);
+        defaults.put("overworld", "minecraft:chest",             1);
+        defaults.put("overworld", "%overworld_spawner",          1);
 
-        defaults.put("ground", "minecraft:stone",              1000);
-        defaults.put("ground", "minecraft:grass",              1000);
-        defaults.put("ground", "minecraft:dirt",                100);
-        defaults.put("ground", "minecraft:gravel",              100);
-        defaults.put("ground", "minecraft:sand",                100);
-        defaults.put("ground", "minecraft:sandstone",            50);
-        defaults.put("ground", "minecraft:clay",                 50);
-        defaults.put("ground", "minecraft:hardened_clay",        50);
-        defaults.put("ground", "minecraft:sand::1",              10);
-        defaults.put("ground", "minecraft:snow",                 50);
-        defaults.put("ground", "minecraft:ice",                  20);
-        defaults.put("ground", "minecraft:packed_ice",            1);
-        defaults.put("ground", "minecraft:obsidian",             20);
-        defaults.put("ground", "minecraft:mycelium",              2);
-
-        defaults.put("nature", "minecraft:log::0",             1000);
-        defaults.put("nature", "minecraft:log::1",              500);
-        defaults.put("nature", "minecraft:log::2",              500);
-        defaults.put("nature", "minecraft:log::3",              500);
-        defaults.put("nature", "minecraft:log2::0",             200);
-        defaults.put("nature", "minecraft:log2::1",             200);
-        defaults.put("nature", "minecraft:leaves::0",           500);
-        defaults.put("nature", "minecraft:leaves::1",           250);
-        defaults.put("nature", "minecraft:leaves::2",           250);
-        defaults.put("nature", "minecraft:leaves::3",           250);
-        defaults.put("nature", "minecraft:leaves2::0",          100);
-        defaults.put("nature", "minecraft:pumpkin",              50);
-        defaults.put("nature", "minecraft:melon_block",          50);
-        defaults.put("nature", "minecraft:wool",                 50);
-        defaults.put("nature", "minecraft:web",                  10);
-        defaults.put("ground", "minecraft:red_mushroom_block",   10);
-        defaults.put("ground", "minecraft:brown_mushroom_block", 10);
-
-        defaults.put("fluid", "minecraft:water", 1000);
-        defaults.put("fluid", "minecraft:lava",    50);
-
-        defaults.put("ore", "minecraft:coal_ore",    1000);
-        defaults.put("ore", "minecraft:iron_ore",     500);
-        defaults.put("ore", "minecraft:redstone_ore", 200);
-        defaults.put("ore", "minecraft:gold_ore",      50);
-        defaults.put("ore", "minecraft:lapis_ore",     10);
-        defaults.put("ore", "minecraft:diamond_ore",   10);
-        defaults.put("ore", "minecraft:emerald_old",    5);
-
-        defaults.put("spawner", spawnerNBT("Pig"), 10000);//todo finish this new list
-
-        defaults.put("rare", "minecraft:glass",          1000);
-        defaults.put("rare", "minecraft:bookshelf",       100);
-        defaults.put("rare", "minecraft:noteblock",        50);
-        defaults.put("rare", "minecraft:jukebox",          10);
-        defaults.put("rare", "minecraft:piston",          100);
-        defaults.put("rare", "minecraft:sticky_piston",   100);
-        defaults.put("rare", "minecraft:chest",            50);
-        defaults.put("rare", "minecraft:furnace",          50);
-        defaults.put("rare", "minecraft:hopper",           20);
-        defaults.put("rare", "minecraft:dropper",          20);
-        defaults.put("rare", "minecraft:dispenser",        20);
-        defaults.put("rare", "minecraft:enchanting_table", 10);
-        defaults.put("rare", "minecraft:brewing_stand",    10);
-        defaults.put("rare", "minecraft:anvil",            10);
+        defaults.put("overworld_spawner", spawnerNBT("Creeper"),    1);
+        defaults.put("overworld_spawner", spawnerNBT("Skeleton"),   1);
+        defaults.put("overworld_spawner", spawnerNBT("Spider"),     1);
+        defaults.put("overworld_spawner", spawnerNBT("CaveSpider"), 1);
+        defaults.put("overworld_spawner", spawnerNBT("Zombie"),     1);
+        defaults.put("overworld_spawner", spawnerNBT("Slime"),      1);
+        defaults.put("overworld_spawner", spawnerNBT("Pig"),        1);
+        defaults.put("overworld_spawner", spawnerNBT("Sheep"),      1);
+        defaults.put("overworld_spawner", spawnerNBT("Cow"),        1);
+        defaults.put("overworld_spawner", spawnerNBT("Chicken"),    1);
+        defaults.put("overworld_spawner", spawnerNBT("Squid"),      1);
+        defaults.put("overworld_spawner", spawnerNBT("Wolf"),       1);
+        defaults.put("overworld_spawner", spawnerNBT("Enderman"),   1);
+        defaults.put("overworld_spawner", spawnerNBT("Silverfish"), 1);
+        defaults.put("overworld_spawner", spawnerNBT("Villager"),   1);
 
         settingsDefaults.put(-1, new WorldSettings("$nether"));
-        defaults.put("nether", "$nether_ground",  100);
-        defaults.put("nether", "$nether_nature",   10);
-        defaults.put("nether", "$nether_fluid",    50);
-        defaults.put("nether", "$nether_ore",      20);
-        defaults.put("nether", "$nether_spawner",   5);
-        defaults.put("nether", "$nether_rare",      1);
+        defaults.put("nether", "minecraft:netherrack",         300);
+        defaults.put("nether", "minecraft:soul_sand",          100);
+        defaults.put("nether", "minecraft:glowstone",           50);
+        defaults.put("nether", "minecraft:lava",                50);
+        defaults.put("nether", "minecraft:gravel",              30);
+        defaults.put("nether", "minecraft:nether_brick",        30);
+        defaults.put("nether", "minecraft:nether_brick_stairs", 15);
+        defaults.put("nether", "minecraft:nether_brick_fence",  10);
+        defaults.put("nether", "minecraft:chest",                1);
+        defaults.put("nether", "minecraft:%nether_spawner",      2);
 
-        defaults.put("nether_ground", "", 0);
-
-        defaults.put("nether_nature", "", 0);
-
-        defaults.put("nether_fluid", "", 0);
-
-        defaults.put("nether_ore", "", 0);
-
-        defaults.put("nether_spawner", "", 0);
-
-        defaults.put("nether_rare", "", 0);
+        defaults.put("nether_spawner", spawnerNBT("PigZombie"), 1);
+        defaults.put("nether_spawner", spawnerNBT("Blaze"),     1);
+        defaults.put("nether_spawner", spawnerNBT("LavaSlime"), 1);
 
         settingsDefaults.put(1, new WorldSettings("$end"));
         settingsDefaults.get(1).radius = 16;
-        defaults.put("end", "$end_ground",  100);
-        defaults.put("end", "$end_nature",    5);
-        defaults.put("end", "$end_fluid",    10);
-        defaults.put("end", "$end_ore",      10);
-        defaults.put("end", "$end_spawner",  10);
-        defaults.put("end", "$end_rare",      1);
+        defaults.put("end", "%end_2",  5000);
+        defaults.put("end", "@EnderCrystal", 1);
 
+        defaults.put("end_2", "minecraft:end_stone", 400);
+        defaults.put("end_2", "minecraft:obsidian",  100);
+        defaults.put("end_2", "%end_spawner", 1);
+
+        defaults.put("end_spawner", spawnerNBT("Enderman"), 1);
     }
 
     private static String spawnerNBT(String entityName) {
@@ -225,16 +203,8 @@ public class Config {
         return blockConfig.getLabel(label, index);
     }
 
-    public static Block getBlock(String label, int index) {
-        return blockConfig.getBlock(label, index);
-    }
-
-    public static int getMetadata(String label, int index) {
-        return blockConfig.getMetadata(label, index);
-    }
-
-    public static NBTTagCompound getNBT(String label, int index) {
-        return blockConfig.getNBT(label, index);
+    public static IGeneratedObject getIGeneratedObject(String label, int index) {
+        return blockConfig.getIGeneratedObject(label, index);
     }
 
     public static int getWeight(String label, int index) {
