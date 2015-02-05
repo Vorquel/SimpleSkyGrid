@@ -91,12 +91,9 @@ public class Config {
 
         settingsDefaults.put(1, new WorldSettings("$end"));
         settingsDefaults.get(1).radius = 16;
-        defaults.put("end", "%end_2",  5000);
-        defaults.put("end", "@EnderCrystal", 1);
-
-        defaults.put("end_2", "minecraft:end_stone", 400);
-        defaults.put("end_2", "minecraft:obsidian",  100);
-        defaults.put("end_2", "%end_spawner", 1);
+        defaults.put("end", "minecraft:end_stone", 400);
+        defaults.put("end", "minecraft:obsidian",  100);
+        defaults.put("end", "%end_spawner", 1);
 
         defaults.put("end_spawner", spawnerNBT("Enderman"), 1);
     }
@@ -128,7 +125,7 @@ public class Config {
             int count = config.getInt("_blockCount", label, countDefault, 0, Integer.MAX_VALUE, "The number of blocks in this list");
             if(dimensionLabels.containsKey(label)) {
                 WorldSettings worldSettings = new WorldSettings(label);
-                worldSettings.height = config.getInt("_worldHeight", label, getDefaultHeight(dimensionLabels.get(label)), 0, 256, "The height for this dimension");
+                worldSettings.height = config.getInt("_worldHeight", label, getDefaultHeight(dimensionLabels.get(label)), 1, 256, "The height for this dimension");
                 worldSettings.radius = config.getInt("_worldRadius", label, getDefaultRadius(dimensionLabels.get(label)), -1, Integer.MAX_VALUE, "The radius of this dimension in chunks. (-1 is infinite)");
                 settings.put(dimensionLabels.get(label), worldSettings);
             }

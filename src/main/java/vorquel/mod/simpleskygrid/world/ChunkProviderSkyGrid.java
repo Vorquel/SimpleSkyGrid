@@ -4,6 +4,7 @@ import static net.minecraft.init.Blocks.*;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -100,36 +101,62 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     public void populate(IChunkProvider p_73153_1_, int xChunk, int zChunk) {
         switch(dimensionID) {
             case 0:
-                if(endPortalLocation == null)
-                    return;
-                if(xChunk != endPortalLocation.chunkPosX/16 || zChunk != endPortalLocation.chunkPosZ/16)
-                    return;
-                int x = endPortalLocation.chunkPosX;
-                int y = endPortalLocation.chunkPosY;
-                int z = endPortalLocation.chunkPosZ;
-                world.setBlockToAir(x, y, z);
-                world.setBlock(x-1, y, z-2, end_portal_frame, 0, 3);
-                world.setBlock(x  , y, z-2, end_portal_frame, 0, 3);
-                world.setBlock(x+1, y, z-2, end_portal_frame, 0, 3);
-                world.setBlock(x+2, y, z-1, end_portal_frame, 1, 3);
-                world.setBlock(x+2, y, z  , end_portal_frame, 1, 3);
-                world.setBlock(x+2, y, z+1, end_portal_frame, 1, 3);
-                world.setBlock(x+1, y, z+2, end_portal_frame, 2, 3);
-                world.setBlock(x  , y, z+2, end_portal_frame, 2, 3);
-                world.setBlock(x-1, y, z+2, end_portal_frame, 2, 3);
-                world.setBlock(x-2, y, z+1, end_portal_frame, 3, 3);
-                world.setBlock(x-2, y, z  , end_portal_frame, 3, 3);
-                world.setBlock(x-2, y, z-1, end_portal_frame, 3, 3);
+                populateEndPortal(xChunk, zChunk);
                 break;
             case 1:
-                if(xChunk != 0 || zChunk != 0)
-                    return;
-                EntityDragon dragon = new EntityDragon(world);
-                Random random = new Random();
-                dragon.setLocationAndAngles(0, 128, 0, random.nextFloat()*360, 0);
-                world.spawnEntityInWorld(dragon);
+                populateEnderCrystals(xChunk, zChunk);
+                populateEnderDragon(xChunk, zChunk);
                 break;
         }
+    }
+
+    private void populateEndPortal(int xChunk, int zChunk) {
+        if(endPortalLocation == null)
+            return;
+        if(xChunk != endPortalLocation.chunkPosX/16 || zChunk != endPortalLocation.chunkPosZ/16)
+            return;
+        int x = endPortalLocation.chunkPosX;
+        int y = endPortalLocation.chunkPosY;
+        int z = endPortalLocation.chunkPosZ;
+        world.setBlockToAir(x, y, z);
+        world.setBlock(x-1, y, z-2, end_portal_frame, 0, 3);
+        world.setBlock(x  , y, z-2, end_portal_frame, 0, 3);
+        world.setBlock(x+1, y, z-2, end_portal_frame, 0, 3);
+        world.setBlock(x+2, y, z-1, end_portal_frame, 1, 3);
+        world.setBlock(x+2, y, z  , end_portal_frame, 1, 3);
+        world.setBlock(x+2, y, z+1, end_portal_frame, 1, 3);
+        world.setBlock(x+1, y, z+2, end_portal_frame, 2, 3);
+        world.setBlock(x  , y, z+2, end_portal_frame, 2, 3);
+        world.setBlock(x-1, y, z+2, end_portal_frame, 2, 3);
+        world.setBlock(x-2, y, z+1, end_portal_frame, 3, 3);
+        world.setBlock(x-2, y, z  , end_portal_frame, 3, 3);
+        world.setBlock(x-2, y, z-1, end_portal_frame, 3, 3);
+    }
+
+    private void populateEnderCrystals(int xChunk, int zChunk) {
+        if(xChunk > 6 || xChunk < -5 || zChunk > 6 || zChunk < -5)
+            return;
+        Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
+        int meanCrystals = 25;
+        float threshold = meanCrystals / (meanCrystals + 144f);
+        int y = worldSettings.height - 1 - (worldSettings.height - 1) % 4;
+        while(random.nextFloat() < threshold) {
+            int x = random.nextInt(4) * 4 + xChunk * 16;
+            int z = random.nextInt(4) * 4 + zChunk * 16;
+            world.setBlock(x, y, z, bedrock);
+            EntityEnderCrystal enderCrystal = new EntityEnderCrystal(world);
+            enderCrystal.setPosition(x + .5, y + 1, z + .5);
+            world.spawnEntityInWorld(enderCrystal);
+        }
+    }
+
+    private void populateEnderDragon(int xChunk, int zChunk) {
+        if(xChunk != 0 || zChunk != 0)
+            return;
+        EntityDragon dragon = new EntityDragon(world);
+        Random random = new Random();
+        dragon.setLocationAndAngles(0, 128, 0, random.nextFloat()*360, 0);
+        world.spawnEntityInWorld(dragon);
     }
 
     @Override
