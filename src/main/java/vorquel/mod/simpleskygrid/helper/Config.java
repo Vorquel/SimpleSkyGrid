@@ -1,7 +1,7 @@
 package vorquel.mod.simpleskygrid.helper;
 
 import net.minecraftforge.common.config.Configuration;
-import vorquel.mod.simpleskygrid.world.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.io.File;
 import java.util.ArrayList;

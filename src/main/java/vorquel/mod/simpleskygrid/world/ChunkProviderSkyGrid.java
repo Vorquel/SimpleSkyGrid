@@ -16,7 +16,9 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ChestGenHooks;
 import vorquel.mod.simpleskygrid.helper.Config;
+import vorquel.mod.simpleskygrid.helper.RandomList;
 import vorquel.mod.simpleskygrid.helper.Ref;
+import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.util.List;
 import java.util.Random;
@@ -26,7 +28,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private World world;
     private long seed;
     private int dimensionID;
-    private RandomIGeneratedObject randomIGeneratedObject;
+    private RandomList<IGeneratedObject> randomIGeneratedObjects;
     private Config.WorldSettings worldSettings;
     private ChunkPosition endPortalLocation;
 
@@ -34,7 +36,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         this.world = world;
         this.seed = seed;
         this.dimensionID = dimensionId;
-        randomIGeneratedObject = Ref.getGenerator(dimensionId);
+        randomIGeneratedObjects = Ref.getGenerator(dimensionId);
         worldSettings = Config.getSettings(dimensionId);
         if(dimensionId == 0) {
             Random random = new Random(seed);
@@ -68,7 +70,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         for(int y=4; y<worldSettings.height; y+=4) {
             for(int x=0; x<16; x+=4)
                 for(int z=0; z<16; z+=4) {
-                    randomIGeneratedObject.getNext(random).provideObject(world, chunk, x, y, z);
+                    randomIGeneratedObjects.getNext(random).provideObject(world, chunk, x, y, z);
                     if(chunk.getBlock(x, y, z) == chest && chunk.getTileEntityUnsafe(x, y, z) == null) {
                         TileEntityChest te = new TileEntityChest();
                         te.xCoord = xChunk*16 + x;

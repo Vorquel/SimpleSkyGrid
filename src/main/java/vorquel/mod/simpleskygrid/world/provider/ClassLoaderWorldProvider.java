@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.world;
+package vorquel.mod.simpleskygrid.world.provider;
 
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldProviderSurface;
@@ -28,7 +28,7 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
     public Class<? extends WorldProvider> getWorldProviderProxy(Class<? extends WorldProvider> superClass) {
         if(proxyMap.containsKey(superClass))
             return proxyMap.get(superClass);
-        String className = "vorquel.mod.simpleskygrid.world.WorldProviderSkyGrid$" + count++;
+        String className = "vorquel.mod.simpleskygrid.world.provider.WorldProviderSkyGrid$" + count++;
         byte[] classBytes = generateClass(className, superClass.getCanonicalName());
         Class<? extends WorldProvider> thisClass = (Class<? extends WorldProvider>) defineClass(className, classBytes, 0, classBytes.length);
         proxyMap.put(superClass, thisClass);

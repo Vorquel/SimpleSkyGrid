@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.world;
+package vorquel.mod.simpleskygrid.world.igenerated;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;

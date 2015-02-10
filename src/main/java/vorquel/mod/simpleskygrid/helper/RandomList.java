@@ -1,15 +1,15 @@
-package vorquel.mod.simpleskygrid.world;
+package vorquel.mod.simpleskygrid.helper;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RandomIGeneratedObject {
+public class RandomList<T> {
 
-    private ArrayList<IGeneratedObject> generatedObjects = new ArrayList<IGeneratedObject>();
+    private ArrayList<T> list = new ArrayList<T>();
     private ArrayList<Double> weights = new ArrayList<Double>();
     private double totalWeight = 0;
 
-    public IGeneratedObject getNext(Random random) {
+    public T getNext(Random random) {
         double rand = random.nextDouble();
         int i=0;
         double weight = weights.get(0);
@@ -17,21 +17,21 @@ public class RandomIGeneratedObject {
             ++i;
             weight += weights.get(i);
         }
-        return generatedObjects.get(i);
+        return list.get(i);
     }
 
-    public void add(IGeneratedObject generatedObject, double weight) {
+    public void add(T generatedObject, double weight) {
         if(generatedObject == null || weight == 0)
             return;
-        generatedObjects.add(generatedObject);
+        list.add(generatedObject);
         weights.add(weight);
         totalWeight += weight;
     }
 
-    public void add(RandomIGeneratedObject randomIGeneratedObject, double weight) {
-        for(int i=0; i< randomIGeneratedObject.generatedObjects.size(); ++i) {
-            IGeneratedObject generatedObject = randomIGeneratedObject.generatedObjects.get(i);
-            double newWeight = weight * randomIGeneratedObject.weights.get(i);
+    public void add(RandomList<T> randomT, double weight) {
+        for(int i=0; i< randomT.list.size(); ++i) {
+            T generatedObject = randomT.list.get(i);
+            double newWeight = weight * randomT.weights.get(i);
             add(generatedObject, newWeight);
         }
     }

@@ -6,9 +6,9 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
-import vorquel.mod.simpleskygrid.world.GeneratedBlock;
-import vorquel.mod.simpleskygrid.world.GeneratedEntity;
-import vorquel.mod.simpleskygrid.world.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.igenerated.GeneratedBlock;
+import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEntity;
+import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -12,8 +12,8 @@ import org.apache.logging.log4j.Logger;
 import vorquel.mod.simpleskygrid.event.SpawnFixer;
 import vorquel.mod.simpleskygrid.helper.Config;
 import vorquel.mod.simpleskygrid.helper.Ref;
-import vorquel.mod.simpleskygrid.world.ClassLoaderWorldProvider;
-import vorquel.mod.simpleskygrid.world.WorldProviderSurfaceAlt;
+import vorquel.mod.simpleskygrid.world.provider.ClassLoaderWorldProvider;
+import vorquel.mod.simpleskygrid.world.provider.WorldProviderSurfaceAlt;
 
 import java.util.Hashtable;
 
