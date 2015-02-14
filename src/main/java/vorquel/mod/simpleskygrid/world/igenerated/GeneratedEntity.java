@@ -7,6 +7,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import vorquel.mod.simpleskygrid.helper.NBTString;
 
+import java.util.Random;
+
 public class GeneratedEntity implements IGeneratedObject {
     private String name;
     private NBTTagCompound nbt;
@@ -17,7 +19,7 @@ public class GeneratedEntity implements IGeneratedObject {
     }
 
     @Override
-    public void provideObject(World world, Chunk chunk, int x, int y, int z) {
+    public void provideObject(Random random, World world, Chunk chunk, int x, int y, int z) {
         Entity entity = EntityList.createEntityByName(name, world);
         double realX = chunk.xPosition * 16 + x + .5;
         double realZ = chunk.zPosition * 16 + z + .5;

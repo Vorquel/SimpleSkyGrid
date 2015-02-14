@@ -67,20 +67,10 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
             for(int z=0; z<16; z+=4)
                 extendedblockstorage.func_150818_a(x, 0, z, bedrock);
 
-        for(int y=4; y<worldSettings.height; y+=4) {
+        for(int y=4; y<worldSettings.height; y+=4)
             for(int x=0; x<16; x+=4)
-                for(int z=0; z<16; z+=4) {
-                    randomIGeneratedObjects.getNext(random).provideObject(world, chunk, x, y, z);
-                    if(chunk.getBlock(x, y, z) == chest && chunk.getTileEntityUnsafe(x, y, z) == null) {
-                        TileEntityChest te = new TileEntityChest();
-                        te.xCoord = xChunk*16 + x;
-                        te.yCoord = y;
-                        te.zCoord = zChunk*16 + z;
-                        WeightedRandomChestContent.generateChestContents(random, ChestGenHooks.getItems(ChestGenHooks.DUNGEON_CHEST,random),te,ChestGenHooks.getCount(ChestGenHooks.DUNGEON_CHEST,random));
-                        chunk.addTileEntity(te);
-                    }
-                }
-        }
+                for(int z=0; z<16; z+=4)
+                    randomIGeneratedObjects.getNext(random).provideObject(random, world, chunk, x, y, z);
 
         chunk.generateSkylightMap();
         BiomeGenBase[] biomeGenBase = world.getWorldChunkManager().loadBlockGeneratorData(null, xChunk * 16, zChunk * 16, 16, 16);
