@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.chunk.Chunk;
-import vorquel.mod.simpleskygrid.helper.Config;
+import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
 public class SpawnFixer {

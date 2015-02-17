@@ -10,7 +10,7 @@ import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
 import org.apache.logging.log4j.Logger;
 import vorquel.mod.simpleskygrid.event.SpawnFixer;
-import vorquel.mod.simpleskygrid.helper.Config;
+import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.world.provider.ClassLoaderWorldProvider;
 import vorquel.mod.simpleskygrid.world.provider.WorldProviderSurfaceAlt;
@@ -19,6 +19,9 @@ import java.util.Hashtable;
 
 @Mod(modid = "SimpleSkyGrid", name = "Simple Sky Grid", version = "@MOD_VERSION@")
 public class SimpleSkyGrid {
+
+    @Mod.Instance("SimpleSkyGrid")
+    public static SimpleSkyGrid instance;
 
     public static Logger logger;
 
@@ -30,11 +33,13 @@ public class SimpleSkyGrid {
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         FMLCommonHandler.instance().bus().register(new SpawnFixer());
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void postInit(FMLPostInitializationEvent event) {
         Ref.postInit();
         createWorldProviders();
@@ -61,6 +66,7 @@ public class SimpleSkyGrid {
                 newId = ourProviderIds.get(superClass);
             else {
                 Class<? extends WorldProvider> proxyClass = classLoader.getWorldProviderProxy(superClass);
+                //noinspection StatementWithEmptyBody
                 while(!DimensionManager.registerProviderType(++currentId, proxyClass, keepLoaded));
                 ourProviderIds.put(superClass, currentId);
                 newId = currentId;

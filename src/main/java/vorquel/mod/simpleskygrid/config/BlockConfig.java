@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.helper;
+package vorquel.mod.simpleskygrid.config;
 
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.helper.NBTString;
 import vorquel.mod.simpleskygrid.world.igenerated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEntity;
 import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;

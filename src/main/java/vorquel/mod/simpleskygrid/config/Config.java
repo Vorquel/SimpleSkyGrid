@@ -1,6 +1,7 @@
-package vorquel.mod.simpleskygrid.helper;
+package vorquel.mod.simpleskygrid.config;
 
 import net.minecraftforge.common.config.Configuration;
+import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.io.File;
