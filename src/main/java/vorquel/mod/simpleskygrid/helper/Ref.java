@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class Ref {
 
+    public static final String MOD_ID = "SimpleSkyGrid";
     public static WorldTypeSkyGrid worldType;
     public static int spawnHeight = 65;
     public static Identifier itemIdentifier = new Identifier();

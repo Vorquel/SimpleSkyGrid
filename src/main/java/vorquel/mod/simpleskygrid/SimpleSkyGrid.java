@@ -17,10 +17,10 @@ import vorquel.mod.simpleskygrid.world.provider.WorldProviderSurfaceAlt;
 
 import java.util.Hashtable;
 
-@Mod(modid = "SimpleSkyGrid", name = "Simple Sky Grid", version = "@MOD_VERSION@")
+@Mod(modid = Ref.MOD_ID, name = "Simple Sky Grid", version = "@MOD_VERSION@")
 public class SimpleSkyGrid {
 
-    @Mod.Instance("SimpleSkyGrid")
+    @Mod.Instance(Ref.MOD_ID)
     public static SimpleSkyGrid instance;
 
     public static Logger logger;
