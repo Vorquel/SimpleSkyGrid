@@ -39,7 +39,7 @@ public class NBTString {
         String goodIn = in.replaceAll("\\s+", "");
         Pattern pattern = Pattern.compile("[:,\\{\\}\\]]|[bi]?\\[|[bsil]-?(0|[1-9]\\d*)|[fd]-?(0?|[1-9]\\d*)\\.\\d*|\".+?\"");
         Matcher matcher = pattern.matcher(goodIn);
-        ArrayList<Token> out = new ArrayList<Token>();
+        ArrayList<Token> out = new ArrayList<>();
         try {
             int end = 0;
             while(matcher.find()) {
@@ -181,7 +181,7 @@ public class NBTString {
             return new byte[0];
         else if(token.type != Type.LIT_BYTE)
             throw new IllegalTokenException("NBT tag byte array", token.toString());
-        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        ArrayList<Byte> bytes = new ArrayList<>();
         bytes.add((Byte) token.value);
         while(true) {
             token = iterator.next();
@@ -203,7 +203,7 @@ public class NBTString {
             return new int[0];
         else if(token.type != Type.LIT_INT)
             throw new IllegalTokenException("NBT tag int array", token.toString());
-        ArrayList<Integer> ints = new ArrayList<Integer>();
+        ArrayList<Integer> ints = new ArrayList<>();
         ints.add((Integer) token.value);
         while(true) {
             token = iterator.next();

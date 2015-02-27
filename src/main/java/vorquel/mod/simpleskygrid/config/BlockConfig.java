@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BlockConfig {
-    private HashMap<String, ArrayList<String>> entries = new HashMap<String, ArrayList<String>>();
-    private HashMap<String, ArrayList<Integer>> weights = new HashMap<String, ArrayList<Integer>>();
+    private HashMap<String, ArrayList<String>> entries = new HashMap<>();
+    private HashMap<String, ArrayList<Integer>> weights = new HashMap<>();
 
     public void put(String label, String entry, int weight) {
         ArrayList<String> entryCache;
@@ -25,8 +25,8 @@ public class BlockConfig {
             entryCache = entries.get(label);
             weightCache = weights.get(label);
         } else {
-            entryCache = new ArrayList<String>();
-            weightCache = new ArrayList<Integer>();
+            entryCache = new ArrayList<>();
+            weightCache = new ArrayList<>();
             entries.put(label, entryCache);
             weights.put(label, weightCache);
         }

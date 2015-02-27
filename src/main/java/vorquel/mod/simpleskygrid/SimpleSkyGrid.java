@@ -21,11 +21,13 @@ import java.util.Hashtable;
 public class SimpleSkyGrid {
 
     @Mod.Instance(Ref.MOD_ID)
+    @SuppressWarnings("unused")
     public static SimpleSkyGrid instance;
 
     public static Logger logger;
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         Config.init(event.getSuggestedConfigurationFile());
@@ -48,7 +50,7 @@ public class SimpleSkyGrid {
     private void createWorldProviders() {
         int currentId = Integer.MAX_VALUE;
         ClassLoaderWorldProvider classLoader = ClassLoaderWorldProvider.that;
-        Hashtable<Class<? extends WorldProvider>, Integer> ourProviderIds = new Hashtable<Class<? extends WorldProvider>, Integer>();
+        Hashtable<Class<? extends WorldProvider>, Integer> ourProviderIds = new Hashtable<>();
         Hashtable<Integer, Integer> dimensions = ReflectionHelper.getPrivateValue(DimensionManager.class, null, "dimensions");
         Hashtable<Integer, Class<? extends WorldProvider>> providers = ReflectionHelper.getPrivateValue(DimensionManager.class, null, "providers");
         Hashtable<Integer, Boolean> spawnSettings = ReflectionHelper.getPrivateValue(DimensionManager.class, null, "spawnSettings");

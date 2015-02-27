@@ -16,7 +16,7 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
     private static final String superClassOld = WorldProviderSurface.class.getCanonicalName().replace('.', '/');
 
     public static ClassLoaderWorldProvider that = new ClassLoaderWorldProvider(WorldProvider.class.getClassLoader());
-    private HashMap<Class<? extends WorldProvider>, Class<? extends WorldProvider>> proxyMap = new HashMap<Class<? extends WorldProvider>, Class<? extends WorldProvider>>();
+    private HashMap<Class<? extends WorldProvider>, Class<? extends WorldProvider>> proxyMap = new HashMap<>();
     private int count = 0;
 
     private ClassLoaderWorldProvider() {}
@@ -38,7 +38,7 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
     private byte[] generateClass(String className, String superClassName) {
         String thisClass = className.replace('.', '/');
         String superClass = superClassName.replace('.', '/');
-        HashMap<String, String> nameMap = new HashMap<String, String>();
+        HashMap<String, String> nameMap = new HashMap<>();
         nameMap.put(thisClassOld, thisClass);
         nameMap.put(superClassOld, superClass);
         ClassWriter classWriter = new ClassWriter(0);

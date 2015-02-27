@@ -19,9 +19,9 @@ public class Config {
 
     static { //todo: Find balance for new config
         defaults = new BlockConfig();
-        settingsDefaults = new HashMap<Integer, WorldSettings>();
+        settingsDefaults = new HashMap<>();
         blockConfig = new BlockConfig();
-        settings = new HashMap<Integer, WorldSettings>();
+        settings = new HashMap<>();
 
         settingsDefaults.put(0, new WorldSettings("$overworld"));
         defaults.put("overworld", "minecraft:stone",    120);
@@ -107,8 +107,8 @@ public class Config {
         Configuration config = new Configuration(file);
 
         int[] dimensions = config.get("general", "_dimensions", new int[] {0, -1, 1}, "The list of dimension ids that get Sky Grid generation").getIntList();
-        ArrayList<String> labels = new ArrayList<String>();
-        HashMap<String, Integer> dimensionLabels = new HashMap<String, Integer>();
+        ArrayList<String> labels = new ArrayList<>();
+        HashMap<String, Integer> dimensionLabels = new HashMap<>();
         for(int i : dimensions) {
             String defaultName = settingsDefaults.containsKey(i) ? settingsDefaults.get(i).label : "dim" + i;
             String name = config.getString(String.format("dimension%dname", i), "general", defaultName, "The label for this dimension");

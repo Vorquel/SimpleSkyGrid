@@ -15,7 +15,7 @@ public class Ref {
     public static WorldTypeSkyGrid worldType;
     public static int spawnHeight = 65;
     public static Identifier itemIdentifier = new Identifier();
-    private static HashMap<Integer, RandomList<IGeneratedObject>> randomBlockGenerators = new HashMap<Integer, RandomList<IGeneratedObject>>();
+    private static HashMap<Integer, RandomList<IGeneratedObject>> randomBlockGenerators = new HashMap<>();
 
     public static void preInit() {
         GameRegistry.registerItem(itemIdentifier, "identifier");
@@ -33,7 +33,7 @@ public class Ref {
     }
 
     private static RandomList<IGeneratedObject> makeGenerator(String label, boolean doNormalize) {
-        RandomList<IGeneratedObject> randomList = new RandomList<IGeneratedObject>();
+        RandomList<IGeneratedObject> randomList = new RandomList<>();
         for(int i=0; i< Config.size(label); ++i) {
             int weight = Config.getWeight(label, i);
             if(Config.isLabel(label, i)) {

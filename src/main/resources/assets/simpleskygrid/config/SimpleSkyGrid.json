@@ -1,0 +1,393 @@
+//Want to know how this file works? Go to: https://github.com/vorquel/SimpleSkyGrid/wiki
+{
+  "dim0": {
+    "height": 128,
+    "spawn_height": 65,
+    "generation": "overworld",
+    "unique_gen": "overworld",
+    "loot_placement": "overworld"
+  },
+  "dim-1": {
+    "height": 128,
+    "generation": "nether",
+    "loot_placement": "nether"
+  },
+  "dim1": {
+    "height": 128,
+    "radius": 16,
+    "generation": "end",
+    "unique_gen": "end"
+  },
+  "generation": {
+    "overworld": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:stone"
+        },
+        "weight": 3
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:grass"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "label",
+          "subtype": "relative",
+          "name": "overworld_spawner"
+        },
+        "weight": 0.1
+      }
+    ],
+    "overworld_spawner": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Creeper"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Skeleton"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Spider"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "CaveSpider"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Zombie"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Slime"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Pig"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Sheep"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Cow"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Chicken"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Squid"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Wolf"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Enderman"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Silverfish"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Villager"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "nether": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:netherrack"
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:nether_brick"
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "nether_spawner"
+        },
+        "weight": 0.1
+      }
+    ],
+    "nether_spawner": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "PigZombie"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Blaze"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "LavaSlime"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "end": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:end_stone"
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:obsidian"
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "end_spawner"
+        },
+        "weight": 0.1
+      }
+    ],
+    "end_spawner": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Enderman"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  },
+  "unique_gen": {
+    "overworld": [
+      {
+        "object": {
+          "type": "special",
+          "name": "end_portal"
+        },
+        "count": 1,
+        "pdf": {
+          "type": "circle",
+          "orientation": "y",
+          "radius": 1000,
+          "center": {
+            "x": 0,
+            "y": 4,
+            "z": 0
+          }
+        }
+      }
+    ],
+    "end": [
+      {
+        "object": {
+          "type": "entity",
+          "name": "minecraft:end_dragon"
+        },
+        "count": 1,
+        "pdf": {
+          "type": "point",
+          "orientation": "y",
+          "radius": 1000,
+          "center": {
+            "x": 0,
+            "y": 124,
+            "z": 0
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "special",
+          "name": "end_crystal"
+        },
+        "count": 20,
+        "pdf": {
+          "type": "uniform",
+          "orientation": "y",
+          "radius": 1000,
+          "center": {
+            "x": 0,
+            "y": 4,
+            "z": 0
+          }
+        }
+      }
+    ]
+  },
+  "loot_placement": {
+    "overworld": [],
+    "nether": [],
+    "end": []
+  },
+  "loot": {
+  }
+}
