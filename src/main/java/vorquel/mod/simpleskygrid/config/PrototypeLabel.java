@@ -2,6 +2,7 @@ package vorquel.mod.simpleskygrid.config;
 
 import com.google.gson.stream.JsonReader;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.io.IOException;
 
@@ -32,7 +33,17 @@ public class PrototypeLabel implements IPrototype {
         }
     }
 
-    private static enum Subtype {
+    @Override
+    public boolean isComplete() {
+        return name != null && subtype != null;
+    }
+
+    @Override
+    public IGeneratedObject getGeneratedObject() {
+        return null;
+    }
+
+    public static enum Subtype {
         absolute, relative
     }
 }

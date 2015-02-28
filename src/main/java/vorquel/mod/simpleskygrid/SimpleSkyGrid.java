@@ -9,8 +9,8 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
 import org.apache.logging.log4j.Logger;
-import vorquel.mod.simpleskygrid.event.SpawnFixer;
 import vorquel.mod.simpleskygrid.config.Config;
+import vorquel.mod.simpleskygrid.event.SpawnFixer;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.world.provider.ClassLoaderWorldProvider;
 import vorquel.mod.simpleskygrid.world.provider.WorldProviderSurfaceAlt;
@@ -30,7 +30,7 @@ public class SimpleSkyGrid {
     @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
-        Config.init(event.getSuggestedConfigurationFile());
+        Config.loadConfigs();
         Ref.preInit();
     }
 
@@ -54,7 +54,7 @@ public class SimpleSkyGrid {
         Hashtable<Integer, Integer> dimensions = ReflectionHelper.getPrivateValue(DimensionManager.class, null, "dimensions");
         Hashtable<Integer, Class<? extends WorldProvider>> providers = ReflectionHelper.getPrivateValue(DimensionManager.class, null, "providers");
         Hashtable<Integer, Boolean> spawnSettings = ReflectionHelper.getPrivateValue(DimensionManager.class, null, "spawnSettings");
-        for(int dim : Config.getDimensions()) {
+        for(int dim : Config.dimensionPropertiesMap.keySet()) {
             Class<? extends WorldProvider> superClass = WorldProviderSurfaceAlt.class;
             boolean keepLoaded = false;
             int newId;

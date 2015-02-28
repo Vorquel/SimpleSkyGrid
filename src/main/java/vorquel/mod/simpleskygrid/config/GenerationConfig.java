@@ -16,4 +16,20 @@ public class GenerationConfig {
         entries.get(label).add(prototype);
         weights.get(label).add(weight);
     }
+
+    public int size() {
+        return entries.size();
+    }
+
+    public int size(String label) {
+        return entries.get(label).size();
+    }
+
+    public double getWeight(String label, int i) {
+        return weights.get(label).get(i);
+    }
+
+    public IPrototype getEntry(String label, int i) {
+        return entries.get(label).get(i);
+    }
 }

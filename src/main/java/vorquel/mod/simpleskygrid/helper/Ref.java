@@ -3,6 +3,9 @@ package vorquel.mod.simpleskygrid.helper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.Config;
+import vorquel.mod.simpleskygrid.config.GenerationConfig;
+import vorquel.mod.simpleskygrid.config.IPrototype;
+import vorquel.mod.simpleskygrid.config.PrototypeLabel;
 import vorquel.mod.simpleskygrid.item.Identifier;
 import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
@@ -13,7 +16,6 @@ public class Ref {
 
     public static final String MOD_ID = "SimpleSkyGrid";
     public static WorldTypeSkyGrid worldType;
-    public static int spawnHeight = 65;
     public static Identifier itemIdentifier = new Identifier();
     private static HashMap<Integer, RandomList<IGeneratedObject>> randomBlockGenerators = new HashMap<>();
 
@@ -24,9 +26,9 @@ public class Ref {
     public static void postInit() {
         worldType = new WorldTypeSkyGrid();
         try{
-            for(int i : Config.getDimensions())
-                randomBlockGenerators.put(i, makeGenerator(Config.getLabel(i), true));
-        } catch(Error e) {
+            for(int i : Config.dimensionPropertiesMap.keySet())
+                randomBlockGenerators.put(i, makeGenerator(Config.dimensionPropertiesMap.get(i).generationLabel, true));
+        } catch(StackOverflowError | OutOfMemoryError e) {
             SimpleSkyGrid.logger.fatal("Fatal Error: Cyclical dependency in config.");
             throw new Error();
         }
@@ -34,18 +36,20 @@ public class Ref {
 
     private static RandomList<IGeneratedObject> makeGenerator(String label, boolean doNormalize) {
         RandomList<IGeneratedObject> randomList = new RandomList<>();
-        for(int i=0; i< Config.size(label); ++i) {
-            int weight = Config.getWeight(label, i);
-            if(Config.isLabel(label, i)) {
-                String newLabel = Config.getLabel(label, i);
-                boolean newDoNormalize = !Config.isAbsolute(label, i);
-                if(Config.size(newLabel) > 0)
-                    randomList.add(makeGenerator(newLabel, newDoNormalize), weight);
+        GenerationConfig config = Config.generationConfig;
+        for(int i=0; i< config.size(label); ++i) {
+            IPrototype entry = config.getEntry(label, i);
+            double weight = config.getWeight(label, i);
+            if(entry instanceof PrototypeLabel) {
+                PrototypeLabel newLabel = (PrototypeLabel) entry;
+                if(config.size(newLabel.name) > 0)
+                   randomList.add(makeGenerator(newLabel.name, newLabel.subtype == PrototypeLabel.Subtype.relative), weight);
                 else
                     SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
             } else {
-                IGeneratedObject generatedObject = Config.getIGeneratedObject(label, i);
-                randomList.add(generatedObject, weight);
+                IGeneratedObject generatedObject = entry.getGeneratedObject();
+                if(generatedObject != null)
+                    randomList.add(generatedObject, weight);
             }
         }
         if(doNormalize)

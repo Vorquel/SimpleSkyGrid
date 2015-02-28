@@ -26,7 +26,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private long seed;
     private int dimensionID;
     private RandomList<IGeneratedObject> randomIGeneratedObjects;
-    private Config.WorldSettings worldSettings;
+    private Config.DimensionProperties dimensionProperties;
     private ChunkPosition endPortalLocation;
 
     public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
@@ -34,7 +34,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         this.seed = seed;
         this.dimensionID = dimensionId;
         randomIGeneratedObjects = Ref.getGenerator(dimensionId);
-        worldSettings = Config.getSettings(dimensionId);
+        dimensionProperties = Config.dimensionPropertiesMap.get(dimensionId);
         if(dimensionId == 0) {
             Random random = new Random(seed);
             double angle = random.nextDouble()*Math.PI*2;
@@ -53,18 +53,18 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     @Override
     public Chunk provideChunk(int xChunk, int zChunk) {
         Chunk chunk = new Chunk(world, xChunk, zChunk);
-        if(worldSettings.isFinite() && !worldSettings.inRadius(xChunk, zChunk))
+        if(dimensionProperties.isFinite() && !dimensionProperties.inRadius(xChunk, zChunk))
             return chunk;
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
 
-        for(int i=0; i<worldSettings.height>>4; ++i)
+        for(int i=0; i< dimensionProperties.height>>4; ++i)
             chunk.getBlockStorageArray()[i] = new ExtendedBlockStorage(i*16, !world.provider.hasNoSky);
         ExtendedBlockStorage extendedblockstorage = chunk.getBlockStorageArray()[0];
         for(int x=0; x<16; x+=4)
             for(int z=0; z<16; z+=4)
                 extendedblockstorage.func_150818_a(x, 0, z, bedrock);
 
-        for(int y=4; y<worldSettings.height; y+=4)
+        for(int y=4; y< dimensionProperties.height; y+=4)
             for(int x=0; x<16; x+=4)
                 for(int z=0; z<16; z+=4)
                     randomIGeneratedObjects.getNext(random).provideObject(random, world, chunk, x, y, z);
@@ -128,7 +128,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
         int meanCrystals = 25;
         float threshold = meanCrystals / (meanCrystals + 144f);
-        int y = worldSettings.height - 1 - (worldSettings.height - 1) % 4;
+        int y = dimensionProperties.height - 1 - (dimensionProperties.height - 1) % 4;
         while(random.nextFloat() < threshold) {
             int x = random.nextInt(4) * 4 + xChunk * 16;
             int z = random.nextInt(4) * 4 + zChunk * 16;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class NBT2JSON {
 
     public static String toString(NBTBase tag) {
-        return null;
+        return null; //todo
     }
 
     public static NBTTagCompound toNBT(JsonReader jsonReader) throws IOException {
@@ -19,10 +19,12 @@ public class NBT2JSON {
 
     private static NBTTagCompound readCompound(JsonReader jsonReader) throws IOException {
         NBTTagCompound nbt = new NBTTagCompound();
+        jsonReader.beginObject();
         while(jsonReader.hasNext()) {
             readTag(jsonReader, nbt);
         }
-        return null;
+        jsonReader.endObject();
+        return nbt;
     }
 
     private static void readTag(JsonReader jsonReader, NBTTagCompound nbt) throws IOException {
