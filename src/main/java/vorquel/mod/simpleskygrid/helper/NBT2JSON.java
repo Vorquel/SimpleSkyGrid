@@ -55,8 +55,8 @@ public class NBT2JSON {
         long expected = jsonReader.nextLong();
         byte actual = (byte) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given byte value in NBT data does in fit in byte");
-            throw new RuntimeException("Given byte value in NBT data does in fit in byte");
+            SimpleSkyGrid.logger.fatal("Given byte value in NBT data does not fit in byte");
+            throw new RuntimeException("Given byte value in NBT data does not fit in byte");
         }
         return new NBTTagByte(actual);
     }
@@ -65,8 +65,8 @@ public class NBT2JSON {
         long expected = jsonReader.nextLong();
         short actual = (short) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given short value in NBT data does in fit in short");
-            throw new RuntimeException("Given short value in NBT data does in fit in short");
+            SimpleSkyGrid.logger.fatal("Given short value in NBT data does not fit in short");
+            throw new RuntimeException("Given short value in NBT data does not fit in short");
         }
         return new NBTTagShort(actual);
     }
@@ -75,8 +75,8 @@ public class NBT2JSON {
         long expected = jsonReader.nextLong();
         int actual = (int) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given int value in NBT data does in fit in int");
-            throw new RuntimeException("Given int value in NBT data does in fit in int");
+            SimpleSkyGrid.logger.fatal("Given int value in NBT data does not fit in int");
+            throw new RuntimeException("Given int value in NBT data does not fit in int");
         }
         return new NBTTagInt(actual);
     }
@@ -89,8 +89,8 @@ public class NBT2JSON {
         double expected = jsonReader.nextDouble();
         float actual = (float) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given float value in NBT data does in fit in float");
-            throw new RuntimeException("Given float value in NBT data does in fit in float");
+            SimpleSkyGrid.logger.fatal("Given float value in NBT data does not fit in float");
+            throw new RuntimeException("Given float value in NBT data does not fit in float");
         }
         return new NBTTagFloat(actual);
     }
@@ -106,8 +106,8 @@ public class NBT2JSON {
             long expected = jsonReader.nextLong();
             byte actual = (byte) expected;
             if(expected != actual) {
-                SimpleSkyGrid.logger.fatal("Given byte value in NBT data does in fit in byte");
-                throw new RuntimeException("Given byte value in NBT data does in fit in byte");
+                SimpleSkyGrid.logger.fatal("Given byte value in NBT data does not fit in byte");
+                throw new RuntimeException("Given byte value in NBT data does not fit in byte");
             }
             byteList.add(actual);
         }
@@ -125,8 +125,8 @@ public class NBT2JSON {
             long expected = jsonReader.nextLong();
             int actual = (int) expected;
             if(expected != actual) {
-                SimpleSkyGrid.logger.fatal("Given int value in NBT data does in fit in int");
-                throw new RuntimeException("Given int value in NBT data does in fit in int");
+                SimpleSkyGrid.logger.fatal("Given int value in NBT data does not fit in int");
+                throw new RuntimeException("Given int value in NBT data does not fit in int");
             }
             intList.add(actual);
         }
@@ -164,6 +164,6 @@ public class NBT2JSON {
             }
         }
         jsonReader.endArray();
-        return null;
+        return list;
     }
 }

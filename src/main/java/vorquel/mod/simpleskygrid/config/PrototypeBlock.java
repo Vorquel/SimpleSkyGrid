@@ -17,8 +17,14 @@ public class PrototypeBlock implements IPrototype {
         while(jsonReader.hasNext()) {
             String label = jsonReader.nextName();
             switch(label) {
-                case "name": name = jsonReader.nextString();    break;
-                case "meta": meta = jsonReader.nextInt();       break;
+                case "name": name = jsonReader.nextString(); break;
+                case "meta":
+                    meta = jsonReader.nextInt();
+                    if(meta < 0 || meta > 15) {
+                        SimpleSkyGrid.logger.warn(String.format("Invalid metadata value %d found, assuming 0", meta));
+                        meta = 0;
+                    }
+                    break;
                 case "nbt":  nbt  = NBT2JSON.toNBT(jsonReader); break;
                 default:
                     SimpleSkyGrid.logger.warn(String.format("Unknown label %s in block definition in config file", name));

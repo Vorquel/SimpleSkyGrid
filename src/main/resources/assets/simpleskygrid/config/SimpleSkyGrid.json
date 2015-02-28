@@ -25,12 +25,222 @@
           "type": "block",
           "name": "minecraft:stone"
         },
-        "weight": 3
+        "weight": 120
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:grass"
+        },
+        "weight": 80
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:dirt"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sand"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:clay"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:mycelium"
+        },
+        "weight": 15
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sandstone"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:gravel"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:coal_ore"
+        },
+        "weight": 40
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:iron_ore"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:gold_ore"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:redstone_ore"
+        },
+        "weight": 8
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:lapis_ore"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:diamond_ore"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:log"
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:leaves"
+        },
+        "weight": 40
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:wool"
+        },
+        "weight":25
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:web"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:pumpkin"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:melon_block"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:water"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:lava"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:snow"
+        },
+        "weight": 8
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:ice"
+        },
+        "weight": 4
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:mossy_cobblestone"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:obsidian"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:bookshelf"
+        },
+        "weight": 3
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:tnt"
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:glass"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:piston"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sticky_piston"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest"
         },
         "weight": 1
       },
@@ -40,7 +250,7 @@
           "subtype": "relative",
           "name": "overworld_spawner"
         },
-        "weight": 0.1
+        "weight": 1
       }
     ],
     "overworld_spawner": [
@@ -231,12 +441,61 @@
           "type": "block",
           "name": "minecraft:netherrack"
         },
-        "weight": 3
+        "weight": 300
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:soul_sand"
+        },
+        "weight": 100
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:glowstone"
+        },
+        "weight": 50
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:lava"
+        },
+        "weight": 50
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:gravel"
+        },
+        "weight": 30
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:nether_brick"
+        },
+        "weight": 30
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:nether_brick_stairs"
+        },
+        "weight": 15
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:nether_brick_fence"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest"
         },
         "weight": 1
       },
@@ -246,7 +505,7 @@
           "subtype": "relative",
           "name": "nether_spawner"
         },
-        "weight": 0.1
+        "weight": 2
       }
     ],
     "nether_spawner": [
@@ -293,14 +552,14 @@
           "type": "block",
           "name": "minecraft:end_stone"
         },
-        "weight": 3
+        "weight": 400
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:obsidian"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -308,7 +567,7 @@
           "subtype": "relative",
           "name": "end_spawner"
         },
-        "weight": 0.1
+        "weight": 1
       }
     ],
     "end_spawner": [

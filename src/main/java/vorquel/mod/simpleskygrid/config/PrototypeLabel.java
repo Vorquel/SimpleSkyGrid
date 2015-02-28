@@ -16,7 +16,9 @@ public class PrototypeLabel implements IPrototype {
             switch(label) {
                 case "subtype":
                     String subtype = jsonReader.nextString();
-                    this.subtype = Subtype.valueOf(subtype);
+                    try {
+                        this.subtype = Subtype.valueOf(subtype);
+                    } catch(EnumConstantNotPresentException ignored) {}
                     if(this.subtype == null) {
                         SimpleSkyGrid.logger.fatal(String.format("Unknown subtype encountered in config file: %s", subtype));
                         throw new RuntimeException(String.format("Unknown subtype encountered in config file: %s", subtype));
@@ -31,6 +33,6 @@ public class PrototypeLabel implements IPrototype {
     }
 
     private static enum Subtype {
-        ABSOLUTE, RELATIVE
+        absolute, relative
     }
 }
