@@ -1,7 +1,5 @@
 package vorquel.mod.simpleskygrid.world;
 
-import static net.minecraft.init.Blocks.*;
-
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityEnderCrystal;
@@ -19,6 +17,9 @@ import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.init.Blocks.bedrock;
+import static net.minecraft.init.Blocks.end_portal_frame;
 
 public class ChunkProviderSkyGrid implements IChunkProvider {
 

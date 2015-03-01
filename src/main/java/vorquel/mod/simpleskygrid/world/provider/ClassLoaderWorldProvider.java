@@ -2,7 +2,9 @@ package vorquel.mod.simpleskygrid.world.provider;
 
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldProviderSurface;
-import org.objectweb.asm.*;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.RemappingClassAdapter;
 import org.objectweb.asm.commons.SimpleRemapper;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;

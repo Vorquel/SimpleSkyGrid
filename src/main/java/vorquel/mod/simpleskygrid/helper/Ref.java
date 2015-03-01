@@ -7,8 +7,8 @@ import vorquel.mod.simpleskygrid.config.GenerationConfig;
 import vorquel.mod.simpleskygrid.config.IPrototype;
 import vorquel.mod.simpleskygrid.config.PrototypeLabel;
 import vorquel.mod.simpleskygrid.item.Identifier;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
+import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.util.HashMap;
 
