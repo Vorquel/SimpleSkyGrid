@@ -21,8 +21,6 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
     private HashMap<Class<? extends WorldProvider>, Class<? extends WorldProvider>> proxyMap = new HashMap<>();
     private int count = 0;
 
-    private ClassLoaderWorldProvider() {}
-
     private ClassLoaderWorldProvider(ClassLoader classLoader) {
         super(classLoader);
     }
