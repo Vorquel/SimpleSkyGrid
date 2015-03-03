@@ -3,7 +3,7 @@ package vorquel.mod.simpleskygrid.helper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.Config;
-import vorquel.mod.simpleskygrid.config.GenerationConfig;
+import vorquel.mod.simpleskygrid.config.ConfigDataMap;
 import vorquel.mod.simpleskygrid.config.IPrototype;
 import vorquel.mod.simpleskygrid.config.PrototypeLabel;
 import vorquel.mod.simpleskygrid.item.Identifier;
@@ -36,10 +36,10 @@ public class Ref {
 
     private static RandomList<IGeneratedObject> makeGenerator(String label, boolean doNormalize) {
         RandomList<IGeneratedObject> randomList = new RandomList<>();
-        GenerationConfig config = Config.generationConfig;
+        ConfigDataMap<IPrototype, Double> config = Config.generationData;
         for(int i=0; i< config.size(label); ++i) {
             IPrototype entry = config.getEntry(label, i);
-            double weight = config.getWeight(label, i);
+            double weight = config.getQuantity(label, i);
             if(entry instanceof PrototypeLabel) {
                 PrototypeLabel newLabel = (PrototypeLabel) entry;
                 if(config.size(newLabel.name) > 0)

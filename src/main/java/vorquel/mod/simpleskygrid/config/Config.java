@@ -15,7 +15,8 @@ import java.util.HashMap;
 public class Config {
 
     public static HashMap<Integer, DimensionProperties> dimensionPropertiesMap = new HashMap<>();
-    public static GenerationConfig generationConfig = new GenerationConfig();
+    public static ConfigDataMap<IPrototype, Double> generationData = new ConfigDataMap<>();
+    public static ConfigDataMap<IPrototype, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
 
     public static void loadConfigs() {
         File configHome = new File(Loader.instance().getConfigDir(), "SimpleSkyGrid");
@@ -28,7 +29,6 @@ public class Config {
         if(!config.exists()) {
             String configHomeDir = "/assets/simpleskygrid/config/";
             URL configURL = Config.class.getResource(configHomeDir+configName);
-            configURL.toString();
             try {
                 FileUtils.copyURLToFile(configURL, config);
             } catch (IOException e) {
@@ -123,7 +123,7 @@ public class Config {
                     }
                 }
                 if(prototype.isComplete() && weight > 0)
-                    generationConfig.put(label, prototype, weight);
+                    generationData.put(label, prototype, weight);
                 jsonReader.endObject();
             }
             jsonReader.endArray();
@@ -132,7 +132,32 @@ public class Config {
     }
 
     private static void readUniqueGen(JsonReader jsonReader) throws IOException {
-        jsonReader.skipValue();
+        jsonReader.beginObject();
+        while(jsonReader.hasNext()) {
+            String label = jsonReader.nextName();
+            jsonReader.beginArray();
+            while(jsonReader.hasNext()) {
+                jsonReader.beginObject();
+                IPrototype prototype = IPrototype.NullObject;
+                UniqueQuantity uniqueQuantity = new UniqueQuantity();
+                while(jsonReader.hasNext()) {
+                    String innerLabel = jsonReader.nextName();
+                    switch(innerLabel) {
+                        case "object":   prototype = PrototypeFactory.readPrototype(jsonReader); break;
+                        case "count":    uniqueQuantity.readCount(jsonReader);                   break;
+                        case "location": uniqueQuantity.readLocation(jsonReader);                break;
+                        default:
+                            SimpleSkyGrid.logger.warn(String.format("Unknown uniqueGen label %s in config file", innerLabel));
+                            jsonReader.skipValue();
+                    }
+                }
+                if(prototype.isComplete() && uniqueQuantity.isComplete())
+                    uniqueGenData.put(label, prototype, uniqueQuantity);
+                jsonReader.endObject();
+            }
+            jsonReader.endArray();
+        }
+        jsonReader.endObject();
     }
 
     private static void readLootPlacement(JsonReader jsonReader) throws IOException {
