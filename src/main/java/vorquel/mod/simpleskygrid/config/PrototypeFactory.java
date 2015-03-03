@@ -17,8 +17,9 @@ public class PrototypeFactory {
         IPrototype prototype = null;
         String type = jsonReader.nextString();
         switch (type) {
-            case "label": prototype = new PrototypeLabel(jsonReader); break;
-            case "block": prototype = new PrototypeBlock(jsonReader); break;
+            case "label":  prototype = new PrototypeLabel(jsonReader);  break;
+            case "block":  prototype = new PrototypeBlock(jsonReader);  break;
+            case "entity": prototype = new PrototypeEntity(jsonReader); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown generation type %s in config file", type));
                 while (jsonReader.hasNext()) {

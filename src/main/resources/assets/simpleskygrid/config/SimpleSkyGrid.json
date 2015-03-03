@@ -593,7 +593,7 @@
           "name": "end_portal"
         },
         "count": 1,
-        "pdf": {
+        "location": {
           "type": "circle",
           "orientation": "y",
           "radius": 1000,
@@ -612,15 +612,11 @@
           "name": "minecraft:end_dragon"
         },
         "count": 1,
-        "pdf": {
+        "location": {
           "type": "point",
-          "orientation": "y",
-          "radius": 1000,
-          "center": {
-            "x": 0,
-            "y": 124,
-            "z": 0
-          }
+          "x": 0,
+          "y": 124,
+          "z": 0
         }
       },
       {
@@ -629,13 +625,13 @@
           "name": "end_crystal"
         },
         "count": 20,
-        "pdf": {
+        "location": {
           "type": "uniform",
           "orientation": "y",
-          "radius": 1000,
+          "radius": 20,
           "center": {
             "x": 0,
-            "y": 4,
+            "y": 124,
             "z": 0
           }
         }
