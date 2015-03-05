@@ -9,12 +9,12 @@ public class CirclePoint implements IRandom<ChunkCoordinates> {
 
     private ChunkCoordinates center;
     private int radius;
-    private Axis orientation;
+    private Axis axis;
 
-    public CirclePoint(ChunkCoordinates center, int radius, Axis orientation) {
+    public CirclePoint(ChunkCoordinates center, int radius, Axis axis) {
         this.center = center;
         this.radius = radius;
-        this.orientation = orientation;
+        this.axis = axis;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class CirclePoint implements IRandom<ChunkCoordinates> {
         int x = center.posX;
         int y = center.posY;
         int z = center.posZ;
-        switch(orientation) {
+        switch(axis) {
             case X:
                 x = round(x, 4);
                 y = round(y + cos, 4);
