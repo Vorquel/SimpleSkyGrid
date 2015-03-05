@@ -1,17 +1,17 @@
-package vorquel.mod.simpleskygrid.config;
+package vorquel.mod.simpleskygrid.config.prototype;
 
 import com.google.gson.stream.JsonReader;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 
 import java.io.IOException;
 
-public class PrototypeLabel implements IPrototype {
+public class PLabel<T> implements IPrototype<T> {
 
     public Subtype subtype;
     public String name;
 
-    public PrototypeLabel(JsonReader jsonReader) throws IOException {
+    public PLabel(JsonReader jsonReader) throws IOException {
         while(jsonReader.hasNext()) {
             String label = jsonReader.nextName();
             switch(label) {
@@ -39,7 +39,7 @@ public class PrototypeLabel implements IPrototype {
     }
 
     @Override
-    public IGeneratedObject getGeneratedObject() {
+    public T getObject() {
         return null;
     }
 

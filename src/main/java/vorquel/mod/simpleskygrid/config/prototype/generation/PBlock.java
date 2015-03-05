@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.config;
+package vorquel.mod.simpleskygrid.config.prototype.generation;
 
 import com.google.gson.stream.JsonReader;
 import cpw.mods.fml.common.registry.GameData;
@@ -6,19 +6,20 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.igenerated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.io.IOException;
 
-public class PrototypeBlock implements IPrototype {
+public class PBlock implements IPrototype<IGeneratedObject> {
 
     public String name;
     public int meta = 0;
     public NBTTagCompound nbt;
 
-    public PrototypeBlock(JsonReader jsonReader) throws IOException {
+    public PBlock(JsonReader jsonReader) throws IOException {
         while(jsonReader.hasNext()) {
             String label = jsonReader.nextName();
             switch(label) {
@@ -44,7 +45,7 @@ public class PrototypeBlock implements IPrototype {
     }
 
     @Override
-    public IGeneratedObject getGeneratedObject() {
+    public IGeneratedObject getObject() {
         Block block = GameData.getBlockRegistry().getObject(name);
         if(block == Blocks.air && !name.equals("minecraft:air")) {
             SimpleSkyGrid.logger.error("Unrecognised block name: " + name);

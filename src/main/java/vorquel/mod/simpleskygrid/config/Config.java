@@ -4,6 +4,10 @@ import com.google.gson.stream.JsonReader;
 import cpw.mods.fml.common.Loader;
 import org.apache.commons.io.FileUtils;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
+import vorquel.mod.simpleskygrid.config.prototype.PFactory;
+import vorquel.mod.simpleskygrid.config.prototype.PNull;
+import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,8 +19,8 @@ import java.util.HashMap;
 public class Config {
 
     public static HashMap<Integer, DimensionProperties> dimensionPropertiesMap = new HashMap<>();
-    public static ConfigDataMap<IPrototype, Double> generationData = new ConfigDataMap<>();
-    public static ConfigDataMap<IPrototype, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
+    public static ConfigDataMap<IPrototype<IGeneratedObject>, Double> generationData = new ConfigDataMap<>();
+    public static ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
 
     public static void loadConfigs() {
         File configHome = new File(Loader.instance().getConfigDir(), "SimpleSkyGrid");
@@ -110,12 +114,12 @@ public class Config {
             jsonReader.beginArray();
             while(jsonReader.hasNext()) {
                 jsonReader.beginObject();
-                IPrototype prototype = IPrototype.NullObject;
+                IPrototype<IGeneratedObject> prototype = PNull.generatedObject;
                 double weight = 0;
                 while(jsonReader.hasNext()) {
                     String innerLabel = jsonReader.nextName();
                     switch(innerLabel) {
-                        case "object": prototype = PrototypeFactory.readPrototype(jsonReader); break;
+                        case "object": prototype = PFactory.readGeneratedObject(jsonReader); break;
                         case "weight": weight    = readWeight(jsonReader);                     break;
                         default:
                             SimpleSkyGrid.logger.warn(String.format("Unknown generation label %s in config file", innerLabel));
@@ -138,21 +142,21 @@ public class Config {
             jsonReader.beginArray();
             while(jsonReader.hasNext()) {
                 jsonReader.beginObject();
-                IPrototype prototype = IPrototype.NullObject;
-                UniqueQuantity uniqueQuantity = new UniqueQuantity();
+                IPrototype<IGeneratedObject> prototype = PNull.generatedObject;
+                UniqueQuantity quantity = new UniqueQuantity();
                 while(jsonReader.hasNext()) {
                     String innerLabel = jsonReader.nextName();
                     switch(innerLabel) {
-                        case "object":   prototype = PrototypeFactory.readPrototype(jsonReader); break;
-                        case "count":    uniqueQuantity.readCount(jsonReader);                   break;
-                        case "location": uniqueQuantity.readLocation(jsonReader);                break;
+                        case "object":   prototype = PFactory.readGeneratedObject(jsonReader); break;
+                        case "count":    quantity.countSource = PFactory.readCount(jsonReader).getObject(); break;
+                        case "location": quantity.pointSource = PFactory.readPoint(jsonReader).getObject(); break;
                         default:
                             SimpleSkyGrid.logger.warn(String.format("Unknown uniqueGen label %s in config file", innerLabel));
                             jsonReader.skipValue();
                     }
                 }
-                if(prototype.isComplete() && uniqueQuantity.isComplete())
-                    uniqueGenData.put(label, prototype, uniqueQuantity);
+                if(prototype.isComplete() && quantity.isComplete())
+                    uniqueGenData.put(label, prototype, quantity);
                 jsonReader.endObject();
             }
             jsonReader.endArray();

@@ -4,8 +4,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.config.ConfigDataMap;
-import vorquel.mod.simpleskygrid.config.IPrototype;
-import vorquel.mod.simpleskygrid.config.PrototypeLabel;
+import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
+import vorquel.mod.simpleskygrid.config.prototype.PLabel;
 import vorquel.mod.simpleskygrid.item.Identifier;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
 import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
@@ -40,14 +40,14 @@ public class Ref {
         for(int i=0; i< config.size(label); ++i) {
             IPrototype entry = config.getEntry(label, i);
             double weight = config.getQuantity(label, i);
-            if(entry instanceof PrototypeLabel) {
-                PrototypeLabel newLabel = (PrototypeLabel) entry;
+            if(entry instanceof PLabel) {
+                PLabel newLabel = (PLabel) entry;
                 if(config.size(newLabel.name) > 0)
-                   randomList.add(makeGenerator(newLabel.name, newLabel.subtype == PrototypeLabel.Subtype.relative), weight);
+                   randomList.add(makeGenerator(newLabel.name, newLabel.subtype == PLabel.Subtype.relative), weight);
                 else
                     SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
             } else {
-                IGeneratedObject generatedObject = entry.getGeneratedObject();
+                IGeneratedObject generatedObject = entry.getObject();
                 if(generatedObject != null)
                     randomList.add(generatedObject, weight);
             }

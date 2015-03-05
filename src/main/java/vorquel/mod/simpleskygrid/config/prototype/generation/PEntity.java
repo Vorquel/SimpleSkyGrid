@@ -1,21 +1,22 @@
-package vorquel.mod.simpleskygrid.config;
+package vorquel.mod.simpleskygrid.config.prototype.generation;
 
 import com.google.gson.stream.JsonReader;
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEntity;
 import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 
 import java.io.IOException;
 
-public class PrototypeEntity implements IPrototype {
+public class PEntity implements IPrototype<IGeneratedObject> {
 
     private String name;
     private NBTTagCompound nbt;
 
-    public PrototypeEntity(JsonReader jsonReader) throws IOException {
+    public PEntity(JsonReader jsonReader) throws IOException {
         while(jsonReader.hasNext()) {
             String label = jsonReader.nextName();
             switch(label) {
@@ -34,7 +35,7 @@ public class PrototypeEntity implements IPrototype {
     }
 
     @Override
-    public IGeneratedObject getGeneratedObject() {
+    public IGeneratedObject getObject() {
         if(!EntityList.func_151515_b().contains(name)) {
             SimpleSkyGrid.logger.error("Unrecognised entity name: " + name);
             return null;
