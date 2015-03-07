@@ -22,7 +22,10 @@ public class ConfigDataMap<Entry, Quantity> {
     }
 
     public int size(String label) {
-        return entries.get(label).size();
+        if(entries.containsKey(label))
+            return entries.get(label).size();
+        else
+            return 0;
     }
 
     public Entry getEntry(String label, int i) {

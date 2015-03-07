@@ -15,10 +15,10 @@ public abstract class PPoint extends Prototype<IRandom<ChunkCoordinates>> {
     }
 
     protected ChunkCoordinates readPoint(JsonReader jsonReader) throws IOException {
-        jsonReader.beginObject();
         Integer x = null;
         Integer y = null;
         Integer z = null;
+        jsonReader.beginObject();
         while(jsonReader.hasNext()) {
             String label = jsonReader.nextName();
             switch(label) {
@@ -30,6 +30,7 @@ public abstract class PPoint extends Prototype<IRandom<ChunkCoordinates>> {
                     jsonReader.skipValue();
             }
         }
+        jsonReader.endObject();
         if(x == null || y == null || z == null) {
             return null;
         }

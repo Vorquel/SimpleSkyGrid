@@ -1,39 +1,38 @@
 package vorquel.mod.simpleskygrid.world.igenerated.random.point;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
 
 import java.util.Random;
 
-public class UniformPoint implements IRandom<ChunkCoordinates> {
+public class UniformPoint extends RandomPoint {
 
-    private int startX;
-    private int startY;
-    private int startZ;
-    private int rangeX;
-    private int rangeY;
-    private int rangeZ;
+    private double startX;
+    private double startY;
+    private double startZ;
+    private double rangeX;
+    private double rangeY;
+    private double rangeZ;
 
-    public UniformPoint(int lx, int ly, int lz, int rx, int ry, int rz) {
-        startX = Math.min(lx, rx);
-        startY = Math.min(ly, ry);
-        startZ = Math.min(lz, rz);
-        rangeX = Math.abs(lx - rx) + 1;
-        rangeY = Math.abs(ly - ry) + 1;
-        rangeZ = Math.abs(lz - rz) + 1;
+    public UniformPoint(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+        startX = minX;
+        startY = minY;
+        startZ = minZ;
+        rangeX = maxX - minX;
+        rangeY = maxY - minY;
+        rangeZ = maxZ - minZ;
     }
 
     @Override
     public ChunkCoordinates next(Random random) {
-        int x = startX;
-        int y = startY;
-        int z = startZ;
-        if(rangeX > 1)
-            x += random.nextInt(rangeX);
-        if(rangeY > 1)
-            y += random.nextInt(rangeY);
-        if(rangeZ > 1)
-            z += random.nextInt(rangeZ);
-        return new ChunkCoordinates(x, y, z);
+        double x = startX;
+        double y = startY;
+        double z = startZ;
+        if(rangeX != 0)
+            x += random.nextDouble() * rangeX;
+        if(rangeY != 0)
+            y += random.nextDouble() * rangeY;
+        if(rangeZ != 0)
+            z += random.nextDouble() * rangeZ;
+        return round(x, y, z);
     }
 }

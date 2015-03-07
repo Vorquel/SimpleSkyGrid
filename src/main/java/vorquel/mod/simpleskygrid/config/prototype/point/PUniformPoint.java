@@ -9,14 +9,14 @@ import vorquel.mod.simpleskygrid.world.igenerated.random.point.UniformPoint;
 
 import java.io.IOException;
 
-public class PUniformPoint extends Prototype<IRandom<ChunkCoordinates>> { //todo
+public class PUniformPoint extends Prototype<IRandom<ChunkCoordinates>> {
 
-    private Integer minX;
-    private Integer minY;
-    private Integer minZ;
-    private Integer maxX;
-    private Integer maxY;
-    private Integer maxZ;
+    private Double minX;
+    private Double minY;
+    private Double minZ;
+    private Double maxX;
+    private Double maxY;
+    private Double maxZ;
 
     public PUniformPoint(JsonReader jsonReader) throws IOException {
         super(jsonReader);
@@ -25,12 +25,12 @@ public class PUniformPoint extends Prototype<IRandom<ChunkCoordinates>> { //todo
     @Override
     protected void readLabel(JsonReader jsonReader, String label) throws IOException {
         switch(label) {
-            case "min_x": minX = jsonReader.nextInt(); break;
-            case "min_y": minY = jsonReader.nextInt(); break;
-            case "min_z": minZ = jsonReader.nextInt(); break;
-            case "max_x": maxX = jsonReader.nextInt(); break;
-            case "max_y": maxY = jsonReader.nextInt(); break;
-            case "max_z": maxZ = jsonReader.nextInt(); break;
+            case "min_x": minX = jsonReader.nextDouble(); break;
+            case "min_y": minY = jsonReader.nextDouble(); break;
+            case "min_z": minZ = jsonReader.nextDouble(); break;
+            case "max_x": maxX = jsonReader.nextDouble(); break;
+            case "max_y": maxY = jsonReader.nextDouble(); break;
+            case "max_z": maxZ = jsonReader.nextDouble(); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown label %s in location definition in config file", label));
                 jsonReader.skipValue();

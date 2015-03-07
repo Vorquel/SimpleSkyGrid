@@ -1,11 +1,10 @@
 package vorquel.mod.simpleskygrid.world.igenerated.random.point;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
 
 import java.util.Random;
 
-public class NormalPoint implements IRandom<ChunkCoordinates> {
+public class NormalPoint extends RandomPoint {
     
     private ChunkCoordinates mean;
     private double standardDeviationX;
@@ -21,15 +20,15 @@ public class NormalPoint implements IRandom<ChunkCoordinates> {
 
     @Override
     public ChunkCoordinates next(Random random) {
-        int x = mean.posX;
-        int y = mean.posY;
-        int z = mean.posZ;
+        double x = mean.posX;
+        double y = mean.posY;
+        double z = mean.posZ;
         if(standardDeviationX != 0)
-            x += standardDeviationX * random.nextGaussian() + .5;
+            x += standardDeviationX * random.nextGaussian();
         if(standardDeviationY != 0)
-            y += standardDeviationY * random.nextGaussian() + .5;
+            y += standardDeviationY * random.nextGaussian();
         if(standardDeviationZ != 0)
-            z += standardDeviationZ * random.nextGaussian() + .5;
-        return new ChunkCoordinates(x, y, z);
+            z += standardDeviationZ * random.nextGaussian();
+        return round(x, y, z);
     }
 }

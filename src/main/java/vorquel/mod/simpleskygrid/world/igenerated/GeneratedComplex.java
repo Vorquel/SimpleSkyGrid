@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class GeneratedComplex implements IGeneratedObject {
 
-    protected HashMap<ChunkCoordinates, IGeneratedObject> generationMap = new HashMap<>();
+    private HashMap<ChunkCoordinates, IGeneratedObject> generationMap = new HashMap<>();
 
     public IGeneratedObject put(ChunkCoordinates key, IGeneratedObject value) {
         return generationMap.put(key, value);

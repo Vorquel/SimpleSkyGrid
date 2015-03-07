@@ -618,7 +618,7 @@
       {
         "object": {
           "type": "entity",
-          "name": "minecraft:end_dragon"
+          "name": "EnderDragon"
         },
         "count": 1,
         "location": {
