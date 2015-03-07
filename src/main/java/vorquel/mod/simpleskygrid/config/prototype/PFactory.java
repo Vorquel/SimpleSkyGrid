@@ -8,6 +8,8 @@ import vorquel.mod.simpleskygrid.config.prototype.count.PNormalCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PSingleCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PUniformCount;
 import vorquel.mod.simpleskygrid.config.prototype.generation.PBlock;
+import vorquel.mod.simpleskygrid.config.prototype.generation.PEndCrystal;
+import vorquel.mod.simpleskygrid.config.prototype.generation.PEndPortal;
 import vorquel.mod.simpleskygrid.config.prototype.generation.PEntity;
 import vorquel.mod.simpleskygrid.config.prototype.point.PCirclePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PNormalPoint;
@@ -30,9 +32,10 @@ public class PFactory {
         }
         String type = jsonReader.nextString();
         switch (type) {
-            case "label":  prototype = new PLabel<>(jsonReader);  break;
-            case "block":  prototype = new PBlock(jsonReader);    break;
-            case "entity": prototype = new PEntity(jsonReader);   break;
+            case "label":   prototype = new PLabel<>(jsonReader);  break;
+            case "block":   prototype = new PBlock(jsonReader);    break;
+            case "entity":  prototype = new PEntity(jsonReader);   break;
+            case "special": prototype = readSpecial(jsonReader);   break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown generation type %s in config file", type));
                 while (jsonReader.hasNext()) {
@@ -41,6 +44,27 @@ public class PFactory {
                 }
         }
         jsonReader.endObject();
+        return prototype;
+    }
+
+    private static IPrototype<IGeneratedObject> readSpecial(JsonReader jsonReader) throws IOException {
+        IPrototype<IGeneratedObject> prototype = PNull.generatedObject;
+        String NAME = jsonReader.nextName();
+        if(!NAME.equals("name")) {
+            SimpleSkyGrid.logger.fatal(String.format("\"name\" expected in config file, found \"%s\"", NAME));
+            throw new RuntimeException(String.format("\"name\" expected in config file, found \"%s\"", NAME));
+        }
+        String type = jsonReader.nextString();
+        switch (type) {
+            case "end_portal":  prototype = new PEndPortal(jsonReader);  break;
+            case "end_crystal": prototype = new PEndCrystal(jsonReader); break;
+            default:
+                SimpleSkyGrid.logger.warn(String.format("Unknown special type %s in config file", type));
+                while (jsonReader.hasNext()) {
+                    jsonReader.nextName();
+                    jsonReader.skipValue();
+                }
+        }
         return prototype;
     }
 

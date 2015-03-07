@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class PNormalCount extends Prototype<IRandom<Integer>> {
 
-    private double mean = Double.NaN;
-    private double standardDeviation = 1;
+    private Double mean;
+    private Double standardDeviation;
 
     public PNormalCount(JsonReader jsonReader) throws IOException {
         super(jsonReader);
@@ -30,7 +30,7 @@ public class PNormalCount extends Prototype<IRandom<Integer>> {
 
     @Override
     public boolean isComplete() {
-        return !Double.isNaN(mean);
+        return mean != null && standardDeviation != null;
     }
 
     @Override

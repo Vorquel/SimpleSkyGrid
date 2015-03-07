@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class PUniformCount extends Prototype<IRandom<Integer>> {
 
-    private Integer left;
-    private Integer right;
+    private Integer min;
+    private Integer max;
 
     public PUniformCount(JsonReader jsonReader) throws IOException {
         super(jsonReader);
@@ -20,8 +20,8 @@ public class PUniformCount extends Prototype<IRandom<Integer>> {
     @Override
     protected void readLabel(JsonReader jsonReader, String label) throws IOException {
         switch(label) {
-            case "left": left = jsonReader.nextInt(); break;
-            case "right": right = jsonReader.nextInt(); break;
+            case "min": min = jsonReader.nextInt(); break;
+            case "max": max = jsonReader.nextInt(); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown label %s in count definition in config file", label));
                 jsonReader.skipValue();
@@ -30,11 +30,11 @@ public class PUniformCount extends Prototype<IRandom<Integer>> {
 
     @Override
     public boolean isComplete() {
-        return left != null && right != null;
+        return min != null && max != null;
     }
 
     @Override
     public IRandom<Integer> getObject() {
-        return new UniformCount(left, right);
+        return new UniformCount(min, max);
     }
 }

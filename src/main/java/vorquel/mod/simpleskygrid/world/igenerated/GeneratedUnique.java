@@ -2,7 +2,6 @@ package vorquel.mod.simpleskygrid.world.igenerated;
 
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
 
 import java.util.Random;
@@ -19,6 +18,10 @@ public class GeneratedUnique implements IGeneratedObject {
         this.locationSource = locationSource;
     }
 
+    public IGeneratedObject getGeneratedObject() {
+        return generatedObject;
+    }
+
     public int getCount(Random random) {
         return countSource.next(random);
     }
@@ -28,7 +31,7 @@ public class GeneratedUnique implements IGeneratedObject {
     }
 
     @Override
-    public void provideObject(Random random, World world, Chunk chunk, int x, int y, int z) {
-        generatedObject.provideObject(random, world, chunk, z, y, z);
+    public void provideObject(Random random, World world, int x, int y, int z) {
+        generatedObject.provideObject(random, world, z, y, z);
     }
 }

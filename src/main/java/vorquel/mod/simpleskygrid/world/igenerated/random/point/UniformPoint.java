@@ -14,7 +14,7 @@ public class UniformPoint implements IRandom<ChunkCoordinates> {
     private int rangeY;
     private int rangeZ;
 
-    public UniformPoint(int lx, int rx, int ly, int ry, int lz, int rz) {
+    public UniformPoint(int lx, int ly, int lz, int rx, int ry, int rz) {
         startX = Math.min(lx, rx);
         startY = Math.min(ly, ry);
         startZ = Math.min(lz, rz);

@@ -11,13 +11,15 @@
   "dim-1": {
     "height": 128,
     "generation": "nether",
+    "unique_gen": "nether",
     "loot_placement": "nether"
   },
   "dim1": {
     "height": 128,
     "radius": 16,
     "generation": "end",
-    "unique_gen": "end"
+    "unique_gen": "end",
+    "loot_placement": "end"
   },
   "generation": {
     "overworld": [
@@ -591,12 +593,17 @@
       {
         "object": {
           "type": "special",
-          "name": "end_portal"
+          "name": "end_portal",
+          "mean_filled_frames": 3
         },
-        "count": 1,
+        "count": {
+          "type": "uniform",
+          "min": 1,
+          "max": 3
+        },
         "location": {
           "type": "circle",
-          "orientation": "y",
+          "axis": "y",
           "radius": 1000,
           "center": {
             "x": 0,
@@ -606,6 +613,7 @@
         }
       }
     ],
+    "nether": [],
     "end": [
       {
         "object": {
@@ -627,16 +635,19 @@
           "type": "special",
           "name": "end_crystal"
         },
-        "count": 20,
+        "count": {
+          "type": "normal",
+          "mean": 25,
+          "standard_deviation": 3
+        },
         "location": {
           "type": "uniform",
-          "orientation": "y",
-          "radius": 20,
-          "center": {
-            "x": 0,
-            "y": 124,
-            "z": 0
-          }
+          "min_x": -100,
+          "max_x": 100,
+          "min_y": 124,
+          "max_y": 124,
+          "min_z": -100,
+          "max_z": 100
         }
       }
     ]
