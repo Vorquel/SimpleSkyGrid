@@ -13,9 +13,9 @@ import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.RandomList;
 import vorquel.mod.simpleskygrid.helper.Ref;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEndPortal;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedUnique;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedEndPortal;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedUnique;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

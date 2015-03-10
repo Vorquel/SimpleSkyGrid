@@ -1,6 +1,6 @@
-package vorquel.mod.simpleskygrid.world.igenerated.random.count;
+package vorquel.mod.simpleskygrid.world.generated.random.count;
 
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
 import java.util.Random;
 

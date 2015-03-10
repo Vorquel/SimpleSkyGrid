@@ -1,7 +1,7 @@
 package vorquel.mod.simpleskygrid.config;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
 public class UniqueQuantity {
 

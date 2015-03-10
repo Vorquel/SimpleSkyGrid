@@ -5,10 +5,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedBlock;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedComplex;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEntity;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedComplex;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.io.IOException;
 

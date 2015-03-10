@@ -7,7 +7,7 @@ import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
 import vorquel.mod.simpleskygrid.config.prototype.PNull;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;

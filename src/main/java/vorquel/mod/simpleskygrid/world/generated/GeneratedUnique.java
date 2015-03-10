@@ -1,8 +1,8 @@
-package vorquel.mod.simpleskygrid.world.igenerated;
+package vorquel.mod.simpleskygrid.world.generated;
 
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
 import java.util.Random;
 

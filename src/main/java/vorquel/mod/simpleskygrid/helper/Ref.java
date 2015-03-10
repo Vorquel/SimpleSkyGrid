@@ -9,8 +9,8 @@ import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PLabel;
 import vorquel.mod.simpleskygrid.item.Identifier;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedUnique;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedUnique;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

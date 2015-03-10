@@ -1,8 +1,8 @@
 package vorquel.mod.simpleskygrid.config.prototype;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
 public class PNull<T> implements IPrototype<T> {
 

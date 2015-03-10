@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.world.igenerated.random.point;
+package vorquel.mod.simpleskygrid.world.generated.random.point;
 
 import net.minecraft.util.ChunkCoordinates;
 

@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.world.igenerated.random;
+package vorquel.mod.simpleskygrid.world.generated.random;
 
 import java.util.Random;
 

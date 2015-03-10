@@ -3,8 +3,8 @@ package vorquel.mod.simpleskygrid.config.prototype.generation;
 import com.google.gson.stream.JsonReader;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEndPortal;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedEndPortal;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.io.IOException;
 

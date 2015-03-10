@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.world.igenerated;
+package vorquel.mod.simpleskygrid.world.generated;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

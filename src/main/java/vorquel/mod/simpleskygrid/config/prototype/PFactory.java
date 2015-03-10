@@ -15,8 +15,8 @@ import vorquel.mod.simpleskygrid.config.prototype.point.PCirclePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PNormalPoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PSinglePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PUniformPoint;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
 import java.io.IOException;
 

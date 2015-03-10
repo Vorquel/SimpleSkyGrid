@@ -3,8 +3,8 @@ package vorquel.mod.simpleskygrid.config.prototype.point;
 import com.google.gson.stream.JsonReader;
 import net.minecraft.util.ChunkCoordinates;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
-import vorquel.mod.simpleskygrid.world.igenerated.random.point.NormalPoint;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.random.point.NormalPoint;
 
 import java.io.IOException;
 

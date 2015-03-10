@@ -6,8 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
-import vorquel.mod.simpleskygrid.world.igenerated.GeneratedEntity;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.io.IOException;
 

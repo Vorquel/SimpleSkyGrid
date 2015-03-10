@@ -2,8 +2,8 @@ package vorquel.mod.simpleskygrid.config.prototype.count;
 
 import com.google.gson.stream.JsonReader;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
-import vorquel.mod.simpleskygrid.world.igenerated.random.IRandom;
-import vorquel.mod.simpleskygrid.world.igenerated.random.SingleValue;
+import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.generated.random.SingleValue;
 
 import java.io.IOException;
 
