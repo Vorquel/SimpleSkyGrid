@@ -8,6 +8,7 @@ import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
 import vorquel.mod.simpleskygrid.config.prototype.PNull;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +22,7 @@ public class Config {
     public static HashMap<Integer, DimensionProperties> dimensionPropertiesMap = new HashMap<>();
     public static ConfigDataMap<IPrototype<IGeneratedObject>, Double> generationData = new ConfigDataMap<>();
     public static ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
+    public static LootLocationData lootLocationData = new LootLocationData();
 
     public static void loadConfigs() {
         File configHome = new File(Loader.instance().getConfigDir(), "SimpleSkyGrid");
@@ -165,7 +167,37 @@ public class Config {
     }
 
     private static void readLootPlacement(JsonReader jsonReader) throws IOException {
-        jsonReader.skipValue();
+        jsonReader.beginObject();
+        while(jsonReader.hasNext()) {
+            String label = jsonReader.nextName();
+            jsonReader.beginArray();
+            while(jsonReader.hasNext()) {
+                jsonReader.beginObject();
+                String TARGET = jsonReader.nextName();
+                if(!TARGET.equals("target")) {
+                    SimpleSkyGrid.logger.fatal(String.format("\"target\" expected in config file, found \"%s\"", TARGET));
+                    throw new RuntimeException(String.format("\"target\" expected in config file, found \"%s\"", TARGET));
+                }
+                IPrototype<IGeneratedObject> target = PFactory.readGeneratedObject(jsonReader);
+                String LOOT = jsonReader.nextName();
+                if(!LOOT.equals("loot")) {
+                    SimpleSkyGrid.logger.fatal(String.format("\"loot\" expected in config file, found \"%s\"", LOOT));
+                    throw new RuntimeException(String.format("\"loot\" expected in config file, found \"%s\"", LOOT));
+                }
+                jsonReader.beginArray();
+                while(jsonReader.hasNext()) {
+                    String innerLabel = jsonReader.nextName();
+                    IPrototype<ILootSource> lootSource = PNull.lootSource;
+                    double weight = 0;
+                    switch(innerLabel) {
+                        case "object": lootSource = PFactory.readLootSource(jsonReader); break;
+                        case "weight": weight = readWeight(jsonReader);
+                    }
+                    if(lootSource.isComplete() && weight > 0)
+                        lootLocationData.put(label, target, lootSource, weight);
+                }
+            }
+        }
     }
 
     private static void readLoot(JsonReader jsonReader) throws IOException {

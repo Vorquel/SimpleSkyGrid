@@ -661,27 +661,35 @@
         },
         "loot": [
           {
-            "type": "native",
-            "subtype": "chest",
-            "name": "dungeonChest",
+            "object": {
+              "type": "native",
+              "subtype": "chest",
+              "name": "dungeonChest"
+            },
             "weight": 5
           },
           {
-            "type": "native",
-            "subtype": "chest",
-            "name": "mineshaftCorridor",
+            "object": {
+              "type": "native",
+              "subtype": "chest",
+              "name": "mineshaftCorridor"
+            },
             "weight": 2
           },
           {
-            "type": "native",
-            "subtype": "chest",
-            "name": "pyramidDesertyChest",
+            "object": {
+              "type": "native",
+              "subtype": "chest",
+              "name": "pyramidDesertyChest"
+            },
             "weight": 1
           },
           {
-            "type": "native",
-            "subtype": "chest",
-            "name": "pyramidJungleChest",
+            "object": {
+              "type": "native",
+              "subtype": "chest",
+              "name": "pyramidJungleChest"
+            },
             "weight": 1
           }
         ]

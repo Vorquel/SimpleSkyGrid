@@ -17,6 +17,7 @@ import vorquel.mod.simpleskygrid.config.prototype.point.PSinglePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PUniformPoint;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
+import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
 import java.io.IOException;
 
@@ -118,5 +119,9 @@ public class PFactory {
         }
         jsonReader.endObject();
         return prototype;
+    }
+
+    public static IPrototype<ILootSource> readLootSource(JsonReader jsonReader) throws IOException {
+        return PNull.lootSource; //todo
     }
 }
