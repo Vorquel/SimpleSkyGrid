@@ -1,15 +1,13 @@
 package vorquel.mod.simpleskygrid.config.prototype;
 
-import com.google.gson.stream.JsonReader;
-
-import java.io.IOException;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 
 public abstract class Prototype<T> implements IPrototype<T> {
 
-    public Prototype(JsonReader jsonReader) throws IOException {
-        while(jsonReader.hasNext())
-            readLabel(jsonReader, jsonReader.nextName());
+    public Prototype(SimpleSkyGridConfigReader reader) {
+        while(reader.hasNext())
+            readLabel(reader, reader.nextName());
     }
 
-    protected abstract void readLabel(JsonReader jsonReader, String label) throws IOException;
+    protected abstract void readLabel(SimpleSkyGridConfigReader reader, String label);
 }

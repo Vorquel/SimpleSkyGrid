@@ -1,33 +1,31 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import com.google.gson.stream.JsonReader;
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
-
-import java.io.IOException;
 
 public class PEntity extends Prototype<IGeneratedObject> {
 
     private String name;
     private NBTTagCompound nbt;
 
-    public PEntity(JsonReader jsonReader) throws IOException {
-        super(jsonReader);
+    public PEntity(SimpleSkyGridConfigReader reader) {
+        super(reader);
     }
 
     @Override
-    protected void readLabel(JsonReader jsonReader, String label) throws IOException {
+    protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "name": name = jsonReader.nextString();  break;
-            case "nbt": nbt = NBT2JSON.toNBT(jsonReader); break;
+            case "name": name = reader.nextString();  break;
+            case "nbt": nbt = NBT2JSON.toNBT(reader); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown label %s in entity definition in config file", label));
-                jsonReader.skipValue();
+                reader.skipValue();
         }
     }
 

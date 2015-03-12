@@ -1,24 +1,22 @@
 package vorquel.mod.simpleskygrid.config.prototype;
 
-import com.google.gson.stream.JsonReader;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
-
-import java.io.IOException;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 
 public class PLabel<T> extends Prototype<T> {
 
     public Subtype subtype;
     public String name;
 
-    public PLabel(JsonReader jsonReader) throws IOException {
-        super(jsonReader);
+    public PLabel(SimpleSkyGridConfigReader reader) {
+        super(reader);
     }
 
     @Override
-    protected void readLabel(JsonReader jsonReader, String label) throws IOException {
+    protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
             case "subtype":
-                String subtype = jsonReader.nextString();
+                String subtype = reader.nextString();
                 try {
                     this.subtype = Subtype.valueOf(subtype);
                 } catch(EnumConstantNotPresentException e) {
@@ -26,10 +24,10 @@ public class PLabel<T> extends Prototype<T> {
                     throw new RuntimeException(String.format("Unknown subtype encountered in config file: %s", subtype));
                 }
                 break;
-            case "name": name = jsonReader.nextString(); break;
+            case "name": name = reader.nextString(); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown label %s in block definition in config file", name));
-                jsonReader.skipValue();
+                reader.skipValue();
         }
     }
 

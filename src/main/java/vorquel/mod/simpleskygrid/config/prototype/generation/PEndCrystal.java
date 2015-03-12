@@ -1,26 +1,25 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import com.google.gson.stream.JsonReader;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedComplex;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
-import java.io.IOException;
-
 public class PEndCrystal extends Prototype<IGeneratedObject> {
-    public PEndCrystal(JsonReader jsonReader) throws IOException {
-        super(jsonReader);
+
+    public PEndCrystal(SimpleSkyGridConfigReader reader) {
+        super(reader);
     }
 
     @Override
-    protected void readLabel(JsonReader jsonReader, String label) throws IOException {
+    protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         SimpleSkyGrid.logger.warn("What are you doing? End crystals have no extra data.");
-        jsonReader.skipValue();
+        reader.skipValue();
     }
 
     @Override

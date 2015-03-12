@@ -1,11 +1,11 @@
 package vorquel.mod.simpleskygrid.helper;
 
-import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.*;
 import org.apache.commons.io.output.StringBuilderWriter;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class NBT2JSON {
         return sbw.toString();
     }
 
-    public static NBTTagCompound toNBT(JsonReader jr) throws IOException {
+    public static NBTTagCompound toNBT(SimpleSkyGridConfigReader jr) {
         return readCompound(jr);
     }
 
@@ -128,7 +128,7 @@ public class NBT2JSON {
             return tagPrefix(((List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a")).get(0));
     }
 
-    private static NBTTagCompound readCompound(JsonReader jr) throws IOException {
+    private static NBTTagCompound readCompound(SimpleSkyGridConfigReader jr) {
         NBTTagCompound nbt = new NBTTagCompound();
         jr.beginObject();
         while(jr.hasNext()) {
@@ -138,7 +138,7 @@ public class NBT2JSON {
         return nbt;
     }
 
-    private static void readTag(JsonReader jr, NBTTagCompound nbt) throws IOException {
+    private static void readTag(SimpleSkyGridConfigReader jr, NBTTagCompound nbt) {
         NBTBase tag;
         String label = jr.nextName();
         switch(label.substring(0, 2)) {
@@ -163,7 +163,7 @@ public class NBT2JSON {
         nbt.setTag(label.substring(2), tag);
     }
 
-    private static NBTTagByte readByte(JsonReader jr) throws IOException {
+    private static NBTTagByte readByte(SimpleSkyGridConfigReader jr) {
         long expected = jr.nextLong();
         byte actual = (byte) expected;
         if(expected != actual) {
@@ -173,7 +173,7 @@ public class NBT2JSON {
         return new NBTTagByte(actual);
     }
 
-    private static NBTTagShort readShort(JsonReader jr) throws IOException {
+    private static NBTTagShort readShort(SimpleSkyGridConfigReader jr) {
         long expected = jr.nextLong();
         short actual = (short) expected;
         if(expected != actual) {
@@ -183,7 +183,7 @@ public class NBT2JSON {
         return new NBTTagShort(actual);
     }
 
-    private static NBTTagInt readInt(JsonReader jr) throws IOException {
+    private static NBTTagInt readInt(SimpleSkyGridConfigReader jr) {
         long expected = jr.nextLong();
         int actual = (int) expected;
         if(expected != actual) {
@@ -193,11 +193,11 @@ public class NBT2JSON {
         return new NBTTagInt(actual);
     }
 
-    private static NBTTagLong readLong(JsonReader jr) throws IOException {
+    private static NBTTagLong readLong(SimpleSkyGridConfigReader jr) {
         return new NBTTagLong(jr.nextLong());
     }
 
-    private static NBTTagFloat readFloat(JsonReader jr) throws IOException {
+    private static NBTTagFloat readFloat(SimpleSkyGridConfigReader jr) {
         double expected = jr.nextDouble();
         float actual = (float) expected;
         if(expected != actual) {
@@ -207,11 +207,11 @@ public class NBT2JSON {
         return new NBTTagFloat(actual);
     }
 
-    private static NBTBase readDouble(JsonReader jr) throws IOException {
+    private static NBTBase readDouble(SimpleSkyGridConfigReader jr) {
         return new NBTTagDouble(jr.nextDouble());
     }
 
-    private static NBTTagByteArray readByteArray(JsonReader jr) throws IOException {
+    private static NBTTagByteArray readByteArray(SimpleSkyGridConfigReader jr) {
         ArrayList<Byte> byteList = new ArrayList<>();
         jr.beginArray();
         while(jr.hasNext()) {
@@ -230,7 +230,7 @@ public class NBT2JSON {
         return new NBTTagByteArray(bytes);
     }
 
-    private static NBTTagIntArray readIntArray(JsonReader jr) throws IOException {
+    private static NBTTagIntArray readIntArray(SimpleSkyGridConfigReader jr) {
         ArrayList<Integer> intList = new ArrayList<>();
         jr.beginArray();
         while(jr.hasNext()) {
@@ -249,11 +249,11 @@ public class NBT2JSON {
         return new NBTTagIntArray(ints);
     }
 
-    private static NBTTagString readString(JsonReader jr) throws IOException {
+    private static NBTTagString readString(SimpleSkyGridConfigReader jr) {
         return new NBTTagString(jr.nextString());
     }
 
-    private static NBTTagList readList(JsonReader jr, String label) throws IOException {
+    private static NBTTagList readList(SimpleSkyGridConfigReader jr, String label) {
         String prefix = label.substring(2, 4);
         NBTTagList list = new NBTTagList();
         jr.beginArray();

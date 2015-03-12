@@ -1,8 +1,5 @@
 package vorquel.mod.simpleskygrid.config;
 
-import com.google.gson.stream.JsonReader;
-import cpw.mods.fml.common.Loader;
-import org.apache.commons.io.FileUtils;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
@@ -10,11 +7,6 @@ import vorquel.mod.simpleskygrid.config.prototype.PNull;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 
 public class Config {
@@ -25,83 +17,53 @@ public class Config {
     public static LootLocationData lootLocationData = new LootLocationData();
 
     public static void loadConfigs() {
-        File configHome = new File(Loader.instance().getConfigDir(), "SimpleSkyGrid");
-        if(!configHome.exists() && !configHome.mkdir()) {
-            SimpleSkyGrid.logger.fatal("Unable to create config directory");
-            throw new RuntimeException("Unable to create config directory");
-        }
-        File config = new File(configHome, "SimpleSkyGrid.json");
-        String configName = "SimpleSkyGrid.json";
-        if(!config.exists()) {
-            String configHomeDir = "/assets/simpleskygrid/config/";
-            URL configURL = Config.class.getResource(configHomeDir+configName);
-            try {
-                FileUtils.copyURLToFile(configURL, config);
-            } catch (IOException e) {
-                SimpleSkyGrid.logger.fatal("Unable to copy config file: " + configName);
-                SimpleSkyGrid.logger.fatal(e.getMessage());
-                throw new RuntimeException("Unable to copy config file: " + configName + "\n" + e.getMessage());
+        SimpleSkyGridConfigReader reader = new SimpleSkyGridConfigReader("SimpleSkyGrid");
+        reader.beginObject();
+        while(reader.hasNext()) {
+            String name = reader.nextName();
+            switch(name) {
+                case "generation":     readGeneration(reader);    break;
+                case "unique_gen":     readUniqueGen(reader);     break;
+                case "loot_placement": readLootPlacement(reader); break;
+                case "loot":           readLoot(reader);          break;
+                default:
+                    if(name.startsWith("dim"))
+                        readDimension(reader, name);
+                    else {
+                        reader.unknownOnce("label " + name, "top level objects");
+                    }
             }
         }
-        try {
-            JsonReader jsonReader = new JsonReader(new FileReader(config));
-            jsonReader.setLenient(true);
-            jsonReader.beginObject();
-            while(jsonReader.hasNext()) {
-                String name = jsonReader.nextName();
-                switch(name) {
-                    case "generation":     readGeneration(jsonReader);    break;
-                    case "unique_gen":     readUniqueGen(jsonReader);     break;
-                    case "loot_placement": readLootPlacement(jsonReader); break;
-                    case "loot":           readLoot(jsonReader);          break;
-                    default:
-                        if(name.startsWith("dim"))
-                            readDimension(jsonReader, name);
-                        else {
-                            SimpleSkyGrid.logger.warn(String.format("Unknown label %s in config file %s", name, configName));
-                            jsonReader.skipValue();
-                        }
-                }
-            }
-            jsonReader.endObject();
-            jsonReader.close();
-        } catch (FileNotFoundException e) {
-            SimpleSkyGrid.logger.fatal("Unable to load config file: " + configName);
-            SimpleSkyGrid.logger.fatal(e.getMessage());
-            throw new RuntimeException("Unable to load config file: " + configName + "\n" + e.getMessage());
-        } catch (IOException e) {
-            SimpleSkyGrid.logger.fatal("Problem reading config file: " + configName);
-            SimpleSkyGrid.logger.fatal(e.getMessage());
-            throw new RuntimeException("Problem reading config file: " + configName + "\n" + e.getMessage());
-        }
+        reader.endObject();
+        reader.close();
     }
 
-    private static void readDimension(JsonReader jsonReader, String dimName) throws IOException {
+    private static void readDimension(SimpleSkyGridConfigReader reader, String dimName) {
         int dim;
         try {
             dim = Integer.decode(dimName.substring(3));
         } catch(NumberFormatException e) {
             SimpleSkyGrid.logger.warn(String.format("Unknown label %s in config file", dimName));
-            jsonReader.skipValue();
+            reader.skipValue();
             return;
         }
         DimensionProperties prop = new DimensionProperties();
-        jsonReader.beginObject();
-        while(jsonReader.hasNext()) {
-            String name = jsonReader.nextName();
+        reader.beginObject();
+        while(reader.hasNext()) {
+            String name = reader.nextName();
             switch(name) {
-                case "height":         prop.height             = jsonReader.nextInt();    break;
-                case "radius":         prop.radius             = jsonReader.nextInt();    break;
-                case "spawn_height":   prop.spawnHeight        = jsonReader.nextInt();    break;
-                case "generation":     prop.generationLabel    = jsonReader.nextString(); break;
-                case "unique_gen":     prop.uniqueGenLabel     = jsonReader.nextString(); break;
-                case "loot_placement": prop.lootPlacementLabel = jsonReader.nextString(); break;
+                case "height":         prop.height             = reader.nextInt();    break;
+                case "radius":         prop.radius             = reader.nextInt();    break;
+                case "spawn_height":   prop.spawnHeight        = reader.nextInt();    break;
+                case "generation":     prop.generationLabel    = reader.nextString(); break;
+                case "unique_gen":     prop.uniqueGenLabel     = reader.nextString(); break;
+                case "loot_placement": prop.lootPlacementLabel = reader.nextString(); break;
                 default:
                     SimpleSkyGrid.logger.warn(String.format("Unknown label %s in config file", name));
-                    jsonReader.skipValue();
+                    reader.skipValue();
             }
         }
-        jsonReader.endObject();
+        reader.endObject();
         if(prop.height == -1 || prop.generationLabel == null) {
             SimpleSkyGrid.logger.fatal(String.format("Underspecified dimension %d in config file", dim));
             throw new RuntimeException(String.format("Underspecified dimension %d in config file", dim));
@@ -109,103 +71,105 @@ public class Config {
         dimensionPropertiesMap.put(dim, prop);
     }
 
-    private static void readGeneration(JsonReader jsonReader) throws IOException {
-        jsonReader.beginObject();
-        while(jsonReader.hasNext()) {
-            String label = jsonReader.nextName();
-            jsonReader.beginArray();
-            while(jsonReader.hasNext()) {
-                jsonReader.beginObject();
+    private static void readGeneration(SimpleSkyGridConfigReader reader) {
+        reader.beginObject();
+        while(reader.hasNext()) {
+            String label = reader.nextName();
+            reader.beginArray();
+            while(reader.hasNext()) {
+                reader.beginObject();
                 IPrototype<IGeneratedObject> prototype = PNull.generatedObject;
                 double weight = 0;
-                while(jsonReader.hasNext()) {
-                    String innerLabel = jsonReader.nextName();
+                while(reader.hasNext()) {
+                    String innerLabel = reader.nextName();
                     switch(innerLabel) {
-                        case "object": prototype = PFactory.readGeneratedObject(jsonReader); break;
-                        case "weight": weight    = readWeight(jsonReader);                     break;
+                        case "object": prototype = PFactory.readGeneratedObject(reader); break;
+                        case "weight": weight    = readWeight(reader);                   break;
                         default:
                             SimpleSkyGrid.logger.warn(String.format("Unknown generation label %s in config file", innerLabel));
-                            jsonReader.skipValue();
+                            reader.skipValue();
                     }
                 }
                 if(prototype.isComplete() && weight > 0)
                     generationData.put(label, prototype, weight);
-                jsonReader.endObject();
+                reader.endObject();
             }
-            jsonReader.endArray();
+            reader.endArray();
         }
-        jsonReader.endObject();
+        reader.endObject();
     }
 
-    private static void readUniqueGen(JsonReader jsonReader) throws IOException {
-        jsonReader.beginObject();
-        while(jsonReader.hasNext()) {
-            String label = jsonReader.nextName();
-            jsonReader.beginArray();
-            while(jsonReader.hasNext()) {
-                jsonReader.beginObject();
+    private static void readUniqueGen(SimpleSkyGridConfigReader reader) {
+        reader.beginObject();
+        while(reader.hasNext()) {
+            String label = reader.nextName();
+            reader.beginArray();
+            while(reader.hasNext()) {
+                reader.beginObject();
                 IPrototype<IGeneratedObject> prototype = PNull.generatedObject;
                 UniqueQuantity quantity = new UniqueQuantity();
-                while(jsonReader.hasNext()) {
-                    String innerLabel = jsonReader.nextName();
+                while(reader.hasNext()) {
+                    String innerLabel = reader.nextName();
                     switch(innerLabel) {
-                        case "object":   prototype = PFactory.readGeneratedObject(jsonReader); break;
-                        case "count":    quantity.countSource = PFactory.readCount(jsonReader).getObject(); break;
-                        case "location": quantity.pointSource = PFactory.readPoint(jsonReader).getObject(); break;
+                        case "object":   prototype = PFactory.readGeneratedObject(reader); break;
+                        case "count":    quantity.countSource = PFactory.readCount(reader).getObject(); break;
+                        case "location": quantity.pointSource = PFactory.readPoint(reader).getObject(); break;
                         default:
                             SimpleSkyGrid.logger.warn(String.format("Unknown uniqueGen label %s in config file", innerLabel));
-                            jsonReader.skipValue();
+                            reader.skipValue();
                     }
                 }
                 if(prototype.isComplete() && quantity.isComplete())
                     uniqueGenData.put(label, prototype, quantity);
-                jsonReader.endObject();
+                reader.endObject();
             }
-            jsonReader.endArray();
+            reader.endArray();
         }
-        jsonReader.endObject();
+        reader.endObject();
     }
 
-    private static void readLootPlacement(JsonReader jsonReader) throws IOException {
-        jsonReader.beginObject();
-        while(jsonReader.hasNext()) {
-            String label = jsonReader.nextName();
-            jsonReader.beginArray();
-            while(jsonReader.hasNext()) {
-                jsonReader.beginObject();
-                String TARGET = jsonReader.nextName();
+    private static void readLootPlacement(SimpleSkyGridConfigReader reader) {
+        reader.beginObject();
+        while(reader.hasNext()) {
+            String label = reader.nextName();
+            reader.beginArray();
+            while(reader.hasNext()) {
+                reader.beginObject();
+                String TARGET = reader.nextName();
                 if(!TARGET.equals("target")) {
                     SimpleSkyGrid.logger.fatal(String.format("\"target\" expected in config file, found \"%s\"", TARGET));
                     throw new RuntimeException(String.format("\"target\" expected in config file, found \"%s\"", TARGET));
                 }
-                IPrototype<IGeneratedObject> target = PFactory.readGeneratedObject(jsonReader);
-                String LOOT = jsonReader.nextName();
+                IPrototype<IGeneratedObject> target = PFactory.readGeneratedObject(reader);
+                String LOOT = reader.nextName();
                 if(!LOOT.equals("loot")) {
                     SimpleSkyGrid.logger.fatal(String.format("\"loot\" expected in config file, found \"%s\"", LOOT));
                     throw new RuntimeException(String.format("\"loot\" expected in config file, found \"%s\"", LOOT));
                 }
-                jsonReader.beginArray();
-                while(jsonReader.hasNext()) {
-                    String innerLabel = jsonReader.nextName();
+                reader.beginArray();
+                while(reader.hasNext()) {
+                    String innerLabel = reader.nextName();
                     IPrototype<ILootSource> lootSource = PNull.lootSource;
                     double weight = 0;
                     switch(innerLabel) {
-                        case "object": lootSource = PFactory.readLootSource(jsonReader); break;
-                        case "weight": weight = readWeight(jsonReader);
+                        case "object": lootSource = PFactory.readLootSource(reader); break;
+                        case "weight": weight = readWeight(reader);
                     }
                     if(lootSource.isComplete() && weight > 0)
                         lootLocationData.put(label, target, lootSource, weight);
                 }
+                reader.endArray();
             }
+            reader.endArray();
         }
     }
 
-    private static void readLoot(JsonReader jsonReader) throws IOException {
-        jsonReader.skipValue();
+    private static void readLoot(SimpleSkyGridConfigReader reader) {
+        reader.skipValue();
     }
 
-    private static double readWeight(JsonReader jsonReader) throws IOException {
-        double weight = jsonReader.nextDouble();
+    private static double readWeight(SimpleSkyGridConfigReader reader) {
+        double weight = reader.nextDouble();
         if(weight < 0) {
             SimpleSkyGrid.logger.error("Negative weight in config file");
             weight = 0;

@@ -1,30 +1,28 @@
 package vorquel.mod.simpleskygrid.config.prototype.count;
 
-import com.google.gson.stream.JsonReader;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 import vorquel.mod.simpleskygrid.world.generated.random.count.UniformCount;
-
-import java.io.IOException;
 
 public class PUniformCount extends Prototype<IRandom<Integer>> {
 
     private Integer min;
     private Integer max;
 
-    public PUniformCount(JsonReader jsonReader) throws IOException {
+    public PUniformCount(SimpleSkyGridConfigReader jsonReader) {
         super(jsonReader);
     }
 
     @Override
-    protected void readLabel(JsonReader jsonReader, String label) throws IOException {
+    protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "min": min = jsonReader.nextInt(); break;
-            case "max": max = jsonReader.nextInt(); break;
+            case "min": min = reader.nextInt(); break;
+            case "max": max = reader.nextInt(); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown label %s in count definition in config file", label));
-                jsonReader.skipValue();
+                reader.skipValue();
         }
     }
 

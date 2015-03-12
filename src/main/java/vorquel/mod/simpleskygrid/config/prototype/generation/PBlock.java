@@ -1,17 +1,15 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import com.google.gson.stream.JsonReader;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
-
-import java.io.IOException;
 
 public class PBlock extends Prototype<IGeneratedObject> {
 
@@ -19,25 +17,25 @@ public class PBlock extends Prototype<IGeneratedObject> {
     public int meta = 0;
     public NBTTagCompound nbt;
 
-    public PBlock(JsonReader jsonReader) throws IOException {
-        super(jsonReader);
+    public PBlock(SimpleSkyGridConfigReader reader) {
+        super(reader);
     }
 
     @Override
-    protected void readLabel(JsonReader jsonReader, String label) throws IOException {
+    protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "name": name = jsonReader.nextString(); break;
+            case "name": name = reader.nextString(); break;
             case "meta":
-                meta = jsonReader.nextInt();
+                meta = reader.nextInt();
                 if(meta < 0 || meta > 15) {
                     SimpleSkyGrid.logger.warn(String.format("Invalid metadata value %d found, assuming 0", meta));
                     meta = 0;
                 }
                 break;
-            case "nbt": nbt = NBT2JSON.toNBT(jsonReader); break;
+            case "nbt": nbt = NBT2JSON.toNBT(reader); break;
             default:
                 SimpleSkyGrid.logger.warn(String.format("Unknown label %s in block definition in config file", label));
-                jsonReader.skipValue();
+                reader.skipValue();
         }
     }
 
