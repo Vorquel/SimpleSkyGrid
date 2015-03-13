@@ -1,6 +1,5 @@
 package vorquel.mod.simpleskygrid.config.prototype.count;
 
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
@@ -20,9 +19,7 @@ public class PUniformCount extends Prototype<IRandom<Integer>> {
         switch(label) {
             case "min": min = reader.nextInt(); break;
             case "max": max = reader.nextInt(); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in count definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "uniform count definition");
         }
     }
 

@@ -1,7 +1,6 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 import vorquel.mod.simpleskygrid.world.generated.random.point.NormalPoint;
@@ -24,9 +23,7 @@ public class PNormalPoint extends PPoint {
             case "standard_deviation_x": standardDeviationX = reader.nextDouble(); break;
             case "standard_deviation_y": standardDeviationY = reader.nextDouble(); break;
             case "standard_deviation_z": standardDeviationZ = reader.nextDouble(); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in location definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "random normal location definition");
         }
     }
 

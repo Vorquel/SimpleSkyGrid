@@ -23,9 +23,7 @@ public class PEntity extends Prototype<IGeneratedObject> {
         switch(label) {
             case "name": name = reader.nextString();  break;
             case "nbt": nbt = NBT2JSON.toNBT(reader); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in entity definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "entity definition");
         }
     }
 

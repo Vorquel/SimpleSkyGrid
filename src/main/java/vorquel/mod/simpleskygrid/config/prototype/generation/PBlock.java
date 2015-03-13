@@ -33,9 +33,7 @@ public class PBlock extends Prototype<IGeneratedObject> {
                 }
                 break;
             case "nbt": nbt = NBT2JSON.toNBT(reader); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in block definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "block definition");
         }
     }
 

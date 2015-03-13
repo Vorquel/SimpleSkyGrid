@@ -1,6 +1,5 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEndPortal;
@@ -18,9 +17,7 @@ public class PEndPortal extends Prototype<IGeneratedObject> {
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
             case "mean_filled_frames": meanFilledFrames = reader.nextDouble(); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in end portal definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "end portal definition");
         }
     }
 

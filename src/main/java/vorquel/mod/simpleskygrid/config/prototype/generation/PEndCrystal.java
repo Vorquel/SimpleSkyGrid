@@ -18,8 +18,8 @@ public class PEndCrystal extends Prototype<IGeneratedObject> {
 
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
+        reader.unknownOnce("label " + label, "end crystal definition");
         SimpleSkyGrid.logger.warn("What are you doing? End crystals have no extra data.");
-        reader.skipValue();
     }
 
     @Override

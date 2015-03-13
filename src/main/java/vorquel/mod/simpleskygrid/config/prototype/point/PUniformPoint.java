@@ -1,7 +1,6 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
@@ -29,9 +28,7 @@ public class PUniformPoint extends Prototype<IRandom<ChunkCoordinates>> {
             case "max_x": maxX = reader.nextDouble(); break;
             case "max_y": maxY = reader.nextDouble(); break;
             case "max_z": maxZ = reader.nextDouble(); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in location definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "random uniform location definition");
         }
     }
 

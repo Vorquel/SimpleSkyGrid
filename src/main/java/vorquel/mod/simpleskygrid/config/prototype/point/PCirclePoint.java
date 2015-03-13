@@ -23,9 +23,7 @@ public class PCirclePoint extends PPoint {
             case "center": center = readPoint(reader); break;
             case "radius": radius = reader.nextInt();  break;
             case "axis":   axis   = readAxis(reader);  break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in location definition in config file", label));
-                reader.skipValue();
+            default: reader.unknownOnce("label " + label, "random circle location definition");
         }
     }
 

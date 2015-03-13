@@ -215,6 +215,17 @@ public class SimpleSkyGridConfigReader {
         }
     }
 
+    public <E extends Enum<E>> E nextSubType(Class<E> clazz) {
+        String string = nextString();
+        try {
+            return Enum.valueOf(clazz, string);
+        } catch(EnumConstantNotPresentException e) {
+            String error = String.format("Unknown subtype %s at %s", string, getLocation());
+            SimpleSkyGrid.logger.fatal(error);
+            throw new RuntimeException(error);
+        }
+    }
+
     private Object handleIO(IOException e) {
         SimpleSkyGrid.logger.fatal("Problem reading config file: " + fileName);
         SimpleSkyGrid.logger.fatal(e.getMessage());

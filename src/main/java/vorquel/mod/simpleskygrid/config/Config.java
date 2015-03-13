@@ -43,8 +43,7 @@ public class Config {
         try {
             dim = Integer.decode(dimName.substring(3));
         } catch(NumberFormatException e) {
-            SimpleSkyGrid.logger.warn(String.format("Unknown label %s in config file", dimName));
-            reader.skipValue();
+            reader.unknownOnce("label " + dimName, "top level");
             return;
         }
         DimensionProperties prop = new DimensionProperties();
@@ -58,9 +57,7 @@ public class Config {
                 case "generation":     prop.generationLabel    = reader.nextString(); break;
                 case "unique_gen":     prop.uniqueGenLabel     = reader.nextString(); break;
                 case "loot_placement": prop.lootPlacementLabel = reader.nextString(); break;
-                default:
-                    SimpleSkyGrid.logger.warn(String.format("Unknown label %s in config file", name));
-                    reader.skipValue();
+                default: reader.unknownOnce("label " + name, "dimension definition");
             }
         }
         reader.endObject();
@@ -85,9 +82,7 @@ public class Config {
                     switch(innerLabel) {
                         case "object": prototype = PFactory.readGeneratedObject(reader); break;
                         case "weight": weight    = readWeight(reader);                   break;
-                        default:
-                            SimpleSkyGrid.logger.warn(String.format("Unknown generation label %s in config file", innerLabel));
-                            reader.skipValue();
+                        default: reader.unknownOnce("label " + label, "generation definition");
                     }
                 }
                 if(prototype.isComplete() && weight > 0)
@@ -135,17 +130,9 @@ public class Config {
             reader.beginArray();
             while(reader.hasNext()) {
                 reader.beginObject();
-                String TARGET = reader.nextName();
-                if(!TARGET.equals("target")) {
-                    SimpleSkyGrid.logger.fatal(String.format("\"target\" expected in config file, found \"%s\"", TARGET));
-                    throw new RuntimeException(String.format("\"target\" expected in config file, found \"%s\"", TARGET));
-                }
+                reader.nextName("target");
                 IPrototype<IGeneratedObject> target = PFactory.readGeneratedObject(reader);
-                String LOOT = reader.nextName();
-                if(!LOOT.equals("loot")) {
-                    SimpleSkyGrid.logger.fatal(String.format("\"loot\" expected in config file, found \"%s\"", LOOT));
-                    throw new RuntimeException(String.format("\"loot\" expected in config file, found \"%s\"", LOOT));
-                }
+                reader.nextName("loot");
                 reader.beginArray();
                 while(reader.hasNext()) {
                     String innerLabel = reader.nextName();

@@ -1,6 +1,5 @@
 package vorquel.mod.simpleskygrid.config.prototype.lootsource;
 
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
@@ -21,12 +20,10 @@ public class PNative extends Prototype<ILootSource> {
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "subType": break; //todo
-            case "name": source = reader.nextString(); break;
-            case "count": countSource = PFactory.readCount(reader).getObject(); break;
-            default:
-                SimpleSkyGrid.logger.warn(String.format("Unknown label %s in loot source definition in config file", label));
-                reader.skipValue();
+            case "subtype": type        = reader.nextSubType(LootSourceNative.Type.class); break;
+            case "name":    source      = reader.nextString();                             break;
+            case "count":   countSource = PFactory.readCount(reader).getObject();          break;
+            default: reader.unknownOnce("label " + label, "native loot source definition");
         }
     }
 
