@@ -27,10 +27,10 @@ public class PFactory {
         reader.nextName("type");
         String type = reader.nextString();
         switch (type) {
-            case "label":   prototype = new PLabel<>(reader);  break;
-            case "block":   prototype = new PBlock(reader);    break;
-            case "entity":  prototype = new PEntity(reader);   break;
-            case "special": prototype = readSpecial(reader);   break;
+            case "label":   prototype = new PLabel<>(reader); break;
+            case "block":   prototype = new PBlock(reader);   break;
+            case "entity":  prototype = new PEntity(reader);  break;
+            case "special": prototype = readSpecial(reader);  break;
             default: reader.unknownAll("generation type " + type, "generation definition");
         }
         reader.endObject();

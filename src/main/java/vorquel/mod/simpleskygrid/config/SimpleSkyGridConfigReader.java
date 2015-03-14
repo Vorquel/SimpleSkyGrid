@@ -4,8 +4,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraft.nbt.NBTTagCompound;
 import org.apache.commons.io.FileUtils;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.io.*;
 import java.net.URL;
@@ -31,7 +33,7 @@ public class SimpleSkyGridConfigReader {
         File config = new File(configHome, fileName);
         if(!config.exists()) {
             String configHomeDir = "/assets/simpleskygrid/config/";
-            URL configURL = Config.class.getResource(configHomeDir+fileName);
+            URL configURL = Config.class.getResource(configHomeDir + fileName);
             try {
                 FileUtils.copyURLToFile(configURL, config);
             } catch (IOException e) {
@@ -42,7 +44,7 @@ public class SimpleSkyGridConfigReader {
         }
         try {
             jsonReader = new JsonReader(new BufferedReader(new FileReader(config)));
-        } catch (FileNotFoundException e) {
+        } catch(FileNotFoundException e) {
             String error = String.format("Unable to load config file: %s\n%s", fileName, e.getMessage());
             SimpleSkyGrid.logger.fatal(error);
             throw new RuntimeException(error);
@@ -212,6 +214,23 @@ public class SimpleSkyGridConfigReader {
             jsonReader.skipValue();
         } catch (IOException e) {
             handleIO(e);
+        }
+    }
+
+    public int nextMetadata() {
+        int meta = nextInt();
+        if(meta < 0 || meta > 15) {
+            SimpleSkyGrid.logger.warn(String.format("Invalid metadata value %d found, assuming 0", meta));
+            meta = 0;
+        }
+        return meta;
+    }
+
+    public NBTTagCompound nextNBT() {
+        try {
+            return NBT2JSON.toNBT(jsonReader);
+        } catch(IOException e) {
+            return (NBTTagCompound) handleIO(e);
         }
     }
 

@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
-import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
@@ -24,15 +23,9 @@ public class PBlock extends Prototype<IGeneratedObject> {
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "name": name = reader.nextString(); break;
-            case "meta":
-                meta = reader.nextInt();
-                if(meta < 0 || meta > 15) {
-                    SimpleSkyGrid.logger.warn(String.format("Invalid metadata value %d found, assuming 0", meta));
-                    meta = 0;
-                }
-                break;
-            case "nbt": nbt = NBT2JSON.toNBT(reader); break;
+            case "name": name = reader.nextString();   break;
+            case "meta": meta = reader.nextMetadata(); break;
+            case "nbt":  nbt  = reader.nextNBT();      break;
             default: reader.unknownOnce("label " + label, "block definition");
         }
     }

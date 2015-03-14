@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
-import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
@@ -21,8 +20,8 @@ public class PEntity extends Prototype<IGeneratedObject> {
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "name": name = reader.nextString();  break;
-            case "nbt": nbt = NBT2JSON.toNBT(reader); break;
+            case "name": name = reader.nextString(); break;
+            case "nbt":  nbt  = reader.nextNBT();    break;
             default: reader.unknownOnce("label " + label, "entity definition");
         }
     }
