@@ -12,10 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import vorquel.mod.simpleskygrid.helper.NBTString;
+import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
 
 public class Identifier extends Item {
 
@@ -41,8 +42,12 @@ public class Identifier extends Item {
         if(tileEntity != null) {
             NBTTagCompound tag = new NBTTagCompound();
             tileEntity.writeToNBT(tag);
-            NBTString.sanitizeNBT(tag);
-            nbt = NBTString.getStringFromNBT(tag);
+            NBT2JSON.sanitizeBlock(tag);
+            try {
+                nbt = NBT2JSON.toString(tag, true);
+            } catch (IOException e) {
+                nbt = "Problem decoding NBT data";
+            }
         }
         String id = name+"::"+meta+nbt;
         player.addChatMessage(new ChatComponentText(id));

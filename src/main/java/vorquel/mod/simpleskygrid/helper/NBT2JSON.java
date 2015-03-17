@@ -13,6 +13,38 @@ import java.util.List;
 
 public class NBT2JSON {
 
+    public static void sanitizeBlock(NBTTagCompound tag) {
+        tag.removeTag("x");
+        tag.removeTag("y");
+        tag.removeTag("z");
+        sanitizeItems(tag);
+    }
+
+    public static void localizeBlock(NBTTagCompound tag, int x, int y, int z) {
+        tag.setInteger("x", x);
+        tag.setInteger("y", y);
+        tag.setInteger("z", z);
+        localizeItems(tag);
+    }
+
+    public static void sanitizeEntity(NBTTagCompound tag) {
+        tag.removeTag("Pos");
+        sanitizeItems(tag);
+    }
+
+    public static void localizeEntity(NBTTagCompound tag, double x, double y, double z) {
+        NBTTagList list = new NBTTagList();
+        list.appendTag(new NBTTagDouble(x));
+        list.appendTag(new NBTTagDouble(y));
+        list.appendTag(new NBTTagDouble(z));
+        tag.setTag("Pos", list);
+        localizeItems(tag);
+    }
+
+    public static void sanitizeItems(NBTTagCompound tag) {}
+
+    public static void localizeItems(NBTTagCompound tag) {}
+
     public static String toString(NBTTagCompound nbt, boolean pretty) throws IOException {
         StringBuilderWriter sbw = new StringBuilderWriter();
         JsonWriter jw = new JsonWriter(sbw);

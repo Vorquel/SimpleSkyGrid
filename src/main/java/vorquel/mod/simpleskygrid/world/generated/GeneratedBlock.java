@@ -9,7 +9,7 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ChestGenHooks;
-import vorquel.mod.simpleskygrid.helper.NBTString;
+import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.util.Random;
 
@@ -33,7 +33,7 @@ public class GeneratedBlock implements IGeneratedObject {
         if(block.hasTileEntity(meta)) {
             if(nbt != null) {
                 TileEntity tileEntity = block.createTileEntity(world, meta);
-                NBTString.localizeNBT(nbt, x, y, z);
+                NBT2JSON.localizeBlock(nbt, x, y, z);
                 tileEntity.readFromNBT(nbt);
                 chunk.addTileEntity(tileEntity);
             } else if(block == Blocks.chest) {
