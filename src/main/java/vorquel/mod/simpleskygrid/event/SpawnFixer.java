@@ -13,6 +13,7 @@ public class SpawnFixer {
 
     //Thank you diesieben07 for this function.
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         NBTTagCompound data = event.player.getEntityData();
         NBTTagCompound persistent;
@@ -29,6 +30,7 @@ public class SpawnFixer {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void playerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if(event.player.worldObj.getWorldInfo().getTerrainType() != Ref.worldType || !Config.dimensionPropertiesMap.containsKey(event.player.dimension))
             return;

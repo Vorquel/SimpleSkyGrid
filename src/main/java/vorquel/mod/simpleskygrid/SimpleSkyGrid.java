@@ -8,8 +8,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 import vorquel.mod.simpleskygrid.config.Config;
+import vorquel.mod.simpleskygrid.event.IdentifierHandler;
 import vorquel.mod.simpleskygrid.event.SpawnFixer;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.world.provider.ClassLoaderWorldProvider;
@@ -38,6 +40,7 @@ public class SimpleSkyGrid {
     @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         FMLCommonHandler.instance().bus().register(new SpawnFixer());
+        MinecraftForge.EVENT_BUS.register(new IdentifierHandler());
     }
 
     @Mod.EventHandler

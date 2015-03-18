@@ -4,7 +4,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.*;
-import org.apache.commons.io.output.StringBuilderWriter;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
 import java.io.IOException;
@@ -45,20 +44,7 @@ public class NBT2JSON {
 
     public static void localizeItems(NBTTagCompound tag) {}
 
-    public static String toString(NBTTagCompound nbt, boolean pretty) throws IOException {
-        StringBuilderWriter sbw = new StringBuilderWriter();
-        JsonWriter jw = new JsonWriter(sbw);
-        if(pretty)
-            jw.setIndent("  ");
-        writeCompound(jw, nbt);
-        return sbw.toString();
-    }
-
-    public static NBTTagCompound toNBT(JsonReader jr) throws IOException {
-        return readCompound(jr);
-    }
-
-    private static void writeCompound(JsonWriter jw, NBTTagCompound nbt) throws IOException {
+    public static void writeCompound(JsonWriter jw, NBTTagCompound nbt) throws IOException {
         jw.beginObject();
         for(Object key : nbt.func_150296_c()) {
             String label = (String) key;
@@ -83,60 +69,60 @@ public class NBT2JSON {
         jw.endObject();
     }
 
-    private static void writeByte(JsonWriter jw, NBTTagByte tag) throws IOException {
+    public static void writeByte(JsonWriter jw, NBTTagByte tag) throws IOException {
         jw.value(tag.func_150290_f());
     }
 
-    private static void writeShort(JsonWriter jw, NBTTagShort tag) throws IOException {
+    public static void writeShort(JsonWriter jw, NBTTagShort tag) throws IOException {
         jw.value(tag.func_150289_e());
     }
 
-    private static void writeInt(JsonWriter jw, NBTTagInt tag) throws IOException {
+    public static void writeInt(JsonWriter jw, NBTTagInt tag) throws IOException {
         jw.value(tag.func_150287_d());
     }
 
-    private static void writeLong(JsonWriter jw, NBTTagLong tag) throws IOException {
+    public static void writeLong(JsonWriter jw, NBTTagLong tag) throws IOException {
         jw.value(tag.func_150291_c());
     }
 
-    private static void writeFloat(JsonWriter jw, NBTTagFloat tag) throws IOException {
+    public static void writeFloat(JsonWriter jw, NBTTagFloat tag) throws IOException {
         jw.value(tag.func_150288_h());
     }
 
-    private static void writeDouble(JsonWriter jw, NBTTagDouble tag) throws IOException {
+    public static void writeDouble(JsonWriter jw, NBTTagDouble tag) throws IOException {
         jw.value(tag.func_150286_g());
     }
 
-    private static void writeString(JsonWriter jw, NBTTagString tag) throws IOException {
+    public static void writeString(JsonWriter jw, NBTTagString tag) throws IOException {
         jw.value(tag.func_150285_a_());
     }
 
-    private static void writeByteArray(JsonWriter jw, NBTTagByteArray tag) throws IOException {
+    public static void writeByteArray(JsonWriter jw, NBTTagByteArray tag) throws IOException {
         jw.beginArray();
         for(byte b : tag.func_150292_c())
             jw.value(b);
         jw.endArray();
     }
 
-    private static void writeIntArray(JsonWriter jw, NBTTagIntArray tag) throws IOException {
+    public static void writeIntArray(JsonWriter jw, NBTTagIntArray tag) throws IOException {
         jw.beginArray();
         for(int i : tag.func_150302_c())
             jw.value(i);
         jw.endArray();
     }
 
-    private static void writeList(JsonWriter jw, NBTTagList tag) throws IOException {
+    public static void writeList(JsonWriter jw, NBTTagList tag) throws IOException {
         jw.beginArray();
         for(NBTBase b : (List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a"))
             writeTag(b);
         jw.endArray();
     }
 
-    private static void writeTag(NBTBase tag) throws IOException {
-
+    public static void writeTag(NBTBase tag) throws IOException {
+        //todo
     }
 
-    private static String tagPrefix(NBTBase tag) {
+    public static String tagPrefix(NBTBase tag) {
         switch(tag.getId()) {
             case 1:  return "b_";
             case 2:  return "s_";
@@ -153,14 +139,14 @@ public class NBT2JSON {
         }
     }
 
-    private static String listPrefix(NBTTagList tag) {
+    public static String listPrefix(NBTTagList tag) {
         if(tag.tagCount() == 0)
             return "e_";
         else
             return tagPrefix(((List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a")).get(0));
     }
 
-    private static NBTTagCompound readCompound(JsonReader jr) throws IOException {
+    public static NBTTagCompound readCompound(JsonReader jr) throws IOException {
         NBTTagCompound nbt = new NBTTagCompound();
         jr.beginObject();
         while(jr.hasNext()) {
@@ -170,7 +156,7 @@ public class NBT2JSON {
         return nbt;
     }
 
-    private static void readTag(JsonReader jr, NBTTagCompound nbt) throws IOException {
+    public static void readTag(JsonReader jr, NBTTagCompound nbt) throws IOException {
         NBTBase tag;
         String label = jr.nextName();
         switch(label.substring(0, 2)) {
@@ -195,7 +181,7 @@ public class NBT2JSON {
         nbt.setTag(label.substring(2), tag);
     }
 
-    private static NBTTagByte readByte(JsonReader jr) throws IOException {
+    public static NBTTagByte readByte(JsonReader jr) throws IOException {
         long expected = jr.nextLong();
         byte actual = (byte) expected;
         if(expected != actual) {
@@ -205,7 +191,7 @@ public class NBT2JSON {
         return new NBTTagByte(actual);
     }
 
-    private static NBTTagShort readShort(JsonReader jr) throws IOException {
+    public static NBTTagShort readShort(JsonReader jr) throws IOException {
         long expected = jr.nextLong();
         short actual = (short) expected;
         if(expected != actual) {
@@ -215,7 +201,7 @@ public class NBT2JSON {
         return new NBTTagShort(actual);
     }
 
-    private static NBTTagInt readInt(JsonReader jr) throws IOException {
+    public static NBTTagInt readInt(JsonReader jr) throws IOException {
         long expected = jr.nextLong();
         int actual = (int) expected;
         if(expected != actual) {
@@ -225,11 +211,11 @@ public class NBT2JSON {
         return new NBTTagInt(actual);
     }
 
-    private static NBTTagLong readLong(JsonReader jr) throws IOException {
+    public static NBTTagLong readLong(JsonReader jr) throws IOException {
         return new NBTTagLong(jr.nextLong());
     }
 
-    private static NBTTagFloat readFloat(JsonReader jr) throws IOException {
+    public static NBTTagFloat readFloat(JsonReader jr) throws IOException {
         double expected = jr.nextDouble();
         float actual = (float) expected;
         if(expected != actual) {
@@ -239,11 +225,11 @@ public class NBT2JSON {
         return new NBTTagFloat(actual);
     }
 
-    private static NBTBase readDouble(JsonReader jr) throws IOException {
+    public static NBTBase readDouble(JsonReader jr) throws IOException {
         return new NBTTagDouble(jr.nextDouble());
     }
 
-    private static NBTTagByteArray readByteArray(JsonReader jr) throws IOException {
+    public static NBTTagByteArray readByteArray(JsonReader jr) throws IOException {
         ArrayList<Byte> byteList = new ArrayList<>();
         jr.beginArray();
         while(jr.hasNext()) {
@@ -262,7 +248,7 @@ public class NBT2JSON {
         return new NBTTagByteArray(bytes);
     }
 
-    private static NBTTagIntArray readIntArray(JsonReader jr) throws IOException {
+    public static NBTTagIntArray readIntArray(JsonReader jr) throws IOException {
         ArrayList<Integer> intList = new ArrayList<>();
         jr.beginArray();
         while(jr.hasNext()) {
@@ -281,11 +267,11 @@ public class NBT2JSON {
         return new NBTTagIntArray(ints);
     }
 
-    private static NBTTagString readString(JsonReader jr) throws IOException {
+    public static NBTTagString readString(JsonReader jr) throws IOException {
         return new NBTTagString(jr.nextString());
     }
 
-    private static NBTTagList readList(JsonReader jr, String label) throws IOException {
+    public static NBTTagList readList(JsonReader jr, String label) throws IOException {
         String prefix = label.substring(2, 4);
         NBTTagList list = new NBTTagList();
         jr.beginArray();

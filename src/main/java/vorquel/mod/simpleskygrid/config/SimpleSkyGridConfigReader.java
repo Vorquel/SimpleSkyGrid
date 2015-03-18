@@ -228,7 +228,7 @@ public class SimpleSkyGridConfigReader {
 
     public NBTTagCompound nextNBT() {
         try {
-            return NBT2JSON.toNBT(jsonReader);
+            return NBT2JSON.readCompound(jsonReader);
         } catch(IOException e) {
             return (NBTTagCompound) handleIO(e);
         }
