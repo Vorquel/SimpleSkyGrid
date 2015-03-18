@@ -2,7 +2,9 @@ package vorquel.mod.simpleskygrid.helper;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.*;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
@@ -40,9 +42,55 @@ public class NBT2JSON {
         localizeItems(tag);
     }
 
-    public static void sanitizeItems(NBTTagCompound tag) {}
+    public static void sanitizeItems(NBTTagCompound nbt) {
+        for(Object key : nbt.func_150296_c()) {
+            String label = (String) key;
+            NBTBase tag = nbt.getTag(label);
+            switch(tag.getId()) {
+                case 9: if(isInventoryLabel(label)) sanitizeInventory((NBTTagList) tag); break;
+                case 10: sanitizeItems((NBTTagCompound) tag);
+            }
+        }
+    }
 
-    public static void localizeItems(NBTTagCompound tag) {}
+    private static void sanitizeInventory(NBTTagList list) {
+        if(list.getCompoundTagAt(0).hasKey("id"))
+            for(int i=0; i<list.tagCount(); ++i) {
+                NBTTagCompound compound = list.getCompoundTagAt(i);
+                int id = compound.getShort("id");
+                Item item = GameData.getItemRegistry().getObjectById(id);
+                String name = GameData.getItemRegistry().getNameForObject(item);
+                compound.setString("id", name);
+            }
+    }
+
+    public static void localizeItems(NBTTagCompound nbt) {
+        for(Object key : nbt.func_150296_c()) {
+            String label = (String) key;
+            NBTBase tag = nbt.getTag(label);
+            switch(tag.getId()) {
+                case 9: if(isInventoryLabel(label)) localizeInventory((NBTTagList) tag); break;
+                case 10: localizeItems((NBTTagCompound) tag);
+            }
+        }
+    }
+
+    private static void localizeInventory(NBTTagList list) {
+        if(list.getCompoundTagAt(0).hasKey("id"))
+            for(int i=0; i<list.tagCount(); ++i) {
+                NBTTagCompound compound = list.getCompoundTagAt(i);
+                String name = compound.getString("id");
+                int id = GameData.getItemRegistry().getId(name);
+                compound.setShort("id", (short) id);
+            }
+    }
+
+    private static boolean isInventoryLabel(String label) {
+        switch(label) { //this structure is for ease of adding new indicative labels
+            case "Items": return true;
+            default: return false;
+        }
+    }
 
     public static void writeCompound(JsonWriter jw, NBTTagCompound nbt) throws IOException {
         jw.beginObject();
@@ -51,20 +99,7 @@ public class NBT2JSON {
             NBTBase tag = nbt.getTag(label);
             String prefix = tagPrefix(tag);
             jw.name(prefix + label);
-            switch(tag.getId()) {
-                case 1:  writeByte(     jw,      (NBTTagByte) tag); break;
-                case 2:  writeShort(    jw,     (NBTTagShort) tag); break;
-                case 3:  writeInt(      jw,       (NBTTagInt) tag); break;
-                case 4:  writeLong(     jw,      (NBTTagLong) tag); break;
-                case 5:  writeFloat(    jw,     (NBTTagFloat) tag); break;
-                case 6:  writeDouble(   jw,    (NBTTagDouble) tag); break;
-                case 7:  writeByteArray(jw, (NBTTagByteArray) tag); break;
-                case 8:  writeString(   jw,    (NBTTagString) tag); break;
-                case 9:  writeList(     jw,      (NBTTagList) tag); break;
-                case 10: writeCompound( jw,  (NBTTagCompound) tag); break;
-                case 11: writeIntArray( jw,  (NBTTagIntArray) tag); break;
-                default: SimpleSkyGrid.logger.warn("Unrecognised tag type in NBT data");
-            }
+            writeTag(jw, tag);
         }
         jw.endObject();
     }
@@ -114,12 +149,25 @@ public class NBT2JSON {
     public static void writeList(JsonWriter jw, NBTTagList tag) throws IOException {
         jw.beginArray();
         for(NBTBase b : (List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a"))
-            writeTag(b);
+            writeTag(jw, b);
         jw.endArray();
     }
 
-    public static void writeTag(NBTBase tag) throws IOException {
-        //todo
+    public static void writeTag(JsonWriter jw, NBTBase tag) throws IOException {
+        switch(tag.getId()) {
+            case 1:  writeByte(     jw,      (NBTTagByte) tag); break;
+            case 2:  writeShort(    jw,     (NBTTagShort) tag); break;
+            case 3:  writeInt(      jw,       (NBTTagInt) tag); break;
+            case 4:  writeLong(     jw,      (NBTTagLong) tag); break;
+            case 5:  writeFloat(    jw,     (NBTTagFloat) tag); break;
+            case 6:  writeDouble(   jw,    (NBTTagDouble) tag); break;
+            case 7:  writeByteArray(jw, (NBTTagByteArray) tag); break;
+            case 8:  writeString(   jw,    (NBTTagString) tag); break;
+            case 9:  writeList(     jw,      (NBTTagList) tag); break;
+            case 10: writeCompound( jw,  (NBTTagCompound) tag); break;
+            case 11: writeIntArray( jw,  (NBTTagIntArray) tag); break;
+            default: SimpleSkyGrid.logger.warn("Unrecognised tag type in NBT data");
+        }
     }
 
     public static String tagPrefix(NBTBase tag) {

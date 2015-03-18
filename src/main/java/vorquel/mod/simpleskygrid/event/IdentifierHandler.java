@@ -12,8 +12,10 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.commons.io.output.StringBuilderWriter;
+import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.helper.Ref;
+import vorquel.mod.simpleskygrid.network.MessageClipboard;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -45,8 +47,8 @@ public class IdentifierHandler {
             info = sbw.toString();
         } catch(IOException ignored) {}
         event.entityPlayer.addChatComponentMessage(new ChatComponentText(info));
-//        if(event.entityPlayer.isSneaking()) //todo add this to some chat event
-//            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(info), null);
+        if(event.entityPlayer.isSneaking())
+            SimpleSkyGrid.network.sendTo(new MessageClipboard(info), (EntityPlayerMP) event.entityPlayer);
     }
 
     @SubscribeEvent
@@ -82,11 +84,11 @@ public class IdentifierHandler {
             info = sbw.toString();
         } catch(IOException ignored) {}
         event.entityPlayer.addChatComponentMessage(new ChatComponentText(info));
-//        if(event.entityPlayer.isSneaking()) //todo add this to some chat event
-//            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(info), null);
+        if(event.entityPlayer.isSneaking())
+            SimpleSkyGrid.network.sendTo(new MessageClipboard(info), (EntityPlayerMP) event.entityPlayer);
     }
 
     private boolean shouldLeave(PlayerEvent event) {
-        return event.entityPlayer.getCurrentEquippedItem().getItem() != Ref.itemIdentifier || !(event.entityPlayer instanceof EntityPlayerMP);
+        return event.entityPlayer.getCurrentEquippedItem() == null || event.entityPlayer.getCurrentEquippedItem().getItem() != Ref.itemIdentifier || !(event.entityPlayer instanceof EntityPlayerMP);
     }
 }
