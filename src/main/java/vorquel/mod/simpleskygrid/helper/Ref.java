@@ -2,18 +2,26 @@ package vorquel.mod.simpleskygrid.helper;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.Config;
+import vorquel.mod.simpleskygrid.config.ConfigDataMap;
+import vorquel.mod.simpleskygrid.config.UniqueQuantity;
+import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
+import vorquel.mod.simpleskygrid.config.prototype.PLabel;
 import vorquel.mod.simpleskygrid.item.Identifier;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedUnique;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ref {
 
+    public static final String MOD_ID = "SimpleSkyGrid";
     public static WorldTypeSkyGrid worldType;
-    public static int spawnHeight = 65;
     public static Identifier itemIdentifier = new Identifier();
-    private static HashMap<Integer, RandomList<IGeneratedObject>> randomBlockGenerators = new HashMap<Integer, RandomList<IGeneratedObject>>();
+    private static HashMap<Integer, RandomList<IGeneratedObject>> randomGenerators = new HashMap<>();
+    private static HashMap<Integer, ArrayList<GeneratedUnique>> uniqueGenerators = new HashMap<>();
 
     public static void preInit() {
         GameRegistry.registerItem(itemIdentifier, "identifier");
@@ -22,28 +30,32 @@ public class Ref {
     public static void postInit() {
         worldType = new WorldTypeSkyGrid();
         try{
-            for(int i : Config.getDimensions())
-                randomBlockGenerators.put(i, makeGenerator(Config.getLabel(i), true));
-        } catch(Error e) {
+            for(int i : Config.dimensionPropertiesMap.keySet()) {
+                randomGenerators.put(i, makeRandomGenerator(Config.dimensionPropertiesMap.get(i).generationLabel, true));
+                uniqueGenerators.put(i, makeUniqueGenerator(Config.dimensionPropertiesMap.get(i).uniqueGenLabel));
+            }
+        } catch(StackOverflowError | OutOfMemoryError e) {
             SimpleSkyGrid.logger.fatal("Fatal Error: Cyclical dependency in config.");
-            throw new Error();
+            throw new Error("Fatal Error: Cyclical dependency in config.");
         }
     }
 
-    private static RandomList<IGeneratedObject> makeGenerator(String label, boolean doNormalize) {
-        RandomList<IGeneratedObject> randomList = new RandomList<IGeneratedObject>();
-        for(int i=0; i<Config.size(label); ++i) {
-            int weight = Config.getWeight(label, i);
-            if(Config.isLabel(label, i)) {
-                String newLabel = Config.getLabel(label, i);
-                boolean newDoNormalize = !Config.isAbsolute(label, i);
-                if(Config.size(newLabel) > 0)
-                    randomList.add(makeGenerator(newLabel, newDoNormalize), weight);
+    private static RandomList<IGeneratedObject> makeRandomGenerator(String label, boolean doNormalize) {
+        RandomList<IGeneratedObject> randomList = new RandomList<>();
+        ConfigDataMap<IPrototype<IGeneratedObject>, Double> config = Config.generationData;
+        for(int i=0; i<config.size(label); ++i) {
+            IPrototype<IGeneratedObject> entry = config.getEntry(label, i);
+            double weight = config.getQuantity(label, i);
+            if(weight <= 0)
+                continue;
+            if(entry instanceof PLabel) {
+                PLabel newLabel = (PLabel) entry;
+                if(config.size(newLabel.name) > 0)
+                    randomList.add(makeRandomGenerator(newLabel.name, newLabel.subtype == PLabel.Subtype.relative), weight);
                 else
                     SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
             } else {
-                IGeneratedObject generatedObject = Config.getIGeneratedObject(label, i);
-                randomList.add(generatedObject, weight);
+                randomList.add(entry.getObject(), weight);
             }
         }
         if(doNormalize)
@@ -51,7 +63,31 @@ public class Ref {
         return randomList;
     }
 
-    public static RandomList<IGeneratedObject> getGenerator(int dimensionId) {
-        return randomBlockGenerators.get(dimensionId);
+    private static ArrayList<GeneratedUnique> makeUniqueGenerator(String label) {
+        ArrayList<GeneratedUnique> list = new ArrayList<>();
+        ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> config = Config.uniqueGenData;
+        for(int i=0; i<config.size(label); ++i) {
+            IPrototype<IGeneratedObject> entry = config.getEntry(label, i);
+            if(entry instanceof PLabel) {
+                PLabel newLabel = (PLabel) entry;
+                if(config.size(newLabel.name) > 0)
+                    list.addAll(makeUniqueGenerator(newLabel.name));
+                else
+                    SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
+            } else {
+                IGeneratedObject generatedObject = entry.getObject();
+                UniqueQuantity quantity = config.getQuantity(label, i);
+                list.add(new GeneratedUnique(generatedObject, quantity.countSource, quantity.pointSource));
+            }
+        }
+        return list;
+    }
+
+    public static RandomList<IGeneratedObject> getRandomGenerator(int dimensionId) {
+        return randomGenerators.get(dimensionId);
+    }
+
+    public static ArrayList<GeneratedUnique> getUniqueGenerator(int dimensionId) {
+        return uniqueGenerators.get(dimensionId);
     }
 }

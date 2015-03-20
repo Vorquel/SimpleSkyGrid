@@ -1,0 +1,751 @@
+//Want to know how this file works? Go to: https://github.com/vorquel/SimpleSkyGrid/wiki/Config
+{
+  "dim0": {
+    "height": 128,
+    "spawn_height": 65,
+    "generation": "overworld",
+    "unique_gen": "overworld"
+  },
+  "dim-1": {
+    "height": 128,
+    "generation": "nether",
+    "unique_gen": "nether"
+  },
+  "dim1": {
+    "height": 128,
+    "radius": 16,
+    "generation": "end",
+    "unique_gen": "end"
+  },
+  "generation": {
+    "overworld": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:stone"
+        },
+        "weight": 120
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:grass"
+        },
+        "weight": 80
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:dirt"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sand"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:clay"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:mycelium"
+        },
+        "weight": 15
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sandstone"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:gravel"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:coal_ore"
+        },
+        "weight": 40
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:iron_ore"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:gold_ore"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:redstone_ore"
+        },
+        "weight": 8
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:lapis_ore"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:diamond_ore"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:log"
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:leaves"
+        },
+        "weight": 40
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:wool"
+        },
+        "weight":25
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:web"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:pumpkin"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:melon_block"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:water"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:lava"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:snow"
+        },
+        "weight": 8
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:ice"
+        },
+        "weight": 4
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:mossy_cobblestone"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:obsidian"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:bookshelf"
+        },
+        "weight": 3
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:tnt"
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:glass"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:piston"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sticky_piston"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "label",
+          "subtype": "relative",
+          "name": "loot"
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "label",
+          "subtype": "relative",
+          "name": "overworld_spawner"
+        },
+        "weight": 1
+      }
+    ],
+    "overworld_spawner": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Creeper"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Skeleton"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Spider"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "CaveSpider"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Zombie"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Slime"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Pig"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Sheep"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Cow"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Chicken"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Squid"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Wolf"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Enderman"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Silverfish"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Villager"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "nether": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:netherrack"
+        },
+        "weight": 300
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:soul_sand"
+        },
+        "weight": 100
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:glowstone"
+        },
+        "weight": 50
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:lava"
+        },
+        "weight": 50
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:gravel"
+        },
+        "weight": 30
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:nether_brick"
+        },
+        "weight": 30
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:nether_brick_stairs"
+        },
+        "weight": 15
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:nether_brick_fence"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "label",
+          "subtype": "relative",
+          "name": "loot"
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "nether_spawner"
+        },
+        "weight": 2
+      }
+    ],
+    "nether_spawner": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "PigZombie"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Blaze"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "LavaSlime"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "end": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:end_stone"
+        },
+        "weight": 400
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:obsidian"
+        },
+        "weight": 100
+      },
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "end_spawner"
+        },
+        "weight": 1
+      }
+    ],
+    "end_spawner": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Enderman"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "loot": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "mineshaftCorridor"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "pyramidDesertyChest"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "pyramidJungleChest"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "strongholdCorridor"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "strongholdLibrary"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "strongholdCrossing"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "villageBlacksmith"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "dungeonChest"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  },
+  "unique_gen": {
+    "overworld": [
+      {
+        "object": {
+          "type": "special",
+          "name": "end_portal",
+          "mean_filled_frames": 3
+        },
+        "count": {
+          "type": "uniform",
+          "min": 1,
+          "max": 3
+        },
+        "location": {
+          "type": "circle",
+          "axis": "y",
+          "radius": 1000,
+          "center": {
+            "x": 0,
+            "y": 4,
+            "z": 0
+          }
+        }
+      }
+    ],
+    "nether": [],
+    "end": [
+      {
+        "object": {
+          "type": "entity",
+          "name": "EnderDragon"
+        },
+        "count": 1,
+        "location": {
+          "type": "point",
+          "point": {
+            "x": 0,
+            "y": 124,
+            "z": 0
+          }
+        }
+      },
+      {
+        "object": {
+          "type": "special",
+          "name": "end_crystal"
+        },
+        "count": {
+          "type": "normal",
+          "mean": 25,
+          "standard_deviation": 3
+        },
+        "location": {
+          "type": "uniform",
+          "min_x": -100,
+          "max_x": 100,
+          "min_y": 124,
+          "max_y": 124,
+          "min_z": -100,
+          "max_z": 100
+        }
+      }
+    ]
+  }
+}

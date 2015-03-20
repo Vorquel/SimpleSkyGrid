@@ -6,13 +6,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.chunk.Chunk;
-import vorquel.mod.simpleskygrid.helper.Config;
+import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
 public class SpawnFixer {
 
     //Thank you diesieben07 for this function.
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         NBTTagCompound data = event.player.getEntityData();
         NBTTagCompound persistent;
@@ -29,8 +30,9 @@ public class SpawnFixer {
     }
 
     @SubscribeEvent
+    @SuppressWarnings("unused")
     public void playerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        if(event.player.worldObj.getWorldInfo().getTerrainType() != Ref.worldType || !Config.getDimensions().contains(event.player.dimension))
+        if(event.player.worldObj.getWorldInfo().getTerrainType() != Ref.worldType || !Config.dimensionPropertiesMap.containsKey(event.player.dimension))
             return;
         int x = (int) event.player.posX;
         int y = (int) event.player.posY;
@@ -40,7 +42,8 @@ public class SpawnFixer {
             x -= x%4;
             z -= z%4;
             Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(x, z);
-            for(y=Math.min(chunk.getTopFilledSegment()+16, Ref.spawnHeight); y>0; --y) {
+            int spawnHeight = Config.dimensionPropertiesMap.get(event.player.dimension).spawnHeight;
+            for(y=Math.min(chunk.getTopFilledSegment()+16, spawnHeight); y>0; --y) {
                 if(chunk.getBlock(x&15, y-1, z&15).getMaterial().blocksMovement())
                     break;
             }

@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class RandomList<T> {
 
-    private ArrayList<T> list = new ArrayList<T>();
-    private ArrayList<Double> weights = new ArrayList<Double>();
+    private ArrayList<T> list = new ArrayList<>();
+    private ArrayList<Double> weights = new ArrayList<>();
     private double totalWeight = 0;
 
     public T getNext(Random random) {

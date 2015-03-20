@@ -1,50 +1,60 @@
 package vorquel.mod.simpleskygrid.world;
 
-import static net.minecraft.init.Blocks.*;
-
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import net.minecraftforge.common.ChestGenHooks;
-import vorquel.mod.simpleskygrid.helper.Config;
+import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.RandomList;
 import vorquel.mod.simpleskygrid.helper.Ref;
-import vorquel.mod.simpleskygrid.world.igenerated.IGeneratedObject;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedEndPortal;
+import vorquel.mod.simpleskygrid.world.generated.GeneratedUnique;
+import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.init.Blocks.bedrock;
 
 public class ChunkProviderSkyGrid implements IChunkProvider {
 
     private World world;
     private long seed;
-    private int dimensionID;
-    private RandomList<IGeneratedObject> randomIGeneratedObjects;
-    private Config.WorldSettings worldSettings;
-    private ChunkPosition endPortalLocation;
+    private Config.DimensionProperties dimensionProperties;
+    private RandomList<IGeneratedObject> randomGenerator;
+    private HashMap<ChunkCoordinates, IGeneratedObject> uniqueGenerations = new HashMap<>();
+    private ArrayList<ChunkCoordinates> endPortalLocations = new ArrayList<>();
 
     public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
         this.world = world;
         this.seed = seed;
-        this.dimensionID = dimensionId;
-        randomIGeneratedObjects = Ref.getGenerator(dimensionId);
-        worldSettings = Config.getSettings(dimensionId);
-        if(dimensionId == 0) {
-            Random random = new Random(seed);
-            double angle = random.nextDouble()*Math.PI*2;
-            int x = 8 + 16*(int)(62.5*Math.cos(angle));
-            int y = 4;
-            int z = 8 + 16*(int)(62.5*Math.sin(angle));
-            endPortalLocation = new ChunkPosition(x, y, z);
+        dimensionProperties = Config.dimensionPropertiesMap.get(dimensionId);
+        randomGenerator = Ref.getRandomGenerator(dimensionId);
+        Random random = new Random(seed);
+        for(GeneratedUnique unique : Ref.getUniqueGenerator(dimensionId)) {
+            int count = unique.getCount(random);
+            for(int i=0; i<count; ++i) {
+                int j=0;
+                for(; j<1000; ++j) {
+                    ChunkCoordinates location = unique.getLocation(random);
+                    if(!uniqueGenerations.containsKey(location)) {
+                        uniqueGenerations.put(location, unique);
+                        if(unique.getGeneratedObject() instanceof GeneratedEndPortal)
+                            endPortalLocations.add(location);
+                        break;
+                    }
+                }
+                if(j == 1000)
+                    SimpleSkyGrid.logger.warn("Unable to place uniqueGen object");
+            }
         }
     }
 
@@ -56,21 +66,14 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     @Override
     public Chunk provideChunk(int xChunk, int zChunk) {
         Chunk chunk = new Chunk(world, xChunk, zChunk);
-        if(worldSettings.isFinite() && !worldSettings.inRadius(xChunk, zChunk))
+        if(dimensionProperties.isFinite() && !dimensionProperties.inRadius(xChunk, zChunk))
             return chunk;
-        Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
-
-        for(int i=0; i<worldSettings.height>>4; ++i)
+        for(int i=0; i< dimensionProperties.height>>4; ++i)
             chunk.getBlockStorageArray()[i] = new ExtendedBlockStorage(i*16, !world.provider.hasNoSky);
         ExtendedBlockStorage extendedblockstorage = chunk.getBlockStorageArray()[0];
         for(int x=0; x<16; x+=4)
             for(int z=0; z<16; z+=4)
                 extendedblockstorage.func_150818_a(x, 0, z, bedrock);
-
-        for(int y=4; y<worldSettings.height; y+=4)
-            for(int x=0; x<16; x+=4)
-                for(int z=0; z<16; z+=4)
-                    randomIGeneratedObjects.getNext(random).provideObject(random, world, chunk, x, y, z);
 
         chunk.generateSkylightMap();
         BiomeGenBase[] biomeGenBase = world.getWorldChunkManager().loadBlockGeneratorData(null, xChunk * 16, zChunk * 16, 16, 16);
@@ -91,64 +94,21 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
     @Override
     public void populate(IChunkProvider p_73153_1_, int xChunk, int zChunk) {
-        switch(dimensionID) {
-            case 0:
-                populateEndPortal(xChunk, zChunk);
-                break;
-            case 1:
-                populateEnderCrystals(xChunk, zChunk);
-                populateEnderDragon(xChunk, zChunk);
-                break;
-        }
-    }
+        if(dimensionProperties.isFinite() && !dimensionProperties.inRadius(xChunk, zChunk))
+            return;
 
-    private void populateEndPortal(int xChunk, int zChunk) {
-        if(endPortalLocation == null)
-            return;
-        if(xChunk != endPortalLocation.chunkPosX/16 || zChunk != endPortalLocation.chunkPosZ/16)
-            return;
-        int x = endPortalLocation.chunkPosX;
-        int y = endPortalLocation.chunkPosY;
-        int z = endPortalLocation.chunkPosZ;
-        world.setBlockToAir(x, y, z);
-        world.setBlock(x-1, y, z-2, end_portal_frame, 0, 3);
-        world.setBlock(x  , y, z-2, end_portal_frame, 0, 3);
-        world.setBlock(x+1, y, z-2, end_portal_frame, 0, 3);
-        world.setBlock(x+2, y, z-1, end_portal_frame, 1, 3);
-        world.setBlock(x+2, y, z  , end_portal_frame, 1, 3);
-        world.setBlock(x+2, y, z+1, end_portal_frame, 1, 3);
-        world.setBlock(x+1, y, z+2, end_portal_frame, 2, 3);
-        world.setBlock(x  , y, z+2, end_portal_frame, 2, 3);
-        world.setBlock(x-1, y, z+2, end_portal_frame, 2, 3);
-        world.setBlock(x-2, y, z+1, end_portal_frame, 3, 3);
-        world.setBlock(x-2, y, z  , end_portal_frame, 3, 3);
-        world.setBlock(x-2, y, z-1, end_portal_frame, 3, 3);
-    }
-
-    private void populateEnderCrystals(int xChunk, int zChunk) {
-        if(xChunk > 6 || xChunk < -5 || zChunk > 6 || zChunk < -5)
-            return;
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
-        int meanCrystals = 25;
-        float threshold = meanCrystals / (meanCrystals + 144f);
-        int y = worldSettings.height - 1 - (worldSettings.height - 1) % 4;
-        while(random.nextFloat() < threshold) {
-            int x = random.nextInt(4) * 4 + xChunk * 16;
-            int z = random.nextInt(4) * 4 + zChunk * 16;
-            world.setBlock(x, y, z, bedrock);
-            EntityEnderCrystal enderCrystal = new EntityEnderCrystal(world);
-            enderCrystal.setPosition(x + .5, y + 1, z + .5);
-            world.spawnEntityInWorld(enderCrystal);
-        }
-    }
 
-    private void populateEnderDragon(int xChunk, int zChunk) {
-        if(xChunk != 0 || zChunk != 0)
-            return;
-        EntityDragon dragon = new EntityDragon(world);
-        Random random = new Random();
-        dragon.setLocationAndAngles(0, 128, 0, random.nextFloat()*360, 0);
-        world.spawnEntityInWorld(dragon);
+        ChunkCoordinates here = new ChunkCoordinates();
+        for(int y=4; y<dimensionProperties.height; y+=4)
+            for(int x=xChunk*16; x<xChunk*16+16; x+=4)
+                for(int z=zChunk*16; z<zChunk*16+16; z+=4) {
+                    here.set(x, y, z);
+                    if(uniqueGenerations.containsKey(here))
+                        uniqueGenerations.get(here).provideObject(random, world, x, y, z);
+                    else
+                        randomGenerator.getNext(random).provideObject(random, world, x, y, z);
+                }
     }
 
     @Override
@@ -179,9 +139,18 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
     @Override
     public ChunkPosition func_147416_a(World world, String structure, int x, int y, int z) {
-        if(!structure.equals("Stronghold") || endPortalLocation == null)
+        if(!structure.equals("Stronghold"))
             return null;
-        return endPortalLocation;
+        double bestDistance = Double.POSITIVE_INFINITY;
+        ChunkCoordinates bestLocation = new ChunkCoordinates();
+        for(ChunkCoordinates location : endPortalLocations) {
+            double distance = location.getDistanceSquared(x, y, z);
+            if(distance < bestDistance) {
+                bestDistance = distance;
+                bestLocation = location;
+            }
+        }
+        return new ChunkPosition(bestLocation.posX, bestLocation.posY, bestLocation.posZ);
     }
 
     @Override
