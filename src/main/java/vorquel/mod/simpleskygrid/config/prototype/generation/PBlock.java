@@ -20,10 +20,12 @@ public class PBlock extends Prototype<IGeneratedObject> {
     public String name;
     public int meta = 0;
     public NBTTagCompound nbt;
-    public IPrototype<ILootSource> loot = PNull.lootSource;
+    public IPrototype<ILootSource> loot;
 
     public PBlock(SimpleSkyGridConfigReader reader) {
         super(reader);
+        if(loot == null)
+            loot = PNull.lootSource;
     }
 
     @Override

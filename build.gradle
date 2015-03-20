@@ -21,7 +21,7 @@ sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 def mcVersion = "1.7.10"
-def modVersion = "1.3.0"
+def modVersion = "2.0.0"
 
 version = mcVersion + "-" + modVersion
 group= "vorquel.mod.simpleskygrid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html

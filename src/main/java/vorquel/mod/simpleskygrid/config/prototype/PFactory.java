@@ -26,7 +26,7 @@ public class PFactory {
         reader.beginObject();
         reader.nextName("type");
         String type = reader.nextString();
-        switch (type) {
+        switch(type) {
             case "label":   prototype = new PLabel<>(reader); break;
             case "block":   prototype = new PBlock(reader);   break;
             case "entity":  prototype = new PEntity(reader);  break;
@@ -41,7 +41,7 @@ public class PFactory {
         IPrototype<IGeneratedObject> prototype = PNull.generatedObject;
         reader.nextName("name");
         String type = reader.nextString();
-        switch (type) {
+        switch(type) {
             case "end_portal":  prototype = new PEndPortal(reader);  break;
             case "end_crystal": prototype = new PEndCrystal(reader); break;
             default: reader.unknownAll("special generation type " + type, "special generation definition");
@@ -72,7 +72,7 @@ public class PFactory {
         reader.beginObject();
         reader.nextName("type");
         String type = reader.nextString();
-        switch (type) {
+        switch(type) {
             case "point":   prototype = new PSinglePoint(reader);  break;
             case "circle":  prototype = new PCirclePoint(reader);  break;
             case "normal":  prototype = new PNormalPoint(reader);  break;
@@ -88,7 +88,7 @@ public class PFactory {
         reader.beginObject();
         reader.nextName("type");
         String type = reader.nextString();
-        switch (type) {
+        switch(type) {
             case "native": prototype = new PNative(reader); break;
             default: reader.unknownAll("loot source type " + type, "loot source definition");
         }
