@@ -5,21 +5,18 @@
     "height": 128,
     "spawn_height": 65,
     "generation": "overworld",
-    "unique_gen": "overworld",
-    "loot_placement": "overworld"
+    "unique_gen": "overworld"
   },
   "dim-1": {
     "height": 128,
     "generation": "nether",
-    "unique_gen": "nether",
-    "loot_placement": "nether"
+    "unique_gen": "nether"
   },
   "dim1": {
     "height": 128,
     "radius": 16,
     "generation": "end",
-    "unique_gen": "end",
-    "loot_placement": "end"
+    "unique_gen": "end"
   },
   "generation": {
     "overworld": [
@@ -242,8 +239,9 @@
       },
       {
         "object" : {
-          "type": "block",
-          "name": "minecraft:chest"
+          "type": "label",
+          "subtype": "relative",
+          "name": "loot"
         },
         "weight": 1
       },
@@ -497,8 +495,9 @@
       },
       {
         "object" : {
-          "type": "block",
-          "name": "minecraft:chest"
+          "type": "label",
+          "subtype": "relative",
+          "name": "loot"
         },
         "weight": 1
       },
@@ -586,6 +585,104 @@
         },
         "weight": 1
       }
+    ],
+    "loot": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "mineshaftCorridor"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "pyramidDesertyChest"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "pyramidJungleChest"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "strongholdCorridor"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "strongholdLibrary"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "strongholdCrossing"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "villageBlacksmith"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "loot": {
+            "type": "native",
+            "subtype": "chest",
+            "name": "dungeonChest"
+          }
+        },
+        "weight": 1
+      }
     ]
   },
   "unique_gen": {
@@ -651,53 +748,5 @@
         }
       }
     ]
-  },
-  "loot_placement": {
-    "overworld": [
-      {
-        "target": {
-          "type": "block",
-          "name": "minecraft:chest"
-        },
-        "loot": [
-          {
-            "object": {
-              "type": "native",
-              "subtype": "chest",
-              "name": "dungeonChest"
-            },
-            "weight": 5
-          },
-          {
-            "object": {
-              "type": "native",
-              "subtype": "chest",
-              "name": "mineshaftCorridor"
-            },
-            "weight": 2
-          },
-          {
-            "object": {
-              "type": "native",
-              "subtype": "chest",
-              "name": "pyramidDesertyChest"
-            },
-            "weight": 1
-          },
-          {
-            "object": {
-              "type": "native",
-              "subtype": "chest",
-              "name": "pyramidJungleChest"
-            },
-            "weight": 1
-          }
-        ]
-      }
-    ],
-    "nether": [],
-    "end": []
-  },
-  "loot": {
   }
 }

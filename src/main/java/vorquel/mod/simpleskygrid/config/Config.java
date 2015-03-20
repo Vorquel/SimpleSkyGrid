@@ -5,7 +5,6 @@ import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
 import vorquel.mod.simpleskygrid.config.prototype.PNull;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
-import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
 import java.util.HashMap;
 
@@ -14,7 +13,6 @@ public class Config {
     public static HashMap<Integer, DimensionProperties> dimensionPropertiesMap = new HashMap<>();
     public static ConfigDataMap<IPrototype<IGeneratedObject>, Double> generationData = new ConfigDataMap<>();
     public static ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
-    public static LootLocationData lootLocationData = new LootLocationData();
 
     public static void loadConfigs() {
         SimpleSkyGridConfigReader reader = new SimpleSkyGridConfigReader("SimpleSkyGrid");
@@ -24,8 +22,6 @@ public class Config {
             switch(name) {
                 case "generation":     readGeneration(reader);    break;
                 case "unique_gen":     readUniqueGen(reader);     break;
-                case "loot_placement": readLootPlacement(reader); break;
-                case "loot":           readLoot(reader);          break;
                 default:
                     if(name.startsWith("dim"))
                         readDimension(reader, name);
@@ -56,7 +52,6 @@ public class Config {
                 case "spawn_height":   prop.spawnHeight        = reader.nextInt();    break;
                 case "generation":     prop.generationLabel    = reader.nextString(); break;
                 case "unique_gen":     prop.uniqueGenLabel     = reader.nextString(); break;
-                case "loot_placement": prop.lootPlacementLabel = reader.nextString(); break;
                 default: reader.unknownOnce("label " + name, "dimension definition");
             }
         }
@@ -123,38 +118,6 @@ public class Config {
         reader.endObject();
     }
 
-    private static void readLootPlacement(SimpleSkyGridConfigReader reader) {
-        reader.beginObject();
-        while(reader.hasNext()) {
-            String label = reader.nextName();
-            reader.beginArray();
-            while(reader.hasNext()) {
-                reader.beginObject();
-                reader.nextName("target");
-                IPrototype<IGeneratedObject> target = PFactory.readGeneratedObject(reader);
-                reader.nextName("loot");
-                reader.beginArray();
-                while(reader.hasNext()) {
-                    String innerLabel = reader.nextName();
-                    IPrototype<ILootSource> lootSource = PNull.lootSource;
-                    double weight = 0;
-                    switch(innerLabel) {
-                        case "object": lootSource = PFactory.readLootSource(reader); break;
-                        case "weight": weight = readWeight(reader);
-                    }
-                    if(lootSource.isComplete() && weight > 0)
-                        lootLocationData.put(label, target, lootSource, weight);
-                }
-                reader.endArray();
-            }
-            reader.endArray();
-        }
-    }
-
-    private static void readLoot(SimpleSkyGridConfigReader reader) {
-        reader.skipValue();
-    }
-
     private static double readWeight(SimpleSkyGridConfigReader reader) {
         double weight = reader.nextDouble();
         if(weight < 0) {
@@ -173,7 +136,6 @@ public class Config {
         public int    spawnHeight        = 65;
         public String generationLabel    = null;
         public String uniqueGenLabel     = null;
-        public String lootPlacementLabel = null;
 
         public boolean isFinite() {
             return radius != -1;
