@@ -5,17 +5,20 @@ import com.google.gson.stream.JsonToken;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.io.FileUtils;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class SimpleSkyGridConfigReader {
 
     private static File configHome;
 
+    private File file;
     private String fileName;
     private JsonReader jsonReader;
 
@@ -26,6 +29,46 @@ public class SimpleSkyGridConfigReader {
             SimpleSkyGrid.logger.fatal(error);
             throw new RuntimeException(error);
         }
+    }
+
+    public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
+        //todo: load standard and integrated configs
+        ArrayList<SimpleSkyGridConfigReader> readers = new ArrayList<>();
+        Configuration configuration = new Configuration(new File(configHome, "!meta.cfg"));
+        configuration.load();
+        configuration.addCustomCategoryComment("general", "You shouldn't need to touch these unless you're making a custom modpack or similar.");
+        boolean standards = configuration.getBoolean("use_standards", "general", true, "Use built-in standard configs.");
+        boolean integrate = configuration.getBoolean("use_integration", "general", true, "Use built-in mod integration");
+        configuration.save();
+        if(standards) {
+            //todo: copy standard configs here
+        }
+        if(integrate) {
+            //todo: copy integrated configs here
+        }
+        File[] files = configHome.listFiles();
+        files = files == null ? new File[0] : files;
+        for(File file : files)
+            readers.add(new SimpleSkyGridConfigReader(file));
+        return readers;
+    }
+
+    public SimpleSkyGridConfigReader(File file) {
+        this.file = file;
+        fileName = file.getName();
+    }
+
+    public void open() {
+        if(jsonReader != null)
+            SimpleSkyGrid.logger.warn(String.format("Config file %s opened more than once", fileName));
+        try {
+            jsonReader = new JsonReader(new BufferedReader(new FileReader(file)));
+        } catch(FileNotFoundException e) {
+            String error = String.format("Unable to load config file: %s\n%s", fileName, e.getMessage());
+            SimpleSkyGrid.logger.fatal(error);
+            throw new RuntimeException(error);
+        }
+        jsonReader.setLenient(true);
     }
 
     public SimpleSkyGridConfigReader(String name) {
@@ -42,14 +85,6 @@ public class SimpleSkyGridConfigReader {
                 throw new RuntimeException("Unable to copy config file: " + fileName + "\n" + e.getMessage());
             }
         }
-        try {
-            jsonReader = new JsonReader(new BufferedReader(new FileReader(config)));
-        } catch(FileNotFoundException e) {
-            String error = String.format("Unable to load config file: %s\n%s", fileName, e.getMessage());
-            SimpleSkyGrid.logger.fatal(error);
-            throw new RuntimeException(error);
-        }
-        setLenient(true);
     }
 
     public void nextName(String expected) {
@@ -87,14 +122,6 @@ public class SimpleSkyGridConfigReader {
         int pos = ReflectionHelper.getPrivateValue(JsonReader.class, jsonReader, "pos");
         int lineStart = ReflectionHelper.getPrivateValue(JsonReader.class, jsonReader, "lineStart");
         return pos - lineStart + 1;
-    }
-
-    public void setLenient(boolean lenient) {
-        jsonReader.setLenient(lenient);
-    }
-
-    public boolean isLenient() {
-        return jsonReader.isLenient();
     }
 
     public void beginArray() {

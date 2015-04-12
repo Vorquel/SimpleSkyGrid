@@ -6,10 +6,7 @@ import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.count.PNormalCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PSingleCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PUniformCount;
-import vorquel.mod.simpleskygrid.config.prototype.generation.PBlock;
-import vorquel.mod.simpleskygrid.config.prototype.generation.PEndCrystal;
-import vorquel.mod.simpleskygrid.config.prototype.generation.PEndPortal;
-import vorquel.mod.simpleskygrid.config.prototype.generation.PEntity;
+import vorquel.mod.simpleskygrid.config.prototype.generation.*;
 import vorquel.mod.simpleskygrid.config.prototype.lootsource.PNative;
 import vorquel.mod.simpleskygrid.config.prototype.point.PCirclePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PNormalPoint;
@@ -29,6 +26,7 @@ public class PFactory {
         switch(type) {
             case "label":   prototype = new PLabel<>(reader); break;
             case "block":   prototype = new PBlock(reader);   break;
+            case "generic": prototype = new PGeneric(reader); break;
             case "entity":  prototype = new PEntity(reader);  break;
             case "special": prototype = readSpecial(reader);  break;
             default: reader.unknownAll("generation type " + type, "generation definition");

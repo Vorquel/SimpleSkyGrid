@@ -15,23 +15,25 @@ public class Config {
     public static ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
 
     public static void loadConfigs() {
-        SimpleSkyGridConfigReader reader = new SimpleSkyGridConfigReader("SimpleSkyGrid");
-        reader.beginObject();
-        while(reader.hasNext()) {
-            String name = reader.nextName();
-            switch(name) {
-                case "generation":     readGeneration(reader);    break;
-                case "unique_gen":     readUniqueGen(reader);     break;
-                default:
-                    if(name.startsWith("dim"))
-                        readDimension(reader, name);
-                    else {
-                        reader.unknownOnce("label " + name, "top level objects");
-                    }
+        for(SimpleSkyGridConfigReader reader : SimpleSkyGridConfigReader.getReaders()) {
+            reader.open();
+            reader.beginObject();
+            while(reader.hasNext()) {
+                String name = reader.nextName();
+                switch(name) {
+                    case "generation": readGeneration(reader); break;
+                    case "unique_gen": readUniqueGen(reader);  break;
+                    default:
+                        if(name.startsWith("dim"))
+                            readDimension(reader, name);
+                        else {
+                            reader.unknownOnce("label " + name, "top level objects");
+                        }
+                }
             }
+            reader.endObject();
+            reader.close();
         }
-        reader.endObject();
-        reader.close();
     }
 
     private static void readDimension(SimpleSkyGridConfigReader reader, String dimName) {
