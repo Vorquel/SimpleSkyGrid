@@ -1,9 +1,9 @@
 package vorquel.mod.simpleskygrid.config;
 
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
 import vorquel.mod.simpleskygrid.config.prototype.PNull;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.util.HashMap;
@@ -59,8 +59,7 @@ public class Config {
         }
         reader.endObject();
         if(prop.height == -1 || prop.generationLabel == null) {
-            SimpleSkyGrid.logger.fatal(String.format("Underspecified dimension %d in config file", dim));
-            throw new RuntimeException(String.format("Underspecified dimension %d in config file", dim));
+            Log.kill("Underspecified dimension %d in config file", dim);
         }
         dimensionPropertiesMap.put(dim, prop);
     }
@@ -107,7 +106,7 @@ public class Config {
                         case "count":    quantity.countSource = PFactory.readCount(reader).getObject(); break;
                         case "location": quantity.pointSource = PFactory.readPoint(reader).getObject(); break;
                         default:
-                            SimpleSkyGrid.logger.warn(String.format("Unknown uniqueGen label %s in config file", innerLabel));
+                            Log.warn("Unknown uniqueGen label %s in config file", innerLabel);
                             reader.skipValue();
                     }
                 }
@@ -123,10 +122,10 @@ public class Config {
     private static double readWeight(SimpleSkyGridConfigReader reader) {
         double weight = reader.nextDouble();
         if(weight < 0) {
-            SimpleSkyGrid.logger.error("Negative weight in config file");
+            Log.error("Negative weight in config file");
             weight = 0;
         } else if(Double.isInfinite(weight) || Double.isNaN(weight)) {
-            SimpleSkyGrid.logger.error("Crazy weight in config file");
+            Log.error("Crazy weight in config file");
             weight = 0;
         }
         return weight;

@@ -5,12 +5,12 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
 import vorquel.mod.simpleskygrid.config.prototype.PNull;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.loot.ILootSource;
@@ -48,17 +48,17 @@ public class PBlock extends Prototype<IGeneratedObject> {
     public IGeneratedObject getObject() {
         Block block = GameData.getBlockRegistry().getObject(name);
         if(block == Blocks.air && !name.equals("minecraft:air")) {
-            SimpleSkyGrid.logger.error("Unrecognised block name: " + name);
+            Log.error("Unrecognised block name: " + name);
             return null;
         }
         if(nbt != null && !block.hasTileEntity(meta))
-            SimpleSkyGrid.logger.warn("NBT specified for block (" + name + ") without a tile entity");
+            Log.warn("NBT specified for block (" + name + ") without a tile entity");
         ILootSource lootSource = null;
         if(loot.isComplete()) {
             if(block.hasTileEntity(meta) && block.createTileEntity(null, meta) instanceof IInventory)
                 lootSource = loot.getObject();
             else
-                SimpleSkyGrid.logger.warn("Loot specified for block (" + name + ") without an inventory");
+                Log.warn("Loot specified for block (" + name + ") without an inventory");
         }
         return new GeneratedBlock(block, meta, nbt, lootSource);
     }

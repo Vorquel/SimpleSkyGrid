@@ -6,7 +6,6 @@ import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.*;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -166,7 +165,7 @@ public class NBT2JSON {
             case 9:  writeList(     jw,      (NBTTagList) tag); break;
             case 10: writeCompound( jw,  (NBTTagCompound) tag); break;
             case 11: writeIntArray( jw,  (NBTTagIntArray) tag); break;
-            default: SimpleSkyGrid.logger.warn("Unrecognised tag type in NBT data");
+            default: Log.warn("Unrecognised tag type in NBT data");
         }
     }
 
@@ -205,7 +204,7 @@ public class NBT2JSON {
     }
 
     public static void readTag(JsonReader jr, NBTTagCompound nbt) throws IOException {
-        NBTBase tag;
+        NBTBase tag = null;
         String label = jr.nextName();
         switch(label.substring(0, 2)) {
             case "b_": tag = readByte(jr);        break;
@@ -220,8 +219,7 @@ public class NBT2JSON {
             case "L_": tag = readList(jr, label); break;
             case "C_": tag = readCompound(jr);    break;
             default:
-                SimpleSkyGrid.logger.fatal(String.format("Tag prefix expected in NBT data, found %s", label));
-                throw new RuntimeException(String.format("Tag prefix expected in NBT data, found %s", label));
+                Log.kill("Tag prefix expected in NBT data, found %s", label);
         }
         while(label.startsWith("L_")) {
             label = label.substring(2);
@@ -233,8 +231,7 @@ public class NBT2JSON {
         long expected = jr.nextLong();
         byte actual = (byte) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given byte value in NBT data does not fit in byte");
-            throw new RuntimeException("Given byte value in NBT data does not fit in byte");
+            Log.kill("Given byte value in NBT data does not fit in byte");
         }
         return new NBTTagByte(actual);
     }
@@ -243,8 +240,7 @@ public class NBT2JSON {
         long expected = jr.nextLong();
         short actual = (short) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given short value in NBT data does not fit in short");
-            throw new RuntimeException("Given short value in NBT data does not fit in short");
+            Log.kill("Given short value in NBT data does not fit in short");
         }
         return new NBTTagShort(actual);
     }
@@ -253,8 +249,7 @@ public class NBT2JSON {
         long expected = jr.nextLong();
         int actual = (int) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given int value in NBT data does not fit in int");
-            throw new RuntimeException("Given int value in NBT data does not fit in int");
+            Log.kill("Given int value in NBT data does not fit in int");
         }
         return new NBTTagInt(actual);
     }
@@ -267,8 +262,7 @@ public class NBT2JSON {
         double expected = jr.nextDouble();
         float actual = (float) expected;
         if(expected != actual) {
-            SimpleSkyGrid.logger.fatal("Given float value in NBT data does not fit in float");
-            throw new RuntimeException("Given float value in NBT data does not fit in float");
+            Log.kill("Given float value in NBT data does not fit in float");
         }
         return new NBTTagFloat(actual);
     }
@@ -284,8 +278,7 @@ public class NBT2JSON {
             long expected = jr.nextLong();
             byte actual = (byte) expected;
             if(expected != actual) {
-                SimpleSkyGrid.logger.fatal("Given byte value in NBT data does not fit in byte");
-                throw new RuntimeException("Given byte value in NBT data does not fit in byte");
+                Log.kill("Given byte value in NBT data does not fit in byte");
             }
             byteList.add(actual);
         }
@@ -303,7 +296,7 @@ public class NBT2JSON {
             long expected = jr.nextLong();
             int actual = (int) expected;
             if(expected != actual) {
-                SimpleSkyGrid.logger.fatal("Given int value in NBT data does not fit in int");
+                Log.kill("Given int value in NBT data does not fit in int");
                 throw new RuntimeException("Given int value in NBT data does not fit in int");
             }
             intList.add(actual);
@@ -337,8 +330,7 @@ public class NBT2JSON {
                 case "L_": list.appendTag(readList(jr, label.substring(2))); break; //Abandon all hope, ye who enter here
                 case "C_": list.appendTag(readCompound(jr));                 break;
                 default:
-                    SimpleSkyGrid.logger.fatal(String.format("Tag prefix expected in NBT data, found %s", label));
-                    throw new RuntimeException(String.format("Tag prefix expected in NBT data, found %s", label));
+                    Log.kill("Tag prefix expected in NBT data, found %s", label);
             }
         }
         jr.endArray();

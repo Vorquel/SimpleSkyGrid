@@ -12,10 +12,10 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
-import org.apache.logging.log4j.Logger;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.event.IdentifierHandler;
 import vorquel.mod.simpleskygrid.event.SpawnFixer;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.network.MessageClipboard;
 import vorquel.mod.simpleskygrid.network.MessageHandlerClipboard;
@@ -30,13 +30,12 @@ public class SimpleSkyGrid {
     @Mod.Instance(Ref.MOD_ID)
     @SuppressWarnings("unused")
     public static SimpleSkyGrid instance;
-    public static Logger logger;
     public static SimpleNetworkWrapper network;
 
     @Mod.EventHandler
     @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
+        Log.setLogger(event.getModLog());
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Ref.MOD_ID);
         network.registerMessage(MessageHandlerClipboard.class, MessageClipboard.class, 0, Side.CLIENT);
         Config.loadConfigs();

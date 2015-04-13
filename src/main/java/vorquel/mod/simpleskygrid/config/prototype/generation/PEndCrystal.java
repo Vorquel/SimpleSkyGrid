@@ -2,9 +2,9 @@ package vorquel.mod.simpleskygrid.config.prototype.generation;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedComplex;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
@@ -19,7 +19,7 @@ public class PEndCrystal extends Prototype<IGeneratedObject> {
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         reader.unknownOnce("label " + label, "end crystal definition");
-        SimpleSkyGrid.logger.warn("What are you doing? End crystals have no extra data.");
+        Log.warn("What are you doing? End crystals have no extra data.");
     }
 
     @Override

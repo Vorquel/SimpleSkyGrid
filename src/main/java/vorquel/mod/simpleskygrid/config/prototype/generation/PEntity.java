@@ -2,9 +2,9 @@ package vorquel.mod.simpleskygrid.config.prototype.generation;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEntity;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
@@ -34,7 +34,7 @@ public class PEntity extends Prototype<IGeneratedObject> {
     @Override
     public IGeneratedObject getObject() {
         if(!EntityList.func_151515_b().contains(name)) {
-            SimpleSkyGrid.logger.error("Unrecognised entity name: " + name);
+            Log.error("Unrecognised entity name: " + name);
             return null;
         }
         return new GeneratedEntity(name, nbt);

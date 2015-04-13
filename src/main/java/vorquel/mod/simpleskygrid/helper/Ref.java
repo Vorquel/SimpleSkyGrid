@@ -1,7 +1,6 @@
 package vorquel.mod.simpleskygrid.helper;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.config.ConfigDataMap;
 import vorquel.mod.simpleskygrid.config.UniqueQuantity;
@@ -35,7 +34,7 @@ public class Ref {
                 uniqueGenerators.put(i, makeUniqueGenerator(Config.dimensionPropertiesMap.get(i).uniqueGenLabel));
             }
         } catch(StackOverflowError | OutOfMemoryError e) {
-            SimpleSkyGrid.logger.fatal("Fatal Error: Cyclical dependency in config.");
+            Log.fatal("Fatal Error: Cyclical dependency in config.");
             throw new Error("Fatal Error: Cyclical dependency in config.");
         }
     }
@@ -53,7 +52,7 @@ public class Ref {
                 if(config.size(newLabel.name) > 0)
                     randomList.add(makeRandomGenerator(newLabel.name, newLabel.subtype == PLabel.Subtype.relative), weight);
                 else
-                    SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
+                    Log.error("Error reading config, unrecognized label: " + newLabel);
             } else {
                 randomList.add(entry.getObject(), weight);
             }
@@ -73,7 +72,7 @@ public class Ref {
                 if(config.size(newLabel.name) > 0)
                     list.addAll(makeUniqueGenerator(newLabel.name));
                 else
-                    SimpleSkyGrid.logger.error("Error reading config, unrecognized label: " + newLabel);
+                    Log.error("Error reading config, unrecognized label: " + newLabel);
             } else {
                 IGeneratedObject generatedObject = entry.getObject();
                 UniqueQuantity quantity = config.getQuantity(label, i);

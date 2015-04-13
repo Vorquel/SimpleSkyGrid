@@ -1,8 +1,8 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
 import net.minecraft.util.ChunkCoordinates;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 import vorquel.mod.simpleskygrid.world.generated.random.point.CirclePoint;
 
@@ -34,7 +34,7 @@ public class PCirclePoint extends PPoint {
             case "y": return CirclePoint.Axis.Y;
             case "z": return CirclePoint.Axis.Z;
             default:
-                SimpleSkyGrid.logger.error(String.format("Bad axis %s in config", string));
+                Log.error("Bad axis %s in config", string);
                 return null;
         }
     }

@@ -9,8 +9,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
 import vorquel.mod.simpleskygrid.config.Config;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.RandomList;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedEndPortal;
@@ -53,7 +53,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
                     }
                 }
                 if(j == 1000)
-                    SimpleSkyGrid.logger.warn("Unable to place uniqueGen object");
+                    Log.warn("Unable to place uniqueGen object");
             }
         }
     }

@@ -7,10 +7,12 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.io.FileUtils;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import org.apache.commons.io.filefilter.SuffixFileFilter;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -24,11 +26,8 @@ public class SimpleSkyGridConfigReader {
 
     static {
         configHome = new File(Loader.instance().getConfigDir(), "SimpleSkyGrid");
-        if(!configHome.exists() && !configHome.mkdir()) {
-            String error = "Unable to create config directory";
-            SimpleSkyGrid.logger.fatal(error);
-            throw new RuntimeException(error);
-        }
+        if(!configHome.exists() && !configHome.mkdir())
+            Log.kill("Unable to create config directory");
     }
 
     public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
@@ -37,20 +36,79 @@ public class SimpleSkyGridConfigReader {
         Configuration configuration = new Configuration(new File(configHome, "!meta.cfg"));
         configuration.load();
         configuration.addCustomCategoryComment("general", "You shouldn't need to touch these unless you're making a custom modpack or similar.");
-        boolean standards = configuration.getBoolean("use_standards", "general", true, "Use built-in standard configs.");
-        boolean integrate = configuration.getBoolean("use_integration", "general", true, "Use built-in mod integration");
+        boolean useStandards = configuration.getBoolean("use_standards", "general", true, "Use built-in standard configs.");
+        boolean useIntegration = configuration.getBoolean("use_integration", "general", true, "Use built-in mod integration");
         configuration.save();
-        if(standards) {
-            //todo: copy standard configs here
+        if(useStandards) {
+            copyNeededStandards();
         }
-        if(integrate) {
-            //todo: copy integrated configs here
+        if(useIntegration) {
+            copyNeededIntegration();
         }
-        File[] files = configHome.listFiles();
+        File[] files = configHome.listFiles((FilenameFilter) new SuffixFileFilter(".json"));
         files = files == null ? new File[0] : files;
         for(File file : files)
             readers.add(new SimpleSkyGridConfigReader(file));
         return readers;
+    }
+
+    private static void copyNeededStandards() {
+        URL standards = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/standards/");
+        String protocol = standards.getProtocol().toLowerCase();
+        switch(protocol) {
+            case "file":
+                File source = FileUtils.toFile(standards);
+                File[] files = source.listFiles();
+                files = files == null ? new File[0] : files;
+                for(File file : files)
+                    try {
+                        copyFileIfNecessary(file.toURI().toURL());
+                    } catch (MalformedURLException e) {
+                        Log.kill("Unable to copy file %s: %s", file.getName(), e.getMessage());
+                    }
+                break;
+            case "jar": break; //todo
+            default:
+                Log.kill("Unable to copy config files: Unknown environment");
+        }
+    }
+
+    private static void copyNeededIntegration() {
+        URL standards = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/integration/");
+        String protocol = standards.getProtocol().toLowerCase();
+        switch(protocol) {
+            case "file":
+                File source = FileUtils.toFile(standards);
+                File[] files = source.listFiles();
+                files = files == null ? new File[0] : files;
+                for(File file : files) {
+                    String modName = file.getName();
+                    modName = modName.substring(0, modName.indexOf('.'));
+                    if(Loader.isModLoaded(modName))
+                        try {
+                            copyFileIfNecessary(file.toURI().toURL());
+                        } catch (MalformedURLException e) {
+                            Log.kill("Unable to copy file %s: %s", file.getName(), e.getMessage());
+                        }
+                }
+                break;
+            case "jar": break; //todo
+            default:
+                Log.kill("Unable to copy config files: Unknown environment");
+        }
+    }
+
+    private static void copyFileIfNecessary(URL source) {
+        String path = source.getPath();
+        String name = path.substring(path.lastIndexOf('/') + 1);
+        File destination = new File(configHome, name);
+        if(destination.exists())
+            return;
+        try {
+            FileUtils.copyURLToFile(source, destination);
+        } catch (IOException e) {
+            Log.kill("Unable to copy file %s: %s", name, e.getMessage());
+        }
     }
 
     public SimpleSkyGridConfigReader(File file) {
@@ -60,13 +118,11 @@ public class SimpleSkyGridConfigReader {
 
     public void open() {
         if(jsonReader != null)
-            SimpleSkyGrid.logger.warn(String.format("Config file %s opened more than once", fileName));
+            Log.warn("Config file %s opened more than once", fileName);
         try {
             jsonReader = new JsonReader(new BufferedReader(new FileReader(file)));
         } catch(FileNotFoundException e) {
-            String error = String.format("Unable to load config file: %s\n%s", fileName, e.getMessage());
-            SimpleSkyGrid.logger.fatal(error);
-            throw new RuntimeException(error);
+            Log.kill("Unable to load config file: %s\n%s", fileName, e.getMessage());
         }
         jsonReader.setLenient(true);
     }
@@ -80,29 +136,24 @@ public class SimpleSkyGridConfigReader {
             try {
                 FileUtils.copyURLToFile(configURL, config);
             } catch (IOException e) {
-                SimpleSkyGrid.logger.fatal("Unable to copy config file: " + fileName);
-                SimpleSkyGrid.logger.fatal(e.getMessage());
-                throw new RuntimeException("Unable to copy config file: " + fileName + "\n" + e.getMessage());
+                Log.kill("Unable to copy config file: " + fileName + "\n" + e.getMessage());
             }
         }
     }
 
     public void nextName(String expected) {
         String actual = nextName();
-        if(!actual.equals(expected)) {
-            String error = String.format("Expected \"%s\", found \"%s\" at %s", expected, actual, getLocation());
-            SimpleSkyGrid.logger.fatal(error);
-            throw new RuntimeException(error);
-        }
+        if(!actual.equals(expected))
+            Log.kill("Expected \"%s\", found \"%s\" at %s", expected, actual, getLocation());
     }
 
     public void unknownOnce(String object, String where) {
-        SimpleSkyGrid.logger.warn(String.format("Unknown %s found in %s at %s", object, where, getLocation()));
+        Log.warn("Unknown %s found in %s at %s", object, where, getLocation());
         skipValue();
     }
 
     public void unknownAll(String object, String where) {
-        SimpleSkyGrid.logger.warn(String.format("Unknown %s found in %s at %s", object, where, getLocation()));
+        Log.warn("Unknown %s found in %s at %s", object, where, getLocation());
         while(hasNext()) {
             nextName();
             skipValue();
@@ -247,7 +298,7 @@ public class SimpleSkyGridConfigReader {
     public int nextMetadata() {
         int meta = nextInt();
         if(meta < 0 || meta > 15) {
-            SimpleSkyGrid.logger.warn(String.format("Invalid metadata value %d found, assuming 0", meta));
+            Log.warn("Invalid metadata value %d found, assuming 0", meta);
             meta = 0;
         }
         return meta;
@@ -266,15 +317,13 @@ public class SimpleSkyGridConfigReader {
         try {
             return Enum.valueOf(clazz, string);
         } catch(EnumConstantNotPresentException e) {
-            String error = String.format("Unknown subtype %s at %s", string, getLocation());
-            SimpleSkyGrid.logger.fatal(error);
-            throw new RuntimeException(error);
+            Log.kill("Unknown subtype %s at %s", string, getLocation());
+            return null;
         }
     }
 
     private Object handleIO(IOException e) {
-        SimpleSkyGrid.logger.fatal("Problem reading config file: " + fileName);
-        SimpleSkyGrid.logger.fatal(e.getMessage());
-        throw new RuntimeException("Problem reading config file: " + fileName + "\n" + e.getMessage());
+        Log.kill("Problem reading config file: " + fileName + "\n" + e.getMessage());
+        return null;
     }
 }

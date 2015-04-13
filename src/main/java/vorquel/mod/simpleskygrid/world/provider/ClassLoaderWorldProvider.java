@@ -7,7 +7,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.RemappingClassAdapter;
 import org.objectweb.asm.commons.SimpleRemapper;
-import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.helper.Log;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,8 +48,7 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
             ClassReader classReader = new ClassReader(WorldProviderSkyGrid.class.getCanonicalName());
             classReader.accept(remappingClassAdapter, ClassReader.EXPAND_FRAMES);
         } catch(IOException e) {
-            SimpleSkyGrid.logger.fatal("Unable to create Simple Sky Grid World Providers");
-            throw new RuntimeException("Unable to create Simple Sky Grid World Providers");
+            Log.kill("Unable to create Simple Sky Grid World Providers");
         }
         return classWriter.toByteArray();
     }
