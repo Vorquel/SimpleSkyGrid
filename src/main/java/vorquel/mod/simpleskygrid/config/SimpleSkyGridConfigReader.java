@@ -12,7 +12,6 @@ import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -31,7 +30,6 @@ public class SimpleSkyGridConfigReader {
     }
 
     public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
-        //todo: load standard and integrated configs
         ArrayList<SimpleSkyGridConfigReader> readers = new ArrayList<>();
         Configuration configuration = new Configuration(new File(configHome, "!meta.cfg"));
         configuration.load();
@@ -39,12 +37,13 @@ public class SimpleSkyGridConfigReader {
         boolean useStandards = configuration.getBoolean("use_standards", "general", true, "Use built-in standard configs.");
         boolean useIntegration = configuration.getBoolean("use_integration", "general", true, "Use built-in mod integration");
         configuration.save();
-        if(useStandards) {
-            copyNeededStandards();
-        }
-        if(useIntegration) {
-            copyNeededIntegration();
-        }
+        if(useStandards)
+            for(URL url : getConfigList("/assets/simpleskygrid/config/standards/"))
+                copyFileIfNecessary(url);
+        if(useIntegration)
+            for(URL url : getConfigList("/assets/simpleskygrid/config/integration/"))
+                if(Loader.isModLoaded(getModIdFromUrl(url)))
+                    copyFileIfNecessary(url);
         File[] files = configHome.listFiles((FilenameFilter) new SuffixFileFilter(".json"));
         files = files == null ? new File[0] : files;
         for(File file : files)
@@ -52,50 +51,21 @@ public class SimpleSkyGridConfigReader {
         return readers;
     }
 
-    private static void copyNeededStandards() {
-        URL standards = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/standards/");
-        String protocol = standards.getProtocol().toLowerCase();
-        switch(protocol) {
-            case "file":
-                File source = FileUtils.toFile(standards);
-                File[] files = source.listFiles();
-                files = files == null ? new File[0] : files;
-                for(File file : files)
-                    try {
-                        copyFileIfNecessary(file.toURI().toURL());
-                    } catch (MalformedURLException e) {
-                        Log.kill("Unable to copy file %s: %s", file.getName(), e.getMessage());
-                    }
-                break;
-            case "jar": break; //todo
-            default:
-                Log.kill("Unable to copy config files: Unknown environment");
+    private static ArrayList<URL> getConfigList(String home) {
+        URL source = SimpleSkyGridConfigReader.class.getResource(home + "configList.txt");
+        File destination = new File(configHome, "configList.txt");
+        ArrayList<URL> configList = new ArrayList<>();
+        try {
+            FileUtils.copyURLToFile(source, destination);
+            for(String line : FileUtils.readLines(destination))
+                configList.add(SimpleSkyGridConfigReader.class.getResource(home + line));
+        } catch(IOException e) {
+            Log.kill("Unable to copy file %s: %s", e.getMessage());
+        } finally {
+            if(!destination.delete())
+                Log.warn("Unable to delete temporary file configList.txt");
         }
-    }
-
-    private static void copyNeededIntegration() {
-        URL standards = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/integration/");
-        String protocol = standards.getProtocol().toLowerCase();
-        switch(protocol) {
-            case "file":
-                File source = FileUtils.toFile(standards);
-                File[] files = source.listFiles();
-                files = files == null ? new File[0] : files;
-                for(File file : files) {
-                    String modName = file.getName();
-                    modName = modName.substring(0, modName.indexOf('.'));
-                    if(Loader.isModLoaded(modName))
-                        try {
-                            copyFileIfNecessary(file.toURI().toURL());
-                        } catch (MalformedURLException e) {
-                            Log.kill("Unable to copy file %s: %s", file.getName(), e.getMessage());
-                        }
-                }
-                break;
-            case "jar": break; //todo
-            default:
-                Log.kill("Unable to copy config files: Unknown environment");
-        }
+        return configList;
     }
 
     private static void copyFileIfNecessary(URL source) {
@@ -109,6 +79,11 @@ public class SimpleSkyGridConfigReader {
         } catch (IOException e) {
             Log.kill("Unable to copy file %s: %s", name, e.getMessage());
         }
+    }
+
+    private static String getModIdFromUrl(URL url) {
+        String file = url.getFile();
+        return file.substring(file.lastIndexOf('/') + 1, file.lastIndexOf('.'));
     }
 
     public SimpleSkyGridConfigReader(File file) {
