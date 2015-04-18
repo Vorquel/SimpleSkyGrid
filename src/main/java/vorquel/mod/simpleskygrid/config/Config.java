@@ -142,10 +142,10 @@ public class Config {
             return radius != -1;
         }
 
-        public boolean inRadius(int xChunk, int zChunk) {
+        public boolean notInRadius(int xChunk, int zChunk) {
             int xAbs = xChunk < 0 ? -xChunk : xChunk + 1;
             int zAbs = zChunk < 0 ? -zChunk : zChunk + 1;
-            return xAbs <= radius && zAbs <= radius;
+            return xAbs > radius || zAbs > radius;
         }
     }
 }

@@ -42,7 +42,7 @@ public class LootSourceNative implements ILootSource {
         }
     }
 
-    public static enum Type {
+    public enum Type {
         chest, dispenser
     }
 }

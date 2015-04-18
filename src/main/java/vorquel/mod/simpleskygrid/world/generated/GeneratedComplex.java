@@ -16,8 +16,11 @@ public class GeneratedComplex implements IGeneratedObject {
 
     @Override
     public void provideObject(Random random, World world, int x, int y, int z) {
+        int max = world.provider.getHeight();
         for(ChunkCoordinates key : generationMap.keySet()) {
-            generationMap.get(key).provideObject(random, world, x + key.posX, y + key.posY, z + key.posZ);
+            int newY = y + key.posY;
+            if(newY >= 0 && newY < max)
+                generationMap.get(key).provideObject(random, world, x + key.posX, newY, z + key.posZ);
         }
     }
 }

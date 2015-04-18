@@ -28,6 +28,7 @@ public class PFactory {
             case "block":   prototype = new PBlock(reader);   break;
             case "generic": prototype = new PGeneric(reader); break;
             case "entity":  prototype = new PEntity(reader);  break;
+            case "complex": prototype = new PComplex(reader); break;
             case "special": prototype = readSpecial(reader);  break;
             default: reader.unknownAll("generation type " + type, "generation definition");
         }

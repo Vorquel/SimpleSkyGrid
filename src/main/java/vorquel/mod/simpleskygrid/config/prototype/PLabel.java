@@ -30,7 +30,7 @@ public class PLabel<T> extends Prototype<T> {
         return null;
     }
 
-    public static enum Subtype {
+    public enum Subtype {
         absolute, relative
     }
 }

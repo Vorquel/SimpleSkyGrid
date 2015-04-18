@@ -60,7 +60,7 @@ public class SimpleSkyGridConfigReader {
             for(String line : FileUtils.readLines(destination))
                 configList.add(SimpleSkyGridConfigReader.class.getResource(home + line));
         } catch(IOException e) {
-            Log.kill("Unable to copy file %s: %s", e.getMessage());
+            Log.kill("Unable to copy temp file configList: %s", e.getMessage());
         } finally {
             if(!destination.delete())
                 Log.warn("Unable to delete temporary file configList.txt");
@@ -97,23 +97,9 @@ public class SimpleSkyGridConfigReader {
         try {
             jsonReader = new JsonReader(new BufferedReader(new FileReader(file)));
         } catch(FileNotFoundException e) {
-            Log.kill("Unable to load config file: %s\n%s", fileName, e.getMessage());
+            Log.kill("Unable to load config file %s: %s", fileName, e.getMessage());
         }
         jsonReader.setLenient(true);
-    }
-
-    public SimpleSkyGridConfigReader(String name) {
-        fileName = name + ".json";
-        File config = new File(configHome, fileName);
-        if(!config.exists()) {
-            String configHomeDir = "/assets/simpleskygrid/config/";
-            URL configURL = Config.class.getResource(configHomeDir + fileName);
-            try {
-                FileUtils.copyURLToFile(configURL, config);
-            } catch (IOException e) {
-                Log.kill("Unable to copy config file: " + fileName + "\n" + e.getMessage());
-            }
-        }
     }
 
     public void nextName(String expected) {
@@ -298,7 +284,7 @@ public class SimpleSkyGridConfigReader {
     }
 
     private Object handleIO(IOException e) {
-        Log.kill("Problem reading config file: " + fileName + "\n" + e.getMessage());
+        Log.kill("Problem reading config file %s: %s", fileName, e.getMessage());
         return null;
     }
 }

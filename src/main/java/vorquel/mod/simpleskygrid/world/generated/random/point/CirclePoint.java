@@ -32,7 +32,7 @@ public class CirclePoint extends RandomPoint {
         return round(x, y, z);
     }
 
-    public static enum Axis {
+    public enum Axis {
         X, Y, Z
     }
 }

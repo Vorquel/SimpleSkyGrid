@@ -32,7 +32,7 @@ public class GeneratedBlock implements IGeneratedObject {
         chunk.getBlockStorageArray()[y >> 4].func_150818_a(x & 15, y & 15, z & 15, block);
         chunk.setBlockMetadata(x & 15, y, z & 15, meta);
         if(block.hasTileEntity(meta)) {
-            TileEntity te = null;
+            TileEntity te;
             if(nbt != null) {
                 te = block.createTileEntity(world, meta);
                 NBT2JSON.localizeBlock(nbt, x, y, z);

@@ -66,7 +66,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     @Override
     public Chunk provideChunk(int xChunk, int zChunk) {
         Chunk chunk = new Chunk(world, xChunk, zChunk);
-        if(dimensionProperties.isFinite() && !dimensionProperties.inRadius(xChunk, zChunk))
+        if(dimensionProperties.isFinite() && dimensionProperties.notInRadius(xChunk, zChunk))
             return chunk;
         for(int i=0; i< dimensionProperties.height>>4; ++i)
             chunk.getBlockStorageArray()[i] = new ExtendedBlockStorage(i*16, !world.provider.hasNoSky);
@@ -94,7 +94,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
     @Override
     public void populate(IChunkProvider p_73153_1_, int xChunk, int zChunk) {
-        if(dimensionProperties.isFinite() && !dimensionProperties.inRadius(xChunk, zChunk))
+        if(dimensionProperties.isFinite() && dimensionProperties.notInRadius(xChunk, zChunk))
             return;
 
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);

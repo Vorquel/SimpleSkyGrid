@@ -30,6 +30,7 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
             return proxyMap.get(superClass);
         String className = "vorquel.mod.simpleskygrid.world.provider.WorldProviderSkyGrid$" + count++;
         byte[] classBytes = generateClass(className, superClass.getCanonicalName());
+        //noinspection unchecked
         Class<? extends WorldProvider> thisClass = (Class<? extends WorldProvider>) defineClass(className, classBytes, 0, classBytes.length);
         proxyMap.put(superClass, thisClass);
         return thisClass;
@@ -48,7 +49,7 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
             ClassReader classReader = new ClassReader(WorldProviderSkyGrid.class.getCanonicalName());
             classReader.accept(remappingClassAdapter, ClassReader.EXPAND_FRAMES);
         } catch(IOException e) {
-            Log.kill("Unable to create Simple Sky Grid World Providers");
+            Log.kill("Unable to create Simple Sky Grid World Provider Proxy for class %s: %s", superClassName, e.getMessage());
         }
         return classWriter.toByteArray();
     }

@@ -147,6 +147,7 @@ public class NBT2JSON {
 
     public static void writeList(JsonWriter jw, NBTTagList tag) throws IOException {
         jw.beginArray();
+        //noinspection unchecked
         for(NBTBase b : (List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a"))
             writeTag(jw, b);
         jw.endArray();
@@ -190,6 +191,7 @@ public class NBT2JSON {
         if(tag.tagCount() == 0)
             return "e_";
         else
+            //noinspection unchecked
             return tagPrefix(((List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a")).get(0));
     }
 
@@ -297,7 +299,6 @@ public class NBT2JSON {
             int actual = (int) expected;
             if(expected != actual) {
                 Log.kill("Given int value in NBT data does not fit in int");
-                throw new RuntimeException("Given int value in NBT data does not fit in int");
             }
             intList.add(actual);
         }
