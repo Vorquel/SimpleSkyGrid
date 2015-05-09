@@ -28,6 +28,8 @@ public class PComplex extends Prototype<IGeneratedObject> {
             if(value.isComplete() && !(value instanceof PLabel))
                 generationMap.put(key, value);
         }
+        else
+            reader.unknownOnce("label " + label, "complex object definition");
     }
 
     private ChunkCoordinates getChunkCoordinates(String label) {

@@ -3,6 +3,7 @@ package vorquel.mod.simpleskygrid.helper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.config.ConfigDataMap;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.UniqueQuantity;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PLabel;
@@ -23,7 +24,8 @@ public class Ref {
     private static HashMap<Integer, ArrayList<GeneratedUnique>> uniqueGenerators = new HashMap<>();
 
     public static void preInit() {
-        GameRegistry.registerItem(itemIdentifier, "identifier");
+        if(SimpleSkyGridConfigReader.useDevItems)
+            GameRegistry.registerItem(itemIdentifier, "identifier");
     }
 
     public static void postInit() {
@@ -52,7 +54,7 @@ public class Ref {
                 if(config.size(newLabel.name) > 0)
                     randomList.add(makeRandomGenerator(newLabel.name, newLabel.subtype == PLabel.Subtype.relative), weight);
                 else
-                    Log.error("Error reading config, unrecognized label: " + newLabel);
+                    Log.warn("Unused label in config: %s", newLabel.name);
             } else {
                 randomList.add(entry.getObject(), weight);
             }
@@ -72,7 +74,7 @@ public class Ref {
                 if(config.size(newLabel.name) > 0)
                     list.addAll(makeUniqueGenerator(newLabel.name));
                 else
-                    Log.error("Error reading config, unrecognized label: " + newLabel);
+                    Log.warn("Unused label in config: %s", newLabel.name);
             } else {
                 IGeneratedObject generatedObject = entry.getObject();
                 UniqueQuantity quantity = config.getQuantity(label, i);

@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
@@ -12,6 +13,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
+import vorquel.mod.simpleskygrid.config.CommandReloadConfigs;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.event.IdentifierHandler;
 import vorquel.mod.simpleskygrid.event.SpawnFixer;
@@ -54,6 +56,11 @@ public class SimpleSkyGrid {
     public void postInit(FMLPostInitializationEvent event) {
         Ref.postInit();
         createWorldProviders();
+    }
+
+    @Mod.EventHandler
+    public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandReloadConfigs());
     }
 
     private void createWorldProviders() {

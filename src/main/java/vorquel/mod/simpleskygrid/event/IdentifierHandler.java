@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.apache.commons.io.output.StringBuilderWriter;
 import vorquel.mod.simpleskygrid.SimpleSkyGrid;
+import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.network.MessageClipboard;
@@ -28,7 +29,7 @@ public class IdentifierHandler {
         if(shouldLeave(event))
             return;
         event.setCanceled(true);
-        String info = "Problem retrieving block data";
+        String info = "Problem retrieving entity data";
         try {
             StringBuilderWriter sbw = new StringBuilderWriter();
             JsonWriter jw = new JsonWriter(new BufferedWriter(sbw));
@@ -47,8 +48,7 @@ public class IdentifierHandler {
             info = sbw.toString();
         } catch(IOException ignored) {}
         event.entityPlayer.addChatComponentMessage(new ChatComponentText(info));
-        if(event.entityPlayer.isSneaking())
-            SimpleSkyGrid.network.sendTo(new MessageClipboard(info), (EntityPlayerMP) event.entityPlayer);
+        SimpleSkyGrid.network.sendTo(new MessageClipboard(info), (EntityPlayerMP) event.entityPlayer);
     }
 
     @SubscribeEvent
@@ -57,6 +57,22 @@ public class IdentifierHandler {
         if(shouldLeave(event) || event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
             return;
         event.setCanceled(true);
+        int x = event.x;
+        int y = event.y;
+        int z = event.z;
+        if(event.entityPlayer.isSneaking())
+            switch(event.face) {
+                case 0: --y; break;
+                case 1: ++y; break;
+                case 2: --z; break;
+                case 3: ++z; break;
+                case 4: --x; break;
+                case 5: ++x; break;
+                default:
+                    event.entityPlayer.addChatComponentMessage(new ChatComponentText("Unknown side shift clicked on."));
+                    Log.warn("Unexpected side of block found on shift right clicking block with Identifier");
+                    break;
+            }
         String info = "Problem retrieving block data";
         try {
             StringBuilderWriter sbw = new StringBuilderWriter();
@@ -65,13 +81,13 @@ public class IdentifierHandler {
             jw.name("type");
             jw.value("block");
             jw.name("name");
-            jw.value(GameData.getBlockRegistry().getNameForObject(event.world.getBlock(event.x, event.y, event.z)));
-            int meta = event.world.getBlockMetadata(event.x, event.y, event.z);
+            jw.value(GameData.getBlockRegistry().getNameForObject(event.world.getBlock(x, y, z)));
+            int meta = event.world.getBlockMetadata(x, y, z);
             if(meta != 0) {
                 jw.name("meta");
                 jw.value(meta);
             }
-            TileEntity tileEntity = event.world.getTileEntity(event.x, event.y, event.z);
+            TileEntity tileEntity = event.world.getTileEntity(x, y, z);
             if(tileEntity != null) {
                 jw.name("nbt");
                 NBTTagCompound nbt = new NBTTagCompound();
@@ -84,8 +100,7 @@ public class IdentifierHandler {
             info = sbw.toString();
         } catch(IOException ignored) {}
         event.entityPlayer.addChatComponentMessage(new ChatComponentText(info));
-        if(event.entityPlayer.isSneaking())
-            SimpleSkyGrid.network.sendTo(new MessageClipboard(info), (EntityPlayerMP) event.entityPlayer);
+        SimpleSkyGrid.network.sendTo(new MessageClipboard(info), (EntityPlayerMP) event.entityPlayer);
     }
 
     private boolean shouldLeave(PlayerEvent event) {

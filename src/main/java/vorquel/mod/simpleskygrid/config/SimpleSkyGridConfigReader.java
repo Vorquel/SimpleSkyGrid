@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class SimpleSkyGridConfigReader {
 
+    public static boolean useDevItems;
     private static File configHome;
 
     private File file;
@@ -36,6 +37,7 @@ public class SimpleSkyGridConfigReader {
         configuration.addCustomCategoryComment("general", "You shouldn't need to touch these unless you're making a custom modpack or similar.");
         boolean useStandards = configuration.getBoolean("use_standards", "general", true, "Use built-in standard configs.");
         boolean useIntegration = configuration.getBoolean("use_integration", "general", true, "Use built-in mod integration");
+        useDevItems = configuration.getBoolean("use_dev_items", "general", false, "Should the Identifier be loaded?");
         configuration.save();
         if(useStandards)
             for(URL url : getConfigList("/assets/simpleskygrid/config/standards/"))

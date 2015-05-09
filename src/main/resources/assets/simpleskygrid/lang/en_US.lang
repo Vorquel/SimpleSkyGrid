@@ -4,4 +4,7 @@ generator.skyGrid=Sky Grid
 
 item.identifier.name=Identifier
 
+commands.ssgReloadConfigs.success=Simple Sky Grid configs have been reloaded.
+commands.ssgReloadConfigs.usage=/ssReloadConfigs
+
 # END #
