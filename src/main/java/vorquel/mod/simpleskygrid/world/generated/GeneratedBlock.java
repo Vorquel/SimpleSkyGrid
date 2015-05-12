@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
@@ -29,22 +29,20 @@ public class GeneratedBlock implements IGeneratedObject {
     @Override
     public void provideObject(Random random, World world, int x, int y, int z) {
         Chunk chunk = world.getChunkFromBlockCoords(x, z);
-        chunk.getBlockStorageArray()[y >> 4].func_150818_a(x & 15, y & 15, z & 15, block);
-        chunk.setBlockMetadata(x & 15, y, z & 15, meta);
+        ExtendedBlockStorage ebs = chunk.getBlockStorageArray()[y >> 4];
+        ebs.func_150818_a(x & 15, y & 15, z & 15, block);
+        ebs.setExtBlockMetadata(x & 15, y & 15, z & 15, meta);
         if(block.hasTileEntity(meta)) {
-            TileEntity te;
+            TileEntity te = block.createTileEntity(world, meta);
             if(nbt != null) {
-                te = block.createTileEntity(world, meta);
                 NBT2JSON.localizeBlock(nbt, x, y, z);
                 te.readFromNBT(nbt);
-                chunk.addTileEntity(te);
             } else {
-                te = new TileEntityChest();
                 te.xCoord = x;
                 te.yCoord = y;
                 te.zCoord = z;
-                chunk.addTileEntity(te);
             }
+            chunk.addTileEntity(te);
             if(te instanceof IInventory && lootSource != null)
                 lootSource.provideLoot(random, (IInventory) world.getTileEntity(x, y, z));
         }

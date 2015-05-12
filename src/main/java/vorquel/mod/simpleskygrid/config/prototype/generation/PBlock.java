@@ -18,7 +18,7 @@ import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 public class PBlock extends Prototype<IGeneratedObject> {
 
     public String name;
-    public int meta = 0;
+    public int meta;
     public NBTTagCompound nbt;
     public IPrototype<ILootSource> loot;
 

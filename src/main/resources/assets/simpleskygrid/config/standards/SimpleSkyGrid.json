@@ -25,7 +25,7 @@
           "subtype": "relative",
           "name": "overworld_earth"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -33,7 +33,7 @@
           "subtype": "relative",
           "name": "overworld_fluid"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -41,7 +41,7 @@
           "subtype": "relative",
           "name": "overworld_loot"
         },
-        "weight": 1
+        "weight": 0.1
       },
       {
         "object": {
@@ -49,7 +49,7 @@
           "subtype": "relative",
           "name": "overworld_ore"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object": {
@@ -57,7 +57,7 @@
           "subtype": "relative",
           "name": "overworld_plant"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -65,7 +65,7 @@
           "subtype": "relative",
           "name": "overworld_tree"
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object": {
@@ -73,7 +73,7 @@
           "subtype": "relative",
           "name": "overworld_rare"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object": {
@@ -81,7 +81,7 @@
           "subtype": "relative",
           "name": "overworld_spawn"
         },
-        "weight": 1
+        "weight": 0.5
       }
     ],
     "overworld_earth": [
@@ -90,21 +90,14 @@
           "type": "block",
           "name": "minecraft:stone"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:grass"
         },
-        "weight": 1
-      },
-      {
-        "object" : {
-          "type": "block",
-          "name": "minecraft:dirt"
-        },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -112,14 +105,14 @@
           "name": "minecraft:dirt",
           "meta": 2
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:sand"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object" : {
@@ -127,21 +120,21 @@
           "name": "minecraft:sand",
           "meta": 1
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:sandstone"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:clay"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -155,35 +148,28 @@
           "type": "block",
           "name": "minecraft:mycelium"
         },
-        "weight": 1
-      },
-      {
-        "object" : {
-          "type": "block",
-          "name": "minecraft:sandstone"
-        },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:gravel"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:snow"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:ice"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -220,14 +206,14 @@
           "type": "block",
           "name": "minecraft:water"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:lava"
         },
-        "weight": 1
+        "weight": 20
       }
     ],
     "overworld_loot": [
@@ -241,7 +227,7 @@
             "name": "dungeonChest"
           }
         },
-        "weight": 1
+        "weight": 100
       }
     ],
     "overworld_ore": [
@@ -250,35 +236,35 @@
           "type": "block",
           "name": "minecraft:coal_ore"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:iron_ore"
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:gold_ore"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:redstone_ore"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:lapis_ore"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -292,7 +278,7 @@
           "type": "block",
           "name": "minecraft:diamond_ore"
         },
-        "weight": 1
+        "weight": 2
       }
     ],
     "overworld_plant": [
@@ -309,7 +295,7 @@
             "meta": 1
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
@@ -329,7 +315,7 @@
             "meta": 8
           }
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object" : {
@@ -345,7 +331,7 @@
             "meta": 2
           }
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -366,7 +352,7 @@
             "meta": 8
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -380,7 +366,7 @@
             "name": "minecraft:yellow_flower"
           }
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -394,7 +380,7 @@
             "name": "minecraft:red_flower"
           }
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -409,7 +395,7 @@
             "meta": 1
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -424,7 +410,7 @@
             "meta": 2
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -439,7 +425,7 @@
             "meta": 3
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -454,7 +440,7 @@
             "meta": 4
           }
         },
-        "weight": 1
+        "weight": 2
       },
       {
         "object" : {
@@ -469,7 +455,7 @@
             "meta": 5
           }
         },
-        "weight": 1
+        "weight": 2
       },
       {
         "object" : {
@@ -484,7 +470,7 @@
             "meta": 6
           }
         },
-        "weight": 1
+        "weight": 2
       },
       {
         "object" : {
@@ -499,7 +485,7 @@
             "meta": 7
           }
         },
-        "weight": 1
+        "weight": 2
       },
       {
         "object" : {
@@ -514,7 +500,7 @@
             "meta": 8
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -623,7 +609,7 @@
             "name": "minecraft:red_mushroom"
           }
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -637,7 +623,7 @@
             "name": "minecraft:brown_mushroom"
           }
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -655,7 +641,7 @@
             "name": "minecraft:reeds"
           }
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object" : {
@@ -669,7 +655,7 @@
             "name": "minecraft:waterlily"
           }
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -683,28 +669,28 @@
             "name": "minecraft:cactus"
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:web"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:pumpkin"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:melon_block"
         },
-        "weight": 1
+        "weight": 10
       }
     ],
     "overworld_tree": [
@@ -713,7 +699,7 @@
           "type": "block",
           "name": "minecraft:log"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
@@ -721,7 +707,7 @@
           "name": "minecraft:log",
           "meta": 1
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -729,7 +715,7 @@
           "name": "minecraft:log",
           "meta": 2
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -737,14 +723,14 @@
           "name": "minecraft:log",
           "meta": 3
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:log2"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -752,7 +738,7 @@
           "name": "minecraft:log2",
           "meta": 1
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -760,7 +746,7 @@
           "name": "minecraft:leaves",
           "meta": 4
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object" : {
@@ -768,7 +754,7 @@
           "name": "minecraft:leaves",
           "meta": 5
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object" : {
@@ -776,7 +762,7 @@
           "name": "minecraft:leaves",
           "meta": 6
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object" : {
@@ -784,7 +770,7 @@
           "name": "minecraft:leaves",
           "meta": 7
         },
-        "weight": 1
+        "weight": 12.5
       },
       {
         "object" : {
@@ -792,7 +778,7 @@
           "name": "minecraft:leaves2",
           "meta": 4
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -800,7 +786,7 @@
           "name": "minecraft:leaves2",
           "meta": 5
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -814,7 +800,7 @@
             "name": "minecraft:sapling"
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object" : {
@@ -829,7 +815,7 @@
             "meta": 1
           }
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -844,7 +830,7 @@
             "meta": 2
           }
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object" : {
@@ -859,7 +845,7 @@
             "meta": 3
           }
         },
-        "weight": 1
+        "weight": 2.5
       },
       {
         "object" : {
@@ -892,7 +878,36 @@
         "weight": 1
       }
     ],
-    "overworld_rare": [],
+    "overworld_rare": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:glass"
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:piston"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:sticky_piston"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:bookshelf"
+        },
+        "weight": 5
+      }
+    ],
     "overworld_spawn": [
       {
         "object": {
@@ -904,7 +919,7 @@
             "S_EntityId": "Creeper"
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -916,7 +931,7 @@
             "S_EntityId": "Skeleton"
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -928,19 +943,7 @@
             "S_EntityId": "Spider"
           }
         },
-        "weight": 1
-      },
-      {
-        "object": {
-          "type": "block",
-          "name": "minecraft:mob_spawner",
-          "nbt": {
-            "S_id": "MobSpawner",
-            "s_delay": 0,
-            "S_EntityId": "CaveSpider"
-          }
-        },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -952,7 +955,7 @@
             "S_EntityId": "Zombie"
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -964,7 +967,7 @@
             "S_EntityId": "Slime"
           }
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object": {
@@ -973,70 +976,10 @@
           "nbt": {
             "S_id": "MobSpawner",
             "s_delay": 0,
-            "S_EntityId": "Pig"
+            "S_EntityId": "CaveSpider"
           }
         },
-        "weight": 1
-      },
-      {
-        "object": {
-          "type": "block",
-          "name": "minecraft:mob_spawner",
-          "nbt": {
-            "S_id": "MobSpawner",
-            "s_delay": 0,
-            "S_EntityId": "Sheep"
-          }
-        },
-        "weight": 1
-      },
-      {
-        "object": {
-          "type": "block",
-          "name": "minecraft:mob_spawner",
-          "nbt": {
-            "S_id": "MobSpawner",
-            "s_delay": 0,
-            "S_EntityId": "Cow"
-          }
-        },
-        "weight": 1
-      },
-      {
-        "object": {
-          "type": "block",
-          "name": "minecraft:mob_spawner",
-          "nbt": {
-            "S_id": "MobSpawner",
-            "s_delay": 0,
-            "S_EntityId": "Chicken"
-          }
-        },
-        "weight": 1
-      },
-      {
-        "object": {
-          "type": "block",
-          "name": "minecraft:mob_spawner",
-          "nbt": {
-            "S_id": "MobSpawner",
-            "s_delay": 0,
-            "S_EntityId": "Squid"
-          }
-        },
-        "weight": 1
-      },
-      {
-        "object": {
-          "type": "block",
-          "name": "minecraft:mob_spawner",
-          "nbt": {
-            "S_id": "MobSpawner",
-            "s_delay": 0,
-            "S_EntityId": "Wolf"
-          }
-        },
-        "weight": 1
+        "weight": 25
       },
       {
         "object": {
@@ -1048,7 +991,7 @@
             "S_EntityId": "Enderman"
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1058,6 +1001,138 @@
             "S_id": "MobSpawner",
             "s_delay": 0,
             "S_EntityId": "Silverfish"
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Witch"
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Pig"
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Sheep"
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Cow"
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Chicken"
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Bat"
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Squid"
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Wolf"
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Ozelot"
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "EntityHorse"
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "MushroomCow"
           }
         },
         "weight": 1
@@ -1082,7 +1157,7 @@
           "subtype": "relative",
           "name": "nether_earth"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -1090,7 +1165,7 @@
           "subtype": "relative",
           "name": "nether_fluid"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object": {
@@ -1098,7 +1173,7 @@
           "subtype": "relative",
           "name": "nether_loot"
         },
-        "weight": 1
+        "weight": 0.1
       },
       {
         "object": {
@@ -1106,7 +1181,7 @@
           "subtype": "relative",
           "name": "nether_ore"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object": {
@@ -1114,7 +1189,7 @@
           "subtype": "relative",
           "name": "nether_plant"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1122,7 +1197,7 @@
           "subtype": "relative",
           "name": "nether_tree"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object": {
@@ -1130,7 +1205,7 @@
           "subtype": "relative",
           "name": "nether_rare"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object": {
@@ -1138,7 +1213,7 @@
           "subtype": "relative",
           "name": "nether_spawn"
         },
-        "weight": 1
+        "weight": 0.5
       }
     ],
     "nether_earth": [
@@ -1147,7 +1222,7 @@
           "type": "block",
           "name": "minecraft:netherrack"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
@@ -1162,28 +1237,28 @@
             "meta": 15
           }
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:soul_sand"
         },
-        "weight": 1
+        "weight": 25
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:gravel"
         },
-        "weight": 1
+        "weight": 50
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:nether_brick"
         },
-        "weight": 1
+        "weight": 10
       }
     ],
     "nether_loot": [
@@ -1206,7 +1281,7 @@
           "type": "block",
           "name": "minecraft:lava"
         },
-        "weight": 1
+        "weight": 100
       }
     ],
     "nether_ore": [
@@ -1215,14 +1290,14 @@
           "type": "block",
           "name": "minecraft:glowstone"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:quartz_ore"
         },
-        "weight": 1
+        "weight": 50
       }
     ],
     "nether_plant": [
@@ -1238,7 +1313,7 @@
             "name": "minecraft:brown_mushroom"
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
@@ -1252,7 +1327,7 @@
             "name": "minecraft:red_mushroom"
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object" : {
@@ -1283,7 +1358,7 @@
             "S_EntityId": "PigZombie"
           }
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -1295,7 +1370,7 @@
             "S_EntityId": "Blaze"
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1307,7 +1382,7 @@
             "S_EntityId": "Skeleton"
           }
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1319,7 +1394,7 @@
             "S_EntityId": "LavaSlime"
           }
         },
-        "weight": 1
+        "weight": 50
       }
     ],
     "end": [
@@ -1329,7 +1404,7 @@
           "subtype": "relative",
           "name": "end_earth"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
@@ -1337,7 +1412,7 @@
           "subtype": "relative",
           "name": "end_fluid"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1345,7 +1420,7 @@
           "subtype": "relative",
           "name": "end_loot"
         },
-        "weight": 1
+        "weight": 0.1
       },
       {
         "object": {
@@ -1353,7 +1428,7 @@
           "subtype": "relative",
           "name": "end_ore"
         },
-        "weight": 1
+        "weight": 20
       },
       {
         "object": {
@@ -1361,7 +1436,7 @@
           "subtype": "relative",
           "name": "end_plant"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1369,7 +1444,7 @@
           "subtype": "relative",
           "name": "end_tree"
         },
-        "weight": 1
+        "weight": 10
       },
       {
         "object": {
@@ -1377,7 +1452,7 @@
           "subtype": "relative",
           "name": "end_rare"
         },
-        "weight": 1
+        "weight": 5
       },
       {
         "object": {
@@ -1385,7 +1460,7 @@
           "subtype": "relative",
           "name": "end_spawn"
         },
-        "weight": 1
+        "weight": 0.5
       }
     ],
     "end_earth": [
@@ -1394,14 +1469,14 @@
           "type": "block",
           "name": "minecraft:end_stone"
         },
-        "weight": 1
+        "weight": 100
       },
       {
         "object": {
           "type": "block",
           "name": "minecraft:obsidian"
         },
-        "weight": 1
+        "weight": 25
       }
     ],
     "end_loot": [],
@@ -1421,7 +1496,7 @@
             "S_EntityId": "Enderman"
           }
         },
-        "weight": 1
+        "weight": 100
       }
     ]
   },

@@ -17,15 +17,15 @@ import vorquel.mod.simpleskygrid.world.generated.GeneratedEndPortal;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedUnique;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static net.minecraft.init.Blocks.bedrock;
 
 public class ChunkProviderSkyGrid implements IChunkProvider {
 
+    public static WeakHashMap<ChunkProviderSkyGrid, Integer> providers = new WeakHashMap<>();
+
+    private int dimensionId;
     private World world;
     private long seed;
     private Config.DimensionProperties dimensionProperties;
@@ -34,10 +34,11 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private ArrayList<ChunkCoordinates> endPortalLocations = new ArrayList<>();
 
     public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
+        providers.put(this, dimensionId);
+        this.dimensionId = dimensionId;
         this.world = world;
         this.seed = seed;
-        dimensionProperties = Config.dimensionPropertiesMap.get(dimensionId);
-        randomGenerator = Ref.getRandomGenerator(dimensionId);
+        resetProperties();
         Random random = new Random(seed);
         for(GeneratedUnique unique : Ref.getUniqueGenerator(dimensionId)) {
             int count = unique.getCount(random);
@@ -56,6 +57,11 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
                     Log.warn("Unable to place uniqueGen object");
             }
         }
+    }
+
+    public void resetProperties() {
+        dimensionProperties = Config.dimensionPropertiesMap.get(dimensionId);
+        randomGenerator = Ref.getRandomGenerator(dimensionId);
     }
 
     @Override

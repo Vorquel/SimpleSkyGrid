@@ -2,6 +2,8 @@ package vorquel.mod.simpleskygrid.config;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import vorquel.mod.simpleskygrid.helper.Ref;
+import vorquel.mod.simpleskygrid.world.ChunkProviderSkyGrid;
 
 public class CommandReloadConfigs extends CommandBase {
 
@@ -28,6 +30,10 @@ public class CommandReloadConfigs extends CommandBase {
     @Override
     public void processCommand(ICommandSender commandSender, String[] options) {
         Config.loadConfigs();
+        Ref.createGenerators();
+        for(ChunkProviderSkyGrid provider : ChunkProviderSkyGrid.providers.keySet())
+            provider.resetProperties();
+        System.gc();
         func_152373_a(commandSender, this, "commands.ssgReloadConfigs.success");
     }
 }

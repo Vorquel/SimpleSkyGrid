@@ -20,8 +20,8 @@ public class Ref {
     public static final String MOD_ID = "SimpleSkyGrid";
     public static WorldTypeSkyGrid worldType;
     public static Identifier itemIdentifier = new Identifier();
-    private static HashMap<Integer, RandomList<IGeneratedObject>> randomGenerators = new HashMap<>();
-    private static HashMap<Integer, ArrayList<GeneratedUnique>> uniqueGenerators = new HashMap<>();
+    private static HashMap<Integer, RandomList<IGeneratedObject>> randomGenerators;
+    private static HashMap<Integer, ArrayList<GeneratedUnique>> uniqueGenerators;
 
     public static void preInit() {
         if(SimpleSkyGridConfigReader.useDevItems)
@@ -30,6 +30,12 @@ public class Ref {
 
     public static void postInit() {
         worldType = new WorldTypeSkyGrid();
+        createGenerators();
+    }
+
+    public static void createGenerators() {
+        randomGenerators = new HashMap<>();
+        uniqueGenerators = new HashMap<>();
         try{
             for(int i : Config.dimensionPropertiesMap.keySet()) {
                 randomGenerators.put(i, makeRandomGenerator(Config.dimensionPropertiesMap.get(i).generationLabel, true));

@@ -11,10 +11,12 @@ import java.util.HashMap;
 public class Config {
 
     public static HashMap<Integer, DimensionProperties> dimensionPropertiesMap = new HashMap<>();
-    public static ConfigDataMap<IPrototype<IGeneratedObject>, Double> generationData = new ConfigDataMap<>();
-    public static ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> uniqueGenData = new ConfigDataMap<>();
+    public static ConfigDataMap<IPrototype<IGeneratedObject>, Double> generationData;
+    public static ConfigDataMap<IPrototype<IGeneratedObject>, UniqueQuantity> uniqueGenData;
 
     public static void loadConfigs() {
+        generationData = new ConfigDataMap<>();
+        uniqueGenData = new ConfigDataMap<>();
         for(SimpleSkyGridConfigReader reader : SimpleSkyGridConfigReader.getReaders()) {
             reader.open();
             reader.beginObject();
