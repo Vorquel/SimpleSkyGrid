@@ -243,35 +243,28 @@
           "type": "block",
           "name": "minecraft:iron_ore"
         },
-        "weight": 50
-      },
-      {
-        "object" : {
-          "type": "block",
-          "name": "minecraft:gold_ore"
-        },
-        "weight": 20
+        "weight": 55
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:redstone_ore"
         },
-        "weight": 20
+        "weight": 15
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:gold_ore"
+        },
+        "weight": 5
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:lapis_ore"
         },
-        "weight": 10
-      },
-      {
-        "object" : {
-          "type": "block",
-          "name": "minecraft:emerald_ore"
-        },
-        "weight": 1
+        "weight": 2.5
       },
       {
         "object" : {
@@ -279,6 +272,13 @@
           "name": "minecraft:diamond_ore"
         },
         "weight": 2
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:emerald_ore"
+        },
+        "weight": 1
       }
     ],
     "overworld_plant": [

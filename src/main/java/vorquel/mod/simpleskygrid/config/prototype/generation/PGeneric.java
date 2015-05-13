@@ -1,6 +1,7 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -8,8 +9,6 @@ import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
-
-import java.util.Arrays;
 
 public class PGeneric extends Prototype<IGeneratedObject> {
 
@@ -27,15 +26,21 @@ public class PGeneric extends Prototype<IGeneratedObject> {
 
     @Override
     public boolean isComplete() {
-        return name != null && Arrays.asList(OreDictionary.getOreNames()).contains(name);
+        return name != null;
     }
 
     @Override
     public IGeneratedObject getObject() {
-        ItemStack stack = OreDictionary.getOres(name).get(0);
-        Item item = stack.getItem();
-        Block block = Block.getBlockFromItem(item);
-        int meta = item.getMetadata(stack.getItemDamage());
-        return new GeneratedBlock(block, meta, null, null);
+        for(ItemStack stack : OreDictionary.getOres(name)) {
+            if(stack == null)
+                continue;
+            Item item = stack.getItem();
+            Block block = Block.getBlockFromItem(item);
+            if(block == Blocks.air)
+                continue;
+            int meta = item.getMetadata(stack.getItemDamage());
+            return new GeneratedBlock(block, meta, null, null);
+        }
+        return null;
     }
 }

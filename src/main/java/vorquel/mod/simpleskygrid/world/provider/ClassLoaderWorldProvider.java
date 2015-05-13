@@ -46,9 +46,10 @@ public class ClassLoaderWorldProvider extends ClassLoader implements Opcodes {
         SimpleRemapper simpleRemapper = new SimpleRemapper(nameMap);
         RemappingClassAdapter remappingClassAdapter = new RemappingClassAdapter(classWriter, simpleRemapper);
         try {
-            ClassReader classReader = new ClassReader(WorldProviderSkyGrid.class.getCanonicalName());
+            ClassReader classReader = new ClassReader(this.getResourceAsStream(WorldProviderSkyGrid.class.getCanonicalName().replace('.','/')+".class"));
             classReader.accept(remappingClassAdapter, ClassReader.EXPAND_FRAMES);
         } catch(IOException e) {
+            e.printStackTrace();
             Log.kill("Unable to create Simple Sky Grid World Provider Proxy for class %s: %s", superClassName, e.getMessage());
         }
         return classWriter.toByteArray();
