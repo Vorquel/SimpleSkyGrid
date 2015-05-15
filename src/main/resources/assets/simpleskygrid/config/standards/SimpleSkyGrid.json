@@ -257,7 +257,7 @@
           "type": "block",
           "name": "minecraft:gold_ore"
         },
-        "weight": 5
+        "weight": 6
       },
       {
         "object" : {
@@ -1237,7 +1237,7 @@
             "meta": 15
           }
         },
-        "weight": 25
+        "weight": 5
       },
       {
         "object": {

@@ -1,0 +1,163 @@
+//Want to know how this file works? Go to: https://github.com/vorquel/SimpleSkyGrid/wiki/Config
+{
+  "generation": {
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreLead"
+        },
+        "weight": 30
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreTin"
+        },
+        "weight": 25
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreCopper"
+        },
+        "weight": 20
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreSilver"
+        },
+        "weight": 20
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreUranium"
+        },
+        "weight": 13
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNickel"
+        },
+        "weight": 4.5
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "orePlatinum"
+        },
+        "weight": 0.2
+      }
+    ],
+    "nether_ore": [
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherCoal"
+        },
+        "weight": 40
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherSulphur"
+        },
+        "weight": 35
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherCopper"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherIron"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherTin"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherRedstone"
+        },
+        "weight": 8
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherGold"
+        },
+        "weight": 8
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherLapis"
+        },
+        "weight": 6
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherLead"
+        },
+        "weight": 6
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherSaltpeter"
+        },
+        "weight": 4
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherSilver"
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherDiamond"
+        },
+        "weight": 0.5
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherEmerald"
+        },
+        "weight": 0.15
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherUranium"
+        },
+        "weight": 0.15
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreNetherPlatinum"
+        },
+        "weight": 0.1
+      }
+    ]
+  }
+}

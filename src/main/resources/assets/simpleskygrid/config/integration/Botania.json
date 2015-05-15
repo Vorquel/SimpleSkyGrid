@@ -1,0 +1,564 @@
+//Want to know how this file works? Go to: https://github.com/vorquel/SimpleSkyGrid/wiki/Config
+{
+  "generation": {
+    "overworld_plant": [
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower"
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 1
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 2
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 3
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 4
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 5
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 6
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 7
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 8
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 9
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 10
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 11
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 12
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 13
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 14
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:flower",
+            "meta": 15
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1"
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 8
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 1
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 9
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 2
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 10
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 3
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 11
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 4
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 12
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 5
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 13
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 6
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 14
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 7
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower1",
+            "meta": 15
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2"
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 8
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 1
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 9
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 2
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 10
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 3
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 11
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 4
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 12
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 5
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 13
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 6
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 14
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 7
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Botania:doubleFlower2",
+            "meta": 15
+          }
+        },
+        "weight": 5
+      }
+    ]
+  }
+}

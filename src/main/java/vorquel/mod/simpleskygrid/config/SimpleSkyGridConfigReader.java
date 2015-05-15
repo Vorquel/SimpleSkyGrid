@@ -2,6 +2,7 @@ package vorquel.mod.simpleskygrid.config;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,18 +55,18 @@ public class SimpleSkyGridConfigReader {
     }
 
     private static ArrayList<URL> getConfigList(String home) {
-        URL source = SimpleSkyGridConfigReader.class.getResource(home + "configList.txt");
-        File destination = new File(configHome, "configList.txt");
+        URL source = SimpleSkyGridConfigReader.class.getResource(home + "!configList.txt");
+        File destination = new File(configHome, "!configList.txt");
         ArrayList<URL> configList = new ArrayList<>();
         try {
             FileUtils.copyURLToFile(source, destination);
             for(String line : FileUtils.readLines(destination))
                 configList.add(SimpleSkyGridConfigReader.class.getResource(home + line));
         } catch(IOException e) {
-            Log.kill("Unable to copy temp file configList: %s", e.getMessage());
+            Log.kill("Unable to copy temp file !configList.txt: %s", e.getMessage());
         } finally {
             if(!destination.delete())
-                Log.warn("Unable to delete temporary file configList.txt");
+                Log.warn("Unable to delete temporary file !configList.txt");
         }
         return configList;
     }
@@ -268,8 +269,13 @@ public class SimpleSkyGridConfigReader {
     }
 
     public NBTTagCompound nextNBT() {
-        try {
-            return NBT2JSON.readCompound(jsonReader);
+        try { //todo: revert this code after testing is done
+            NBTTagCompound compound = NBT2JSON.readCompound(jsonReader);
+            StringWriter sw = new StringWriter();
+            JsonWriter jw = new JsonWriter(sw);
+            NBT2JSON.writeCompound(jw, compound);
+            Log.info(sw.toString());
+            return compound;
         } catch(IOException e) {
             return (NBTTagCompound) handleIO(e);
         }

@@ -1,0 +1,103 @@
+{
+  "generation": {
+    "overworld_earth": [
+      {
+        "object": {
+          "type": "block",
+          "name": "appliedenergistics2:tile.BlockSkyStone"
+        },
+        "weight": 1
+      }
+    ],
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "appliedenergistics2:tile.OreQuartz"
+        },
+        "weight": 8.5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "appliedenergistics2:tile.OreQuartzCharged"
+        },
+        "weight": 0.7
+      }
+    ],
+    "overworld_loot": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "nbt": {
+            "L_C_Items": [
+              {
+                "S_id": "appliedenergistics2:item.ItemMultiMaterial",
+                "s_Damage": 13,
+                "b_Count":1,
+                "b_Slot":13
+              }
+            ],
+            "S_id": "Chest"
+          }
+        },
+        "weight": 25
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "nbt": {
+            "L_C_Items": [
+              {
+                "S_id": "appliedenergistics2:item.ItemMultiMaterial",
+                "s_Damage": 14,
+                "b_Count":1,
+                "b_Slot":13
+              }
+            ],
+            "S_id": "Chest"
+          }
+        },
+        "weight": 25
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "nbt": {
+            "L_C_Items": [
+              {
+                "S_id": "appliedenergistics2:item.ItemMultiMaterial",
+                "s_Damage": 15,
+                "b_Count":1,
+                "b_Slot":13
+              }
+            ],
+            "S_id": "Chest"
+          }
+        },
+        "weight": 25
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "minecraft:chest",
+          "nbt": {
+            "L_C_Items": [
+              {
+                "S_id": "appliedenergistics2:item.ItemMultiMaterial",
+                "s_Damage": 19,
+                "b_Count":1,
+                "b_Slot":13
+              }
+            ],
+            "S_id": "Chest"
+          }
+        },
+        "weight": 25
+      }
+    ]
+  }
+}
