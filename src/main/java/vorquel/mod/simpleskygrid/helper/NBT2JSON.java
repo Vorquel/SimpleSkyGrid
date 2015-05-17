@@ -13,18 +13,22 @@ import java.util.List;
 
 public class NBT2JSON {
 
-    public static void sanitizeBlock(NBTTagCompound tag) {
-        tag.removeTag("x");
-        tag.removeTag("y");
-        tag.removeTag("z");
-        sanitizeItems(tag);
+    public static NBTTagCompound sanitizeBlock(NBTTagCompound tag) {
+        NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
+        tagCopy.removeTag("x");
+        tagCopy.removeTag("y");
+        tagCopy.removeTag("z");
+        sanitizeItems(tagCopy);
+        return tagCopy;
     }
 
-    public static void localizeBlock(NBTTagCompound tag, int x, int y, int z) {
-        tag.setInteger("x", x);
-        tag.setInteger("y", y);
-        tag.setInteger("z", z);
-        localizeItems(tag);
+    public static NBTTagCompound localizeBlock(NBTTagCompound tag, int x, int y, int z) {
+        NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
+        tagCopy.setInteger("x", x);
+        tagCopy.setInteger("y", y);
+        tagCopy.setInteger("z", z);
+        localizeItems(tagCopy);
+        return tagCopy;
     }
 
     public static void sanitizeEntity(NBTTagCompound tag) {

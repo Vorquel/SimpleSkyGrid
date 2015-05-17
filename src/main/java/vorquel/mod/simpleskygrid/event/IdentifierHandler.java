@@ -92,8 +92,7 @@ public class IdentifierHandler {
                 jw.name("nbt");
                 NBTTagCompound nbt = new NBTTagCompound();
                 tileEntity.writeToNBT(nbt);
-                NBT2JSON.sanitizeBlock(nbt);
-                NBT2JSON.writeCompound(jw, nbt);
+                NBT2JSON.writeCompound(jw, NBT2JSON.sanitizeBlock(nbt));
             }
             jw.endObject();
             jw.flush();

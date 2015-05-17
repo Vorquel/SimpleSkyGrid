@@ -2,7 +2,6 @@ package vorquel.mod.simpleskygrid.config;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import com.google.gson.stream.JsonWriter;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
@@ -269,13 +268,8 @@ public class SimpleSkyGridConfigReader {
     }
 
     public NBTTagCompound nextNBT() {
-        try { //todo: revert this code after testing is done
-            NBTTagCompound compound = NBT2JSON.readCompound(jsonReader);
-            StringWriter sw = new StringWriter();
-            JsonWriter jw = new JsonWriter(sw);
-            NBT2JSON.writeCompound(jw, compound);
-            Log.info(sw.toString());
-            return compound;
+        try {
+            return NBT2JSON.readCompound(jsonReader);
         } catch(IOException e) {
             return (NBTTagCompound) handleIO(e);
         }
