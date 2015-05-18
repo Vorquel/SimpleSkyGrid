@@ -23,8 +23,7 @@ public class GeneratedEntity implements IGeneratedObject {
         double realX = x + .5;
         double realZ = z + .5;
         if(nbt != null) {
-            NBT2JSON.localizeEntity(nbt, realX, y, realZ);
-            entity.readFromNBT(nbt);
+            entity.readFromNBT(NBT2JSON.localizeEntity(nbt, realX, y, realZ));
         }
         entity.setPosition(realX, y, realZ);
         world.spawnEntityInWorld(entity);

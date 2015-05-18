@@ -31,18 +31,22 @@ public class NBT2JSON {
         return tagCopy;
     }
 
-    public static void sanitizeEntity(NBTTagCompound tag) {
-        tag.removeTag("Pos");
-        sanitizeItems(tag);
+    public static NBTTagCompound sanitizeEntity(NBTTagCompound tag) {
+        NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
+        tagCopy.removeTag("Pos");
+        sanitizeItems(tagCopy);
+        return tagCopy;
     }
 
-    public static void localizeEntity(NBTTagCompound tag, double x, double y, double z) {
+    public static NBTTagCompound localizeEntity(NBTTagCompound tag, double x, double y, double z) {
+        NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
         NBTTagList list = new NBTTagList();
         list.appendTag(new NBTTagDouble(x));
         list.appendTag(new NBTTagDouble(y));
         list.appendTag(new NBTTagDouble(z));
-        tag.setTag("Pos", list);
-        localizeItems(tag);
+        tagCopy.setTag("Pos", list);
+        localizeItems(tagCopy);
+        return tagCopy;
     }
 
     public static void sanitizeItems(NBTTagCompound nbt) {

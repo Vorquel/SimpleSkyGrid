@@ -12,15 +12,15 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.MinecraftForge;
 import vorquel.mod.simpleskygrid.config.CommandReloadConfigs;
 import vorquel.mod.simpleskygrid.config.Config;
-import vorquel.mod.simpleskygrid.event.IdentifierHandler;
 import vorquel.mod.simpleskygrid.event.SpawnFixer;
 import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.network.MessageClipboard;
 import vorquel.mod.simpleskygrid.network.MessageHandlerClipboard;
+import vorquel.mod.simpleskygrid.network.MessageHandlerIdentify;
+import vorquel.mod.simpleskygrid.network.MessageIdentify;
 import vorquel.mod.simpleskygrid.world.provider.ClassLoaderWorldProvider;
 import vorquel.mod.simpleskygrid.world.provider.WorldProviderSurfaceAlt;
 
@@ -40,6 +40,7 @@ public class SimpleSkyGrid {
         Log.setLogger(event.getModLog());
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Ref.MOD_ID);
         network.registerMessage(MessageHandlerClipboard.class, MessageClipboard.class, 0, Side.CLIENT);
+        network.registerMessage(MessageHandlerIdentify.class, MessageIdentify.class, 1, Side.SERVER);
         Config.loadConfigs();
         Ref.preInit();
     }
@@ -48,7 +49,6 @@ public class SimpleSkyGrid {
     @SuppressWarnings("unused")
     public void init(FMLInitializationEvent event) {
         FMLCommonHandler.instance().bus().register(new SpawnFixer());
-        MinecraftForge.EVENT_BUS.register(new IdentifierHandler());
     }
 
     @Mod.EventHandler
@@ -59,6 +59,7 @@ public class SimpleSkyGrid {
     }
 
     @Mod.EventHandler
+    @SuppressWarnings("unused")
     public void serverLoad(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandReloadConfigs());
     }

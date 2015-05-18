@@ -12,6 +12,7 @@ public class MessageClipboard implements IMessage {
         this.message = message;
     }
 
+    @SuppressWarnings("unused")
     public MessageClipboard() {}
 
     @Override

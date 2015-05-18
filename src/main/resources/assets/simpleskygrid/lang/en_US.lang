@@ -2,7 +2,13 @@
 
 generator.skyGrid=Sky Grid
 
-item.identifier.name=Identifier
+# Items #
+
+item.identifier.jsonPretty.name=Identifier (Pretty)
+item.identifier.jsonCompact.name=Identifier (Compact)
+item.identifier.oreDictionary.name=Identifier (Dictionary)
+
+# Commands #
 
 commands.ssgReloadConfigs.success=Simple Sky Grid configs have been reloaded.
 commands.ssgReloadConfigs.usage=/ssReloadConfigs
