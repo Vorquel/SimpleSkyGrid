@@ -34,16 +34,18 @@ public class GeneratedBlock implements IGeneratedObject {
         ebs.setExtBlockMetadata(x & 15, y & 15, z & 15, meta);
         if(block.hasTileEntity(meta)) {
             TileEntity te = block.createTileEntity(world, meta);
-            if(nbt != null) {
-                te.readFromNBT(NBT2JSON.localizeBlock(nbt, x, y, z));
-            } else {
-                te.xCoord = x;
-                te.yCoord = y;
-                te.zCoord = z;
+            if(te != null) {
+                if(nbt != null) {
+                    te.readFromNBT(NBT2JSON.localizeBlock(nbt, x, y, z));
+                } else {
+                    te.xCoord = x;
+                    te.yCoord = y;
+                    te.zCoord = z;
+                }
+                chunk.addTileEntity(te);
+                if(te instanceof IInventory && lootSource != null)
+                    lootSource.provideLoot(random, (IInventory) world.getTileEntity(x, y, z));
             }
-            chunk.addTileEntity(te);
-            if(te instanceof IInventory && lootSource != null)
-                lootSource.provideLoot(random, (IInventory) world.getTileEntity(x, y, z));
         }
     }
 }

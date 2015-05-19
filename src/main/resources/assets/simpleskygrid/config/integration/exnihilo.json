@@ -1,1 +1,13 @@
-{}
+{
+  "generation": {
+    "overworld_earth": [
+      {
+        "object": {
+          "type": "block",
+          "name": "exnihilo:dust"
+        },
+        "weight": 10
+      }
+    ]
+  }
+}

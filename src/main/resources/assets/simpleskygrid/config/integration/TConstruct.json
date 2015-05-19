@@ -1,1 +1,141 @@
-{}
+{
+  "generation": {
+    "overworld_earth": [
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:slime.grass"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:CraftedSoil",
+          "meta": 5
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:slime.gel"
+        },
+        "weight": 4
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:slime.gel",
+          "meta": 1
+        },
+        "weight": 2
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:slime.gel",
+          "meta": 2
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:slime.gel",
+          "meta": 2
+        },
+        "weight": 1
+      }
+    ],
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:ore.berries.one",
+          "meta": 12
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:ore.berries.one",
+          "meta": 13
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:ore.berries.one",
+          "meta": 14
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:ore.berries.one",
+          "meta": 15
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:ore.berries.two",
+          "meta": 12
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:ore.berries.two",
+          "meta": 13
+        },
+        "weight": 1
+      }
+    ],
+    "overworld_plant": [
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "TConstruct:slime.grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "TConstruct:slime.grass.tall"
+          }
+        },
+        "weight": 10
+      }
+    ],
+    "overworld_tree": [
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:slime.leaves"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "TConstruct:slime.grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "TConstruct:slime.sapling"
+          }
+        },
+        "weight": 1
+      }
+    ]
+ }
+}

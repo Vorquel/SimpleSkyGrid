@@ -1,6 +1,22 @@
 //Want to know how this file works? Go to: https://github.com/vorquel/SimpleSkyGrid/wiki/Config
 {
   "generation": {
+    "overworld_earth": [
+      {
+        "object": {
+          "type": "generic",
+          "name": "limestone"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "marble"
+        },
+        "weight": 10
+      }
+    ],
     "overworld_ore": [
       {
         "object": {
@@ -36,6 +52,13 @@
           "name": "oreUranium"
         },
         "weight": 13
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreAluminum"
+        },
+        "weight": 9
       },
       {
         "object": {
@@ -129,6 +152,20 @@
           "name": "oreNetherSilver"
         },
         "weight": 3
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreCobalt"
+        },
+        "weight": 1.5
+      },
+      {
+        "object": {
+          "type": "generic",
+          "name": "oreArdite"
+        },
+        "weight": 1.5
       },
       {
         "object": {

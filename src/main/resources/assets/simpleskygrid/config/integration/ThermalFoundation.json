@@ -1,1 +1,18 @@
-{}
+{
+  "generation": {
+    "overworld_spawn": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Blizz"
+          }
+        },
+        "weight": 10
+      }
+    ]
+  }
+}

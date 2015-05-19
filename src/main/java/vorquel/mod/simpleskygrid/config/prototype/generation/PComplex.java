@@ -50,14 +50,23 @@ public class PComplex extends Prototype<IGeneratedObject> {
 
     @Override
     public boolean isComplete() {
-        return !generationMap.isEmpty();
+        if(generationMap.isEmpty())
+            return false;
+        for(ChunkCoordinates key : generationMap.keySet())
+            if(!generationMap.get(key).isComplete())
+                return false;
+        return true;
     }
 
     @Override
     public IGeneratedObject getObject() {
         GeneratedComplex complex = new GeneratedComplex();
-        for(ChunkCoordinates key : generationMap.keySet())
-            complex.put(key, generationMap.get(key).getObject());
+        for(ChunkCoordinates key : generationMap.keySet()) {
+            IGeneratedObject generatedObject = generationMap.get(key).getObject();
+            if(generatedObject == null)
+                return null;
+            complex.put(key, generatedObject);
+        }
         return complex;
     }
 }

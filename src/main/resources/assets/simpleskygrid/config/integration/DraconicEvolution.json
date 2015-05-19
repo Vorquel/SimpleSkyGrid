@@ -1,1 +1,31 @@
-{}
+{
+  "generation": {
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "DraconicEvolution:draconiumOre"
+        },
+        "weight": 0.3
+      }
+    ],
+    "nether_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "DraconicEvolution:draconiumOre"
+        },
+        "weight": 0.55
+      }
+    ],
+    "end_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "DraconicEvolution:draconiumOre"
+        },
+        "weight": 1
+      }
+    ]
+  }
+}

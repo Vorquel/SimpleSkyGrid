@@ -1,1 +1,37 @@
-{}
+{
+  "generation": {
+    "overworld_rare": [
+      {
+        "object": {
+          "type": "block",
+          "name": "ThermalExpansion:Frame"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "ThermalExpansion:Frame",
+          "meta": 1
+        },
+        "weight": 2
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "ThermalExpansion:Frame",
+          "meta": 2
+        },
+        "weight": 0.4
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "ThermalExpansion:Frame",
+          "meta": 3
+        },
+        "weight": 0.08
+      }
+    ]
+  }
+}

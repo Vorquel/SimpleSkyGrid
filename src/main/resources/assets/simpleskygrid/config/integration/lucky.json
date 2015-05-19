@@ -1,1 +1,148 @@
-{}
+{
+  "generation": {
+    "overworld_rare": [
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "normal_lucky_block"
+        },
+        "weight": 10
+      }
+    ],
+    "normal_lucky_block": [
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": -100
+          }
+        },
+        "weight": 4
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": -80
+          }
+        },
+        "weight": 13
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": -60
+          }
+        },
+        "weight": 32
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": -40
+          }
+        },
+        "weight": 60
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": -20
+          }
+        },
+        "weight": 88
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": 0
+          }
+        },
+        "weight": 100
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": 20
+          }
+        },
+        "weight": 88
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": 40
+          }
+        },
+        "weight": 60
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": 60
+          }
+        },
+        "weight": 32
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": 80
+          }
+        },
+        "weight": 13
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "lucky:lucky_block",
+          "nbt": {
+            "S_id": "luckyBlockData",
+            "L_e_Drops": [],
+            "i_Luck": 100
+          }
+        },
+        "weight": 4
+      }
+    ]
+  }
+}

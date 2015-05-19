@@ -1,1 +1,44 @@
-{}
+{
+  "generation": {
+    "overworld_rare": [
+      {
+        "object": {
+          "type": "block",
+          "name": "MineFactoryReloaded:machineblock"
+        },
+        "weight": 10
+      }
+    ],
+    "overworld_tree": [
+      {
+        "object": {
+          "type": "block",
+          "name": "MineFactoryReloaded:rubberwood.log",
+          "meta": 1
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "MineFactoryReloaded:rubberwood.leaves"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "MineFactoryReloaded:rubberwood.sapling"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  }
+}

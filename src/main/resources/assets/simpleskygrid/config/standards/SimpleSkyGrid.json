@@ -22,7 +22,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_earth"
         },
         "weight": 100
@@ -30,7 +30,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_fluid"
         },
         "weight": 10
@@ -38,15 +38,15 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_loot"
         },
-        "weight": 0.1
+        "weight": 0.2
       },
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_ore"
         },
         "weight": 20
@@ -54,7 +54,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_plant"
         },
         "weight": 10
@@ -62,7 +62,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_tree"
         },
         "weight": 50
@@ -70,7 +70,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_rare"
         },
         "weight": 5
@@ -78,10 +78,10 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "overworld_spawn"
         },
-        "weight": 0.5
+        "weight": 0.1
       }
     ],
     "overworld_earth": [
@@ -730,7 +730,7 @@
           "type": "block",
           "name": "minecraft:log2"
         },
-        "weight": 10
+        "weight": 25
       },
       {
         "object" : {
@@ -738,7 +738,7 @@
           "name": "minecraft:log2",
           "meta": 1
         },
-        "weight": 10
+        "weight": 25
       },
       {
         "object" : {
@@ -778,7 +778,7 @@
           "name": "minecraft:leaves2",
           "meta": 4
         },
-        "weight": 5
+        "weight": 12.5
       },
       {
         "object" : {
@@ -786,7 +786,7 @@
           "name": "minecraft:leaves2",
           "meta": 5
         },
-        "weight": 5
+        "weight": 12.5
       },
       {
         "object" : {
@@ -860,7 +860,7 @@
             "meta": 4
           }
         },
-        "weight": 1
+        "weight": 2.5
       },
       {
         "object" : {
@@ -875,37 +875,30 @@
             "meta": 5
           }
         },
-        "weight": 1
+        "weight": 2.5
       }
     ],
     "overworld_rare": [
       {
         "object" : {
           "type": "block",
-          "name": "minecraft:glass"
+          "name": "minecraft:piston"
         },
         "weight": 100
       },
       {
         "object" : {
           "type": "block",
-          "name": "minecraft:piston"
-        },
-        "weight": 5
-      },
-      {
-        "object" : {
-          "type": "block",
           "name": "minecraft:sticky_piston"
         },
-        "weight": 5
+        "weight": 100
       },
       {
         "object" : {
           "type": "block",
           "name": "minecraft:bookshelf"
         },
-        "weight": 5
+        "weight": 50
       }
     ],
     "overworld_spawn": [
@@ -1154,7 +1147,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_earth"
         },
         "weight": 100
@@ -1162,7 +1155,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_fluid"
         },
         "weight": 20
@@ -1170,7 +1163,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_loot"
         },
         "weight": 0.1
@@ -1178,7 +1171,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_ore"
         },
         "weight": 20
@@ -1186,7 +1179,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_plant"
         },
         "weight": 10
@@ -1194,7 +1187,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_tree"
         },
         "weight": 5
@@ -1202,7 +1195,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_rare"
         },
         "weight": 5
@@ -1210,7 +1203,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "nether_spawn"
         },
         "weight": 0.5
@@ -1401,7 +1394,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_earth"
         },
         "weight": 100
@@ -1409,7 +1402,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_fluid"
         },
         "weight": 10
@@ -1417,7 +1410,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_loot"
         },
         "weight": 0.1
@@ -1425,7 +1418,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_ore"
         },
         "weight": 20
@@ -1433,7 +1426,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_plant"
         },
         "weight": 10
@@ -1441,7 +1434,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_tree"
         },
         "weight": 10
@@ -1449,7 +1442,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_rare"
         },
         "weight": 5
@@ -1457,7 +1450,7 @@
       {
         "object": {
           "type": "label",
-          "subtype": "relative",
+          "subtype": "absolute",
           "name": "end_spawn"
         },
         "weight": 0.5

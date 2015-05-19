@@ -1,1 +1,27 @@
-{}
+{
+  "generation": {
+    "overworld_earth": [
+      {
+        "object": {
+          "type": "block",
+          "name": "chisel:andesite"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chisel:diorite"
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chisel:granite"
+        },
+        "weight": 10
+      }
+    ]
+  }
+}

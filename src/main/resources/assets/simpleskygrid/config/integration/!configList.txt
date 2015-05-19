@@ -2,7 +2,6 @@ appliedenergistics2.json
 Botania.json
 chisel.json
 DraconicEvolution.json
-EnderIO.json
 exnihilo.json
 FoodPlus.json
 lucky.json
