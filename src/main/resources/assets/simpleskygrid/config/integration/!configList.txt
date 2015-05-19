@@ -3,11 +3,9 @@ Botania.json
 chisel.json
 DraconicEvolution.json
 exnihilo.json
-FoodPlus.json
 lucky.json
 MineFactoryReloaded.json
 Natura.json
 TConstruct.json
-Thaumcraft.json
 ThermalExpansion.json
 ThermalFoundation.json

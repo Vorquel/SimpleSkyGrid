@@ -17,7 +17,10 @@ import java.util.ArrayList;
 
 public class SimpleSkyGridConfigReader {
 
+    public static boolean useStandards;
+    public static boolean useIntegration;
     public static boolean useDevItems;
+    public static boolean skyGridDefault;
     private static File configHome;
 
     private File file;
@@ -30,15 +33,19 @@ public class SimpleSkyGridConfigReader {
             Log.kill("Unable to create config directory");
     }
 
-    public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
-        ArrayList<SimpleSkyGridConfigReader> readers = new ArrayList<>();
+    public static void init() {
         Configuration configuration = new Configuration(new File(configHome, "!meta.cfg"));
         configuration.load();
         configuration.addCustomCategoryComment("general", "You shouldn't need to touch these unless you're making a custom modpack or similar.");
-        boolean useStandards = configuration.getBoolean("use_standards", "general", true, "Use built-in standard configs.");
-        boolean useIntegration = configuration.getBoolean("use_integration", "general", true, "Use built-in mod integration");
-        useDevItems = configuration.getBoolean("use_dev_items", "general", false, "Should the Identifier be loaded?");
+        useStandards = configuration.getBoolean("use_standards", "general", true, "Load built-in standard configs.");
+        useIntegration = configuration.getBoolean("use_integration", "general", true, "Load built-in mod integration.");
+        useDevItems = configuration.getBoolean("use_dev_items", "general", false, "Load the Identifier item.");
+        skyGridDefault = configuration.getBoolean("sky_grid_default", "general", true, "Sets Sky Grid as the default world type.");
         configuration.save();
+    }
+
+    public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
+        ArrayList<SimpleSkyGridConfigReader> readers = new ArrayList<>();
         if(useStandards)
             for(URL url : getConfigList("/assets/simpleskygrid/config/standards/"))
                 copyFileIfNecessary(url);
