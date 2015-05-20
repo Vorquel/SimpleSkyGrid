@@ -1,1 +1,637 @@
-{}
+{
+  "generation": {
+    "overworld_earth": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Cloud"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Cloud",
+          "meta": 1
+        },
+        "weight": 10
+      }
+    ],
+    "overworld_plant": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:BerryBush",
+          "meta": 12
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:BerryBush",
+          "meta": 13
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:BerryBush",
+          "meta": 14
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:BerryBush",
+          "meta": 15
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:N Crops",
+            "meta": 3
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:N Crops",
+            "meta": 8
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Bluebells"
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:sand"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Saguaro"
+          }
+        },
+        "weight": 10
+      }
+    ],
+    "overworld_tree": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:redwood"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:redwood",
+          "meta": 1
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:redwood",
+          "meta": 2
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:tree"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:tree",
+          "meta": 3
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:tree",
+          "meta": 1
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Tree"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Tree",
+          "meta": 1
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Tree",
+          "meta": 2
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Tree",
+          "meta": 3
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:willow"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleaves"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleaves",
+          "meta": 1
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleaves",
+          "meta": 2
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleavesnocolor"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Leaves"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Leaves",
+          "meta": 1
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Leaves",
+          "meta": 2
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Rare Leaves",
+          "meta": 3
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleavesnocolor",
+          "meta": 3
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 1
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 2
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 3
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Rare Sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Rare Sapling",
+            "meta": 1
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Rare Sapling",
+            "meta": 2
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Rare Sapling",
+            "meta": 3
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Rare Sapling",
+            "meta": 4
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "nether_earth": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Cloud",
+          "meta": 2
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Cloud",
+          "meta": 3
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:soil.tainted"
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:heatsand"
+        },
+        "weight": 20
+      }
+    ],
+    "nether_plant": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:NetherBerryBush",
+          "meta": 12
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:NetherBerryBush",
+          "meta": 13
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:NetherBerryBush",
+          "meta": 14
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:NetherBerryBush",
+          "meta": 15
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:netherrack"
+          },
+          "0,-1,0": {
+            "type": "block",
+            "name": "Natura:Thornvines",
+            "meta": 15
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "Natura:soil.tainted"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Glowshroom"
+          }
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "Natura:soil.tainted"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Glowshroom",
+            "meta": 1
+          }
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "Natura:soil.tainted"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:Glowshroom",
+            "meta": 2
+          }
+        },
+        "weight": 20
+      }
+    ],
+    "nether_tree": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:tree",
+          "meta": 2
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:bloodwood",
+          "meta": 15
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Dark Tree"
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Dark Tree",
+          "meta": 1
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleavesnocolor",
+          "meta": 1
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:floraleavesnocolor",
+          "meta": 2
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Dark Leaves",
+          "meta": 2
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "Natura:Dark Leaves",
+          "meta": 3
+        },
+        "weight": 50
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:netherrack"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 4
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:netherrack"
+          },
+          "0,-1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 5
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:netherrack"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 6
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:netherrack"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
+            "meta": 7
+          }
+        },
+        "weight": 10
+      }
+    ]
+  }
+}
