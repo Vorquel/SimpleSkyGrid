@@ -6,9 +6,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.relauncher.Side;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.proxy.Proxy;
+
+import java.util.Map;
 
 @Mod(modid = Ref.MOD_ID, name = "Simple Sky Grid", version = "@MOD_VERSION@")
 public class SimpleSkyGrid {
@@ -42,5 +46,11 @@ public class SimpleSkyGrid {
     @SuppressWarnings("unused")
     public void serverLoad(FMLServerStartingEvent event) {
         proxy.serverLoad(event);
+    }
+
+    @NetworkCheckHandler
+    @SuppressWarnings("unused")
+    public boolean checkRemoteVersion(Map<String,String> mods, Side otherSide) {
+        return !mods.containsKey(Ref.MOD_ID) || mods.get(Ref.MOD_ID).equals("@MOD_VERSION@");
     }
 }
