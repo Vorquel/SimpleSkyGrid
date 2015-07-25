@@ -7,7 +7,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.proxy.Proxy;
@@ -22,7 +21,6 @@ public class SimpleSkyGrid {
     public static SimpleSkyGrid instance;
     @SidedProxy(clientSide = "vorquel.mod.simpleskygrid.proxy.ProxyClient", serverSide = "vorquel.mod.simpleskygrid.proxy.Proxy")
     public static Proxy proxy;
-    public static SimpleNetworkWrapper network;
 
     @Mod.EventHandler
     @SuppressWarnings("unused")

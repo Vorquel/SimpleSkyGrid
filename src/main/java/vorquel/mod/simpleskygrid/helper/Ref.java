@@ -1,13 +1,10 @@
 package vorquel.mod.simpleskygrid.helper;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.config.ConfigDataMap;
-import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.UniqueQuantity;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PLabel;
-import vorquel.mod.simpleskygrid.item.Identifier;
 import vorquel.mod.simpleskygrid.world.WorldTypeSkyGrid;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedUnique;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
@@ -19,14 +16,8 @@ public class Ref {
 
     public static final String MOD_ID = "SimpleSkyGrid";
     public static WorldTypeSkyGrid worldType;
-    public static Identifier itemIdentifier = new Identifier();
     private static HashMap<Integer, RandomList<IGeneratedObject>> randomGenerators;
     private static HashMap<Integer, ArrayList<GeneratedUnique>> uniqueGenerators;
-
-    public static void preInit() {
-        if(SimpleSkyGridConfigReader.useDevItems)
-            GameRegistry.registerItem(itemIdentifier, "identifier");
-    }
 
     public static void postInit() {
         worldType = new WorldTypeSkyGrid();

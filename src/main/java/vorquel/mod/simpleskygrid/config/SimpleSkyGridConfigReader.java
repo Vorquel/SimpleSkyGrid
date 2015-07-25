@@ -8,8 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
+import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 import vorquel.mod.simpleskygrid.helper.Log;
-import vorquel.mod.simpleskygrid.helper.NBT2JSON;
 
 import java.io.*;
 import java.net.URL;
@@ -276,7 +276,7 @@ public class SimpleSkyGridConfigReader {
 
     public NBTTagCompound nextNBT() {
         try {
-            return NBT2JSON.readCompound(jsonReader);
+            return JSON2NBT.readCompound(jsonReader);
         } catch(IOException e) {
             return (NBTTagCompound) handleIO(e);
         }

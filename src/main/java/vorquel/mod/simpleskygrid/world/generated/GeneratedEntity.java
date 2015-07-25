@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import vorquel.mod.simpleskygrid.helper.NBT2JSON;
+import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public class GeneratedEntity implements IGeneratedObject {
         double realX = x + .5;
         double realZ = z + .5;
         if(nbt != null) {
-            entity.readFromNBT(NBT2JSON.localizeEntity(nbt, realX, y, realZ));
+            entity.readFromNBT(JSON2NBT.localizeEntity(nbt, realX, y, realZ));
         }
         entity.setPosition(realX, y, realZ);
         world.spawnEntityInWorld(entity);

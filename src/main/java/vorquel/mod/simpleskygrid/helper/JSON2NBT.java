@@ -1,26 +1,15 @@
 package vorquel.mod.simpleskygrid.helper;
 
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NBT2JSON {
-
-    public static NBTTagCompound sanitizeBlock(NBTTagCompound tag) {
-        NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
-        tagCopy.removeTag("x");
-        tagCopy.removeTag("y");
-        tagCopy.removeTag("z");
-        sanitizeItems(tagCopy);
-        return tagCopy;
-    }
+public class JSON2NBT {
 
     public static NBTTagCompound localizeBlock(NBTTagCompound tag, int x, int y, int z) {
         NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
@@ -28,13 +17,6 @@ public class NBT2JSON {
         tagCopy.setInteger("y", y);
         tagCopy.setInteger("z", z);
         localizeItems(tagCopy);
-        return tagCopy;
-    }
-
-    public static NBTTagCompound sanitizeEntity(NBTTagCompound tag) {
-        NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
-        tagCopy.removeTag("Pos");
-        sanitizeItems(tagCopy);
         return tagCopy;
     }
 
@@ -47,28 +29,6 @@ public class NBT2JSON {
         tagCopy.setTag("Pos", list);
         localizeItems(tagCopy);
         return tagCopy;
-    }
-
-    public static void sanitizeItems(NBTTagCompound nbt) {
-        for(Object key : nbt.func_150296_c()) {
-            String label = (String) key;
-            NBTBase tag = nbt.getTag(label);
-            switch(tag.getId()) {
-                case 9: if(isInventoryLabel(label)) sanitizeInventory((NBTTagList) tag); break;
-                case 10: sanitizeItems((NBTTagCompound) tag);
-            }
-        }
-    }
-
-    private static void sanitizeInventory(NBTTagList list) {
-        if(list.getCompoundTagAt(0).hasKey("id"))
-            for(int i=0; i<list.tagCount(); ++i) {
-                NBTTagCompound compound = list.getCompoundTagAt(i);
-                int id = compound.getShort("id");
-                Item item = GameData.getItemRegistry().getObjectById(id);
-                String name = GameData.getItemRegistry().getNameForObject(item);
-                compound.setString("id", name);
-            }
     }
 
     public static void localizeItems(NBTTagCompound nbt) {
@@ -98,86 +58,6 @@ public class NBT2JSON {
             default: return false;
         }
     }
-
-    public static void writeCompound(JsonWriter jw, NBTTagCompound nbt) throws IOException {
-        jw.beginObject();
-        for(Object key : nbt.func_150296_c()) {
-            String label = (String) key;
-            NBTBase tag = nbt.getTag(label);
-            String prefix = tagPrefix(tag);
-            jw.name(prefix + label);
-            writeTag(jw, tag);
-        }
-        jw.endObject();
-    }
-
-    public static void writeByte(JsonWriter jw, NBTTagByte tag) throws IOException {
-        jw.value(tag.func_150290_f());
-    }
-
-    public static void writeShort(JsonWriter jw, NBTTagShort tag) throws IOException {
-        jw.value(tag.func_150289_e());
-    }
-
-    public static void writeInt(JsonWriter jw, NBTTagInt tag) throws IOException {
-        jw.value(tag.func_150287_d());
-    }
-
-    public static void writeLong(JsonWriter jw, NBTTagLong tag) throws IOException {
-        jw.value(tag.func_150291_c());
-    }
-
-    public static void writeFloat(JsonWriter jw, NBTTagFloat tag) throws IOException {
-        jw.value(tag.func_150288_h());
-    }
-
-    public static void writeDouble(JsonWriter jw, NBTTagDouble tag) throws IOException {
-        jw.value(tag.func_150286_g());
-    }
-
-    public static void writeString(JsonWriter jw, NBTTagString tag) throws IOException {
-        jw.value(tag.func_150285_a_());
-    }
-
-    public static void writeByteArray(JsonWriter jw, NBTTagByteArray tag) throws IOException {
-        jw.beginArray();
-        for(byte b : tag.func_150292_c())
-            jw.value(b);
-        jw.endArray();
-    }
-
-    public static void writeIntArray(JsonWriter jw, NBTTagIntArray tag) throws IOException {
-        jw.beginArray();
-        for(int i : tag.func_150302_c())
-            jw.value(i);
-        jw.endArray();
-    }
-
-    public static void writeList(JsonWriter jw, NBTTagList tag) throws IOException {
-        jw.beginArray();
-        //noinspection unchecked
-        for(NBTBase b : (List<NBTBase>) ReflectionHelper.getPrivateValue(NBTTagList.class, tag, "tagList", "field_74747_a"))
-            writeTag(jw, b);
-        jw.endArray();
-    }
-
-    public static void writeTag(JsonWriter jw, NBTBase tag) throws IOException {
-        switch(tag.getId()) {
-            case 1:  writeByte(     jw,      (NBTTagByte) tag); break;
-            case 2:  writeShort(    jw,     (NBTTagShort) tag); break;
-            case 3:  writeInt(      jw,       (NBTTagInt) tag); break;
-            case 4:  writeLong(     jw,      (NBTTagLong) tag); break;
-            case 5:  writeFloat(    jw,     (NBTTagFloat) tag); break;
-            case 6:  writeDouble(   jw,    (NBTTagDouble) tag); break;
-            case 7:  writeByteArray(jw, (NBTTagByteArray) tag); break;
-            case 8:  writeString(   jw,    (NBTTagString) tag); break;
-            case 9:  writeList(     jw,      (NBTTagList) tag); break;
-            case 10: writeCompound( jw,  (NBTTagCompound) tag); break;
-            case 11: writeIntArray( jw,  (NBTTagIntArray) tag); break;
-            default: Log.warn("Unrecognised tag type in NBT data");
-        }
-    }
-
     public static String tagPrefix(NBTBase tag) {
         switch(tag.getId()) {
             case 1:  return "b_";

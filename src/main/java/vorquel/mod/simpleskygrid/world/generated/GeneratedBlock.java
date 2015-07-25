@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import vorquel.mod.simpleskygrid.helper.NBT2JSON;
+import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
 import java.util.Random;
@@ -36,7 +36,7 @@ public class GeneratedBlock implements IGeneratedObject {
             TileEntity te = block.createTileEntity(world, meta);
             if(te != null) {
                 if(nbt != null) {
-                    te.readFromNBT(NBT2JSON.localizeBlock(nbt, x, y, z));
+                    te.readFromNBT(JSON2NBT.localizeBlock(nbt, x, y, z));
                 } else {
                     te.xCoord = x;
                     te.yCoord = y;
