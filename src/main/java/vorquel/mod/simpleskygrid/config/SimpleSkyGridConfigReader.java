@@ -19,7 +19,6 @@ public class SimpleSkyGridConfigReader {
 
     public static boolean useStandards;
     public static boolean useIntegration;
-    public static boolean useDevItems;
     public static boolean skyGridDefault;
     private static File configHome;
 
@@ -39,7 +38,6 @@ public class SimpleSkyGridConfigReader {
         configuration.addCustomCategoryComment("general", "You shouldn't need to touch these unless you're making a custom modpack or similar.");
         useStandards = configuration.getBoolean("use_standards", "general", true, "Load built-in standard configs.");
         useIntegration = configuration.getBoolean("use_integration", "general", true, "Load built-in mod integration.");
-        useDevItems = configuration.getBoolean("use_dev_items", "general", false, "Load the Identifier item.");
         skyGridDefault = configuration.getBoolean("sky_grid_default", "general", true, "Sets Sky Grid as the default world type.");
         configuration.save();
     }
