@@ -1,2 +1,2 @@
-SimpleSkyGrid.json
-OreDictionary.json
+SimpleSkyGrid
+OreDictionary

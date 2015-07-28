@@ -1,5 +1,6 @@
 package vorquel.mod.simpleskygrid.config;
 
+import com.google.common.base.Strings;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import cpw.mods.fml.common.Loader;
@@ -45,12 +46,12 @@ public class SimpleSkyGridConfigReader {
     public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
         ArrayList<SimpleSkyGridConfigReader> readers = new ArrayList<>();
         if(useStandards)
-            for(URL url : getConfigList("/assets/simpleskygrid/config/standards/"))
-                copyFileIfNecessary(url);
+            for(String string : getConfigList("standards"))
+                copyFileIfNecessary("standards", string);
         if(useIntegration)
-            for(URL url : getConfigList("/assets/simpleskygrid/config/integration/"))
-                if(Loader.isModLoaded(getModIdFromUrl(url)))
-                    copyFileIfNecessary(url);
+            for(String modId : getConfigList("integration"))
+                if(Loader.isModLoaded(modId))
+                    copyFileIfNecessary("integration", encodeModId(modId));
         File[] files = configHome.listFiles((FilenameFilter) new SuffixFileFilter(".json"));
         files = files == null ? new File[0] : files;
         for(File file : files)
@@ -58,14 +59,13 @@ public class SimpleSkyGridConfigReader {
         return readers;
     }
 
-    private static ArrayList<URL> getConfigList(String home) {
-        URL source = SimpleSkyGridConfigReader.class.getResource(home + "!configList.txt");
+    private static ArrayList<String> getConfigList(String path) {
+        URL source = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/" + path + "/!configList.txt");
         File destination = new File(configHome, "!configList.txt");
-        ArrayList<URL> configList = new ArrayList<>();
+        ArrayList<String> configList = new ArrayList<>();
         try {
             FileUtils.copyURLToFile(source, destination);
-            for(String line : FileUtils.readLines(destination))
-                configList.add(SimpleSkyGridConfigReader.class.getResource(home + line));
+            configList.addAll(FileUtils.readLines(destination));
         } catch(IOException e) {
             Log.kill("Unable to copy temp file !configList.txt: %s", e.getMessage());
         } finally {
@@ -75,10 +75,10 @@ public class SimpleSkyGridConfigReader {
         return configList;
     }
 
-    private static void copyFileIfNecessary(URL source) {
-        String path = source.getPath();
-        String name = path.substring(path.lastIndexOf('/') + 1);
-        File destination = new File(configHome, name);
+    private static void copyFileIfNecessary(String path, String name) {
+        String fileName = name + ".json";
+        URL source = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/" + path + "/" + fileName);
+        File destination = new File(configHome, fileName);
         if(destination.exists())
             return;
         try {
@@ -88,9 +88,34 @@ public class SimpleSkyGridConfigReader {
         }
     }
 
-    private static String getModIdFromUrl(URL url) {
-        String file = url.getFile();
-        return file.substring(file.lastIndexOf('/') + 1, file.lastIndexOf('.'));
+    private static String encodeModId(String modId) {
+        modId = modId.replace("%", encodeChar('%'));
+        for(char c : modId.toCharArray()) {
+            if(c != '%' && !Character.isAlphabetic(c) && !Character.isDigit(c)) {
+                modId = modId.replace(String.valueOf(c), encodeChar(c));
+            }
+        }
+        if(isIllegal(modId))
+            modId = modId.concat("%");
+        return modId;
+    }
+
+    private static String encodeChar(char c) {
+        if(c < 256)
+            return "%" + Strings.padStart(Integer.toHexString(c), 2, '0');
+        else
+            return "%%" + Strings.padStart(Integer.toHexString(c), 4, '0');
+    }
+
+    private static final String[] illegalNames = {"CON", "PRN", "AUX", "NUL",
+                                                         "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+                                                         "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
+
+    private static boolean isIllegal(String name) {
+        for(String illegalName : illegalNames)
+            if(illegalName.equalsIgnoreCase(name))
+                return true;
+        return false;
     }
 
     public SimpleSkyGridConfigReader(File file) {
