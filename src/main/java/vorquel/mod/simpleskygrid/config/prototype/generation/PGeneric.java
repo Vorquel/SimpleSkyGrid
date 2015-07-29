@@ -1,5 +1,6 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
+import javafx.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -10,9 +11,15 @@ import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class PGeneric extends Prototype<IGeneratedObject> {
 
     private String name;
+    private ArrayList<String> names;
 
     public PGeneric(SimpleSkyGridConfigReader reader) {
         super(reader);
@@ -20,27 +27,77 @@ public class PGeneric extends Prototype<IGeneratedObject> {
 
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
-        if(label.equals("name")) name = reader.nextString();
-        else reader.unknownOnce("label " + label, "generic block definition");
+        switch(label) {
+            case "name": name = reader.nextString(); return;
+            case "names": readNames(reader); return;
+            default: reader.unknownOnce("label " + label, "generic block definition");
+        }
+    }
+
+    private void readNames(SimpleSkyGridConfigReader reader) {
+        names = new ArrayList<>();
+        reader.beginArray();
+        while(reader.hasNext())
+            names.add(reader.nextString());
+        reader.endArray();
     }
 
     @Override
     public boolean isComplete() {
-        return name != null;
+        return name != null || (names != null && !names.isEmpty());
     }
 
     @Override
     public IGeneratedObject getObject() {
-        for(ItemStack stack : OreDictionary.getOres(name)) {
-            if(stack == null)
-                continue;
-            Item item = stack.getItem();
-            Block block = Block.getBlockFromItem(item);
-            if(block == Blocks.air)
-                continue;
-            int meta = item.getMetadata(stack.getItemDamage());
-            return new GeneratedBlock(block, meta, null, null);
+        if(name != null) {
+            for(ItemStack stack : OreDictionary.getOres(name)) {
+                if(stack == null)
+                    continue;
+                Item item = stack.getItem();
+                Block block = Block.getBlockFromItem(item);
+                if(block == Blocks.air)
+                    continue;
+                int meta = item.getMetadata(stack.getItemDamage());
+                return new GeneratedBlock(block, meta, null, null);
+            }
+            if(names == null)
+                return null;
         }
-        return null;
+        Map<Pair<Block, Integer>, ArrayList<String>> blockMap = new HashMap<>();
+        ArrayList<String> usedNames = new ArrayList<>();
+        for(String name : names) {
+            boolean isNameUsed = false;
+            for(ItemStack stack : OreDictionary.getOres(name)) {
+                if(stack == null)
+                    continue;
+                Item item = stack.getItem();
+                Block block = Block.getBlockFromItem(item);
+                if(block == Blocks.air)
+                    continue;
+                int meta = item.getMetadata(stack.getItemDamage());
+                Pair<Block, Integer> pair = new Pair<>(block, meta);
+                if(!blockMap.containsKey(pair))
+                    blockMap.put(pair, new ArrayList<String>());
+                blockMap.get(pair).add(name);
+                isNameUsed = true;
+            }
+            if(isNameUsed)
+                usedNames.add(name);
+        }
+        if(usedNames.isEmpty())
+            return null;
+        for(String name : usedNames) {
+            Iterator<Map.Entry<Pair<Block, Integer>, ArrayList<String>>> iterator = blockMap.entrySet().iterator();
+            while(iterator.hasNext()) {
+                Map.Entry<Pair<Block, Integer>, ArrayList<String>> entry = iterator.next();
+                Pair<Block, Integer> pair = entry.getKey();
+                if(!entry.getValue().contains(name))
+                    iterator.remove();
+                if(blockMap.isEmpty())
+                    return new GeneratedBlock(pair.getKey(), pair.getValue(), null, null);
+            }
+        }
+        Pair<Block, Integer> pair = blockMap.keySet().iterator().next();
+        return new GeneratedBlock(pair.getKey(), pair.getValue(), null, null);
     }
 }
