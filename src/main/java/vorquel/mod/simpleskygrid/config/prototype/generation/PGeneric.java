@@ -1,6 +1,5 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import javafx.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -8,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
+import vorquel.mod.simpleskygrid.helper.Pair;
 import vorquel.mod.simpleskygrid.world.generated.GeneratedBlock;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
@@ -94,10 +94,10 @@ public class PGeneric extends Prototype<IGeneratedObject> {
                 if(!entry.getValue().contains(name))
                     iterator.remove();
                 if(blockMap.isEmpty())
-                    return new GeneratedBlock(pair.getKey(), pair.getValue(), null, null);
+                    return new GeneratedBlock(pair.left, pair.right, null, null);
             }
         }
         Pair<Block, Integer> pair = blockMap.keySet().iterator().next();
-        return new GeneratedBlock(pair.getKey(), pair.getValue(), null, null);
+        return new GeneratedBlock(pair.left, pair.right, null, null);
     }
 }
