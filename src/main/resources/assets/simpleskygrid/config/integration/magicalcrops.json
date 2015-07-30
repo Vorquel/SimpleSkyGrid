@@ -1,0 +1,31 @@
+{
+  "generation": {
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "magicalcrops:magicalcrops_MinicioOre"
+        },
+        "weight": 6
+      }
+    ],
+    "nether_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "magicalcrops:magicalcrops_MinicioOreNether"
+        },
+        "weight": 6
+      }
+    ],
+    "end_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "magicalcrops:magicalcrops_MinicioOreEnd"
+        },
+        "weight": 6
+      }
+    ]
+  }
+}

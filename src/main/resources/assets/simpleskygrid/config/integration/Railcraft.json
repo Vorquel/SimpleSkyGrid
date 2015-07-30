@@ -1,0 +1,32 @@
+{
+  "generation": {
+    "overworld_earth": [
+      {
+        "object": {
+          "type": "block",
+          "name": "Railcraft:cube",
+          "meta": 6
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Railcraft:cube",
+          "meta": 7
+        },
+        "weight": 10
+      }
+    ],
+    "nether_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "Railcraft:ore",
+          "meta": 5
+        },
+        "weight": 0.1
+      }
+    ]
+  }
+}

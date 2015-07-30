@@ -1,11 +1,15 @@
 appliedenergistics2
 Botania
+BuildCraft|Energy
 chisel
 DraconicEvolution
 exnihilo
 lucky
+magicalcrops
 MineFactoryReloaded
 Natura
+ProjRed|Exploration
+Railcraft
 TConstruct
 ThermalExpansion
 ThermalFoundation

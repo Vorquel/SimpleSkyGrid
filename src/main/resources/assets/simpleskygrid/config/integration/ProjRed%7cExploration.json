@@ -1,0 +1,37 @@
+{
+  "generation": {
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "ProjRed|Exploration:projectred.exploration.ore"
+        },
+        "weight": 1.5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "ProjRed|Exploration:projectred.exploration.ore",
+          "meta": 1
+        },
+        "weight": 1.5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "ProjRed|Exploration:projectred.exploration.ore",
+          "meta": 2
+        },
+        "weight": 1.5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "ProjRed|Exploration:projectred.exploration.ore",
+          "meta": 6
+        },
+        "weight": 10
+      }
+    ]
+  }
+}
