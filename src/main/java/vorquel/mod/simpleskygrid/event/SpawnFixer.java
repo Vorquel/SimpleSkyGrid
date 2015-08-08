@@ -38,7 +38,7 @@ public class SpawnFixer {
         int y = (int) event.player.posY;
         int z = (int) event.player.posZ;
         ChunkCoordinates bedCoordinates = event.player.getBedLocation(event.player.dimension);
-        if(y <= 1 || bedCoordinates == null || event.player.playerLocation.getDistanceSquaredToChunkCoordinates(bedCoordinates) > 10) {
+        if(y <= 1 || bedCoordinates == null || bedCoordinates.getDistanceSquared(x, y, z) > 10) {
             x -= x%4;
             z -= z%4;
             Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(x, z);
