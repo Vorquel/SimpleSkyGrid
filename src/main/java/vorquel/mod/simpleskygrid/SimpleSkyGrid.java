@@ -25,7 +25,7 @@ public class SimpleSkyGrid {
     @Mod.EventHandler
     @SuppressWarnings("unused")
     public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit(event);
+        proxy.preInit();
     }
 
     @Mod.EventHandler
