@@ -11,5 +11,6 @@ Natura
 ProjRed|Exploration
 Railcraft
 TConstruct
+Thaumcraft
 ThermalExpansion
 ThermalFoundation

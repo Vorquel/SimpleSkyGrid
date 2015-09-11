@@ -36,7 +36,7 @@ public class GeneratedBlock implements IGeneratedObject {
             TileEntity te = block.createTileEntity(world, meta);
             if(te != null) {
                 if(nbt != null) {
-                    te.readFromNBT(JSON2NBT.localizeBlock(nbt, x, y, z));
+                    te.readFromNBT(JSON2NBT.localizeBlock(nbt, world, x, y, z));
                 } else {
                     te.xCoord = x;
                     te.yCoord = y;

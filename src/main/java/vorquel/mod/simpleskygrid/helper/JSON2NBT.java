@@ -4,6 +4,8 @@ import com.google.gson.stream.JsonReader;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.*;
+import net.minecraft.world.World;
+import vorquel.mod.simpleskygrid.api.INBTLocalizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,12 +13,26 @@ import java.util.List;
 
 public class JSON2NBT {
 
-    public static NBTTagCompound localizeBlock(NBTTagCompound tag, int x, int y, int z) {
+    private static ArrayList<INBTLocalizer> blockLocalizers = new ArrayList<>();
+
+
+    public static void addBlockLocalizer(INBTLocalizer blockLocalizer) {
+        blockLocalizers.add(blockLocalizer);
+    }
+
+    private static void localizeBlockFromLocalizers(NBTTagCompound tagCopy, World world, int x, int y, int z) {
+        for(INBTLocalizer localizer : blockLocalizers)
+            if(localizer.isNeeded(tagCopy))
+                localizer.localize(tagCopy, world, x, y, z);
+    }
+
+    public static NBTTagCompound localizeBlock(NBTTagCompound tag, World world, int x, int y, int z) {
         NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
         tagCopy.setInteger("x", x);
         tagCopy.setInteger("y", y);
         tagCopy.setInteger("z", z);
         localizeItems(tagCopy);
+        localizeBlockFromLocalizers(tagCopy, world, x, y, z);
         return tagCopy;
     }
 

@@ -1,1 +1,1254 @@
-{}
+{
+  "generation": {
+    "overworld_rare": [
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "thaumcraft_node"
+        },
+        "weight": 100
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCosmeticSolid",
+            "meta": 1
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockEldritch",
+            "nbt": {
+              "S_id": "TileEldritchAltar",
+              "b_open": 0,
+              "b_spawner": 1,
+              "b_spawntype": 0,
+              "b_spawnedClerics": 1,
+              "b_eyes": 0
+            }
+          },
+          "0,2,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockAiry",
+            "nbt": {
+              "S_id": "TileNode",
+              "l_lastActive": 0,
+              "b_modifier": 1,
+              "b_type": 2,
+              "L_C_AspectsBase": [
+                {
+                  "S_key": "exanimis",
+                  "i_amount": 20
+                },
+                {
+                  "i_amount": 20,
+                  "S_key": "mortuus"
+                },
+                {
+                  "i_amount": 20,
+                  "S_key": "tenebrae"
+                }
+              ],
+              "L_C_Aspects": [
+                {
+                  "S_key": "exanimis",
+                  "i_amount": 20
+                },
+                {
+                  "i_amount": 20,
+                  "S_key": "mortuus"
+                },
+                {
+                  "i_amount": 20,
+                  "S_key": "tenebrae"
+                }
+              ],
+              "i_draincolor": 16777215
+            }
+          }
+        },
+        "weight": 20
+      }
+    ],
+    "thaumcraft_node": [
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLog",
+          "meta": 2,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 5,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "mortuus",
+                "i_amount": 16
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 20
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 29
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 22
+              },
+              {
+                "S_key": "victus",
+                "i_amount": 20
+              },
+              {
+                "S_key": "tenebrae",
+                "i_amount": 10
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "mortuus",
+                "i_amount": 16
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 20
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 29
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 22
+              },
+              {
+                "S_key": "victus",
+                "i_amount": 20
+              },
+              {
+                "S_key": "tenebrae",
+                "i_amount": 10
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 0,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 27
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 15
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 46
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 27
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 15
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 46
+              }
+            ]
+          }
+        },
+        "weight": 65
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLog",
+          "meta": 2,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 5,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 45
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 22
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 23
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 45
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 22
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 23
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 3,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 21
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 20
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 17
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 24
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 21
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 20
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 17
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 24
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCosmeticSolid",
+          "meta": 8,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 2,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 30
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 19
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 12
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 30
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 19
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 12
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": 0,
+            "b_type": 4,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 17
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 25
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 61
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 23
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 24
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 17
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 25
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 61
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 23
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 24
+              }
+            ]
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCosmeticSolid",
+          "meta": 8,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 2,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "ignis",
+                "i_amount": 15
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 20
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 30
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "ignis",
+                "i_amount": 15
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 20
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 30
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 4,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "herba",
+                "i_amount": 20
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 26
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 20
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 25
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 30
+              },
+              {
+                "S_key": "victus",
+                "i_amount": 23
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "herba",
+                "i_amount": 20
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 26
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 20
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 25
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 30
+              },
+              {
+                "S_key": "victus",
+                "i_amount": 23
+              }
+            ]
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLog",
+          "meta": 2,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 5,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 15
+              },
+              {
+                "S_key": "herba",
+                "i_amount": 19
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 25
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 25
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 46
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 15
+              },
+              {
+                "S_key": "herba",
+                "i_amount": 19
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 25
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 25
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 46
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 3,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 46
+              },
+              {
+                "S_key": "mortuus",
+                "i_amount": 16
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 27
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 23
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 19
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 46
+              },
+              {
+                "S_key": "mortuus",
+                "i_amount": 16
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 27
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 23
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 19
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": 1,
+            "b_type": 0,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "mortuus",
+                "i_amount": 32
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 52
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 18
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 19
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "mortuus",
+                "i_amount": 32
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 52
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 18
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 19
+              }
+            ]
+          }
+        },
+        "weight": 65
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 4,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 17
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 45
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 19
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 15
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 17
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 45
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 19
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 15
+              }
+            ]
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 0,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 22
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 42
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 45
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 22
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 42
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 45
+              }
+            ]
+          }
+        },
+        "weight": 65
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 4,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "ignis",
+                "i_amount": 24
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 36
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 27
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "ignis",
+                "i_amount": 24
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 36
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 27
+              }
+            ]
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 1,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "mortuus",
+                "i_amount": 24
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 70
+              },
+              {
+                "S_key": "tenebrae",
+                "i_amount": 27
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "mortuus",
+                "i_amount": 24
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 70
+              },
+              {
+                "S_key": "tenebrae",
+                "i_amount": 27
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": 1,
+            "b_type": 1,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "ignis",
+                "i_amount": 34
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 28
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "ignis",
+                "i_amount": 34
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 28
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": 1,
+            "b_type": 3,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "ignis",
+                "i_amount": 50
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 45
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "ignis",
+                "i_amount": 50
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 45
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 3,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 19
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 25
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 25
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 11
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 19
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 25
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 25
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 11
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCosmeticSolid",
+          "meta": 8,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 2,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 17
+              },
+              {
+                "S_key": "exanimis",
+                "i_amount": 15
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 15
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 23
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 19
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 25
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "lucrum",
+                "i_amount": 17
+              },
+              {
+                "S_key": "exanimis",
+                "i_amount": 15
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 15
+              },
+              {
+                "S_key": "fames",
+                "i_amount": 23
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 19
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 25
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCosmeticSolid",
+          "meta": 8,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": 0,
+            "b_type": 2,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "exanimis",
+                "i_amount": 36
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 36
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 64
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "exanimis",
+                "i_amount": 36
+              },
+              {
+                "S_key": "ignis",
+                "i_amount": 36
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 64
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": 1,
+            "b_type": 0,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "ignis",
+                "i_amount": 14
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 18
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "ignis",
+                "i_amount": 14
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 20
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 18
+              }
+            ]
+          }
+        },
+        "weight": 65
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLog",
+          "meta": 2,
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 5,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "aer",
+                "i_amount": 35
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 37
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 29
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "aer",
+                "i_amount": 35
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 37
+              },
+              {
+                "S_key": "aqua",
+                "i_amount": 29
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 1,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "ignis",
+                "i_amount": 43
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 10
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "ignis",
+                "i_amount": 43
+              },
+              {
+                "S_key": "ordo",
+                "i_amount": 10
+              }
+            ]
+          }
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockAiry",
+          "nbt": {
+            "S_id": "TileNode",
+            "l_lastActive": 0,
+            "b_modifier": -1,
+            "b_type": 1,
+            "i_draincolor": 16777215,
+            "L_C_AspectsBase": [
+              {
+                "S_key": "herba",
+                "i_amount": 24
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 18
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 36
+              },
+              {
+                "S_key": "tenebrae",
+                "i_amount": 25
+              }
+            ],
+            "L_C_Aspects": [
+              {
+                "S_key": "herba",
+                "i_amount": 24
+              },
+              {
+                "S_key": "aer",
+                "i_amount": 18
+              },
+              {
+                "S_key": "perdito",
+                "i_amount": 36
+              },
+              {
+                "S_key": "tenebrae",
+                "i_amount": 25
+              }
+            ]
+          }
+        },
+        "weight": 3
+      }
+    ]
+  }
+}
