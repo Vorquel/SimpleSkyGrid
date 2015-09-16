@@ -5,7 +5,7 @@ import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.*;
 import net.minecraft.world.World;
-import vorquel.mod.simpleskygrid.api.INBTLocalizer;
+import vorquel.mod.simpleskygrid.world.generated.localizer.INBTLocalizer;
 
 import java.io.IOException;
 import java.util.ArrayList;

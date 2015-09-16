@@ -1,4 +1,4 @@
-package vorquel.mod.simpleskygrid.api;
+package vorquel.mod.simpleskygrid.world.generated.localizer;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
