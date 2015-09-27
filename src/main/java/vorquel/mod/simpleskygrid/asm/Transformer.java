@@ -22,6 +22,7 @@ public class Transformer implements IClassTransformer {
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] classData) {
+        if(classData == null) return null;
         if(isInstanceOfWorldProvider(transformedName, new ByteArrayInputStream(classData))) {
             ClassReader cr = new ClassReader(classData);
             ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_FRAMES);
