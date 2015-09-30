@@ -17,9 +17,8 @@ public class Config {
     public static void loadConfigs() {
         generationData = new ConfigDataMap<>();
         uniqueGenData = new ConfigDataMap<>();
-        SimpleSkyGridConfigReader.init();
-        for(SimpleSkyGridConfigReader reader : SimpleSkyGridConfigReader.getReaders()) {
-            reader.open();
+        SimpleSkyGridConfigReaders.init();
+        for(SimpleSkyGridConfigReader reader : SimpleSkyGridConfigReaders.get()) {
             reader.beginObject();
             while(reader.hasNext()) {
                 String name = reader.nextName();

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
+import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReaders;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
 public class WorldTypeSelector {
@@ -15,7 +15,7 @@ public class WorldTypeSelector {
     @SuppressWarnings("unused")
     public void changeWorldType(GuiScreenEvent.InitGuiEvent.Post event) {
         if(event.gui instanceof GuiCreateWorld) {
-            if(SimpleSkyGridConfigReader.skyGridDefault) {
+            if(SimpleSkyGridConfigReaders.skyGridDefault) {
                 ReflectionHelper.setPrivateValue(GuiCreateWorld.class, (GuiCreateWorld) event.gui, Ref.worldType.getWorldTypeID(), "field_146331_K");
                 for(Object object : event.buttonList) {
                     GuiButton button = (GuiButton) object;

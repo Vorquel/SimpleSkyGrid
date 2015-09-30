@@ -1,136 +1,24 @@
 package vorquel.mod.simpleskygrid.config;
 
-import com.google.common.base.Strings;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.config.Configuration;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.SuffixFileFilter;
 import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 import vorquel.mod.simpleskygrid.helper.Log;
 
-import java.io.*;
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 
 public class SimpleSkyGridConfigReader {
 
-    public static boolean useStandards;
-    public static boolean useIntegration;
-    public static boolean skyGridDefault;
-    private static File configHome;
-
-    private File file;
-    private String fileName;
+    private String readerName;
     private JsonReader jsonReader;
 
-    static {
-        configHome = new File(Loader.instance().getConfigDir(), "SimpleSkyGrid");
-        if(!configHome.exists() && !configHome.mkdir())
-            Log.kill("Unable to create config directory");
-    }
-
-    public static void init() {
-        Configuration configuration = new Configuration(new File(configHome, "!meta.cfg"));
-        configuration.load();
-        configuration.addCustomCategoryComment("general", "You shouldn't need to touch these unless you're making a custom modpack or similar.");
-        useStandards = configuration.getBoolean("use_standards", "general", true, "Load built-in standard configs.");
-        useIntegration = configuration.getBoolean("use_integration", "general", true, "Load built-in mod integration.");
-        skyGridDefault = configuration.getBoolean("sky_grid_default", "general", true, "Sets Sky Grid as the default world type.");
-        configuration.save();
-    }
-
-    public static ArrayList<SimpleSkyGridConfigReader> getReaders() {
-        ArrayList<SimpleSkyGridConfigReader> readers = new ArrayList<>();
-        if(useStandards)
-            for(String string : getConfigList("standards"))
-                copyFileIfNecessary("standards", string);
-        if(useIntegration)
-            for(String modId : getConfigList("integration"))
-                if(Loader.isModLoaded(modId))
-                    copyFileIfNecessary("integration", encodeModId(modId));
-        File[] files = configHome.listFiles((FilenameFilter) new SuffixFileFilter(".json"));
-        files = files == null ? new File[0] : files;
-        for(File file : files)
-            readers.add(new SimpleSkyGridConfigReader(file));
-        return readers;
-    }
-
-    private static ArrayList<String> getConfigList(String path) {
-        URL source = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/" + path + "/!configList.txt");
-        File destination = new File(configHome, "!configList.txt");
-        ArrayList<String> configList = new ArrayList<>();
-        try {
-            FileUtils.copyURLToFile(source, destination);
-            configList.addAll(FileUtils.readLines(destination));
-        } catch(IOException e) {
-            Log.kill("Unable to copy temp file !configList.txt: %s", e.getMessage());
-        } finally {
-            if(!destination.delete())
-                Log.warn("Unable to delete temporary file !configList.txt");
-        }
-        return configList;
-    }
-
-    private static void copyFileIfNecessary(String path, String name) {
-        String fileName = name + ".json";
-        URL source = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/" + path + "/" + fileName);
-        File destination = new File(configHome, fileName);
-        if(destination.exists())
-            return;
-        try {
-            FileUtils.copyURLToFile(source, destination);
-        } catch (IOException e) {
-            Log.kill("Unable to copy file %s: %s", name, e.getMessage());
-        }
-    }
-
-    private static String encodeModId(String modId) {
-        modId = modId.replace("%", encodeChar('%'));
-        for(char c : modId.toCharArray()) {
-            if(c != '%' && !Character.isAlphabetic(c) && !Character.isDigit(c)) {
-                modId = modId.replace(String.valueOf(c), encodeChar(c));
-            }
-        }
-        if(isIllegal(modId))
-            modId = modId.concat("%");
-        return modId;
-    }
-
-    private static String encodeChar(char c) {
-        if(c < 256)
-            return "%" + Strings.padStart(Integer.toHexString(c), 2, '0');
-        else
-            return "%%" + Strings.padStart(Integer.toHexString(c), 4, '0');
-    }
-
-    private static final String[] illegalNames = {"CON", "PRN", "AUX", "NUL",
-                                                         "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
-                                                         "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
-
-    private static boolean isIllegal(String name) {
-        for(String illegalName : illegalNames)
-            if(illegalName.equalsIgnoreCase(name))
-                return true;
-        return false;
-    }
-
-    public SimpleSkyGridConfigReader(File file) {
-        this.file = file;
-        fileName = file.getName();
-    }
-
-    public void open() {
-        if(jsonReader != null)
-            Log.warn("Config file %s opened more than once", fileName);
-        try {
-            jsonReader = new JsonReader(new BufferedReader(new FileReader(file)));
-        } catch(FileNotFoundException e) {
-            Log.kill("Unable to load config file %s: %s", fileName, e.getMessage());
-        }
+    public SimpleSkyGridConfigReader(String name, Reader reader) {
+        readerName = name;
+        jsonReader = new JsonReader(new BufferedReader(reader));
         jsonReader.setLenient(true);
     }
 
@@ -154,7 +42,7 @@ public class SimpleSkyGridConfigReader {
     }
 
     private String getLocation() {
-        return String.format("line %d, column %d of config file %s", getLine(), getColumn(), fileName);
+        return String.format("line %d, column %d of config file %s", getLine(), getColumn(), readerName);
     }
 
     private int getLine() {
@@ -316,7 +204,8 @@ public class SimpleSkyGridConfigReader {
     }
 
     private Object handleIO(IOException e) {
-        Log.kill("Problem reading config file %s: %s", fileName, e.getMessage());
+        Log.kill("Problem reading config file %s: %s", readerName, e.getMessage());
         return null;
     }
+
 }
