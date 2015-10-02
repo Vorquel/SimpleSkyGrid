@@ -70,6 +70,7 @@ public class JSON2NBT {
 
     private static boolean isInventoryLabel(String label) {
         switch(label) { //this structure is for ease of adding new indicative labels
+            case "Equipment":
             case "Items": return true;
             default: return false;
         }

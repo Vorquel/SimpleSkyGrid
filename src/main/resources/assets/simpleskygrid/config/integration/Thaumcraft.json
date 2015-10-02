@@ -17,6 +17,21 @@
             "name": "Thaumcraft:blockCosmeticSolid",
             "meta": 1
           },
+          "2,0,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCosmeticSolid",
+            "meta": 1
+          },
+          "0,0,2": {
+            "type": "block",
+            "name": "Thaumcraft:blockCosmeticSolid",
+            "meta": 1
+          },
+          "2,0,2": {
+            "type": "block",
+            "name": "Thaumcraft:blockCosmeticSolid",
+            "meta": 1
+          },
           "0,1,0": {
             "type": "block",
             "name": "Thaumcraft:blockEldritch",
@@ -29,6 +44,9 @@
               "b_eyes": 0
             }
           },
+          "2,1,0": {}, //todo: add cultists here
+          "0,1,2": {},
+          "2,1,2": {},
           "0,2,0": {
             "type": "block",
             "name": "Thaumcraft:blockAiry",
@@ -67,9 +85,189 @@
               ],
               "i_draincolor": 16777215
             }
+          },
+          "0,3,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockEldritch",
+            "meta": 3,
+            "nbt": {
+              "S_id": "TileEldritchCap"
+            }
           }
         },
-        "weight": 20
+        "weight": 5
+      }
+    ],
+    "overworld_ore": [
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre"
+        },
+        "weight": 7
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 1
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 2
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 3
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 4
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 5
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 6
+        },
+        "weight": 3
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockCustomOre",
+          "meta": 7
+        },
+        "weight": 7
+      }
+    ],
+    "overworld_plant": [
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCustomPlant",
+            "meta": 2
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:sand"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCustomPlant",
+            "meta": 3
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCustomPlant",
+            "meta": 5
+          }
+        },
+        "weight": 5
+      }
+    ],
+    "overworld_tree": [
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockMagicalLog"
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockMagicalLog",
+            "meta": 1
+          }
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCustomPlant"
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCustomPlant",
+            "meta": 1
+          }
+        },
+        "weight": 5
       }
     ],
     "thaumcraft_node": [
