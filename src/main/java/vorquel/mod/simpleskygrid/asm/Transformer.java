@@ -39,11 +39,12 @@ public class Transformer implements IClassTransformer {
         boolean isInstanceOfWorldProvider = false;
         try {
             String superClassName = new ClassReader(classStream).getSuperName();
-            if(superClassName == null) return false;
-            InputStream superClassStream = this.getClass().getClassLoader().getResourceAsStream(superClassName + ".class");
-            isInstanceOfWorldProvider = isInstanceOfWorldProvider(superClassName.replace('/', '.'), superClassStream);
+            if(superClassName != null) {
+                InputStream superClassStream = this.getClass().getClassLoader().getResourceAsStream(superClassName + ".class");
+                isInstanceOfWorldProvider = isInstanceOfWorldProvider(superClassName.replace('/', '.'), superClassStream);
+            }
         } catch (IOException e) {
-            Log.error("Exception determining class hierarchy for %s: %s", className, e.getMessage());
+            Log.kill("Exception determining class hierarchy for %s: %s", className, e.getMessage());
         }
         instanceOfWorldProviderMap.put(className, isInstanceOfWorldProvider);
         return isInstanceOfWorldProvider;

@@ -59,13 +59,14 @@ public class JSON2NBT {
     }
 
     private static void localizeInventory(NBTTagList list) {
-        if(list.getCompoundTagAt(0).hasKey("id"))
-            for(int i=0; i<list.tagCount(); ++i) {
-                NBTTagCompound compound = list.getCompoundTagAt(i);
-                String name = compound.getString("id");
-                int id = GameData.getItemRegistry().getId(name);
-                compound.setShort("id", (short) id);
-            }
+        for(int i=0; i<list.tagCount(); ++i) {
+            NBTTagCompound compound = list.getCompoundTagAt(i);
+            if(!compound.hasKey("id", 8))
+                continue;
+            String name = compound.getString("id");
+            int id = GameData.getItemRegistry().getId(name);
+            compound.setShort("id", (short) id);
+        }
     }
 
     private static boolean isInventoryLabel(String label) {

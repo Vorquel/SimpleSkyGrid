@@ -33,7 +33,7 @@ public class PEntity extends Prototype<IGeneratedObject> {
 
     @Override
     public IGeneratedObject getObject() {
-        if(!EntityList.func_151515_b().contains(name)) {
+        if(!EntityList.stringToClassMapping.keySet().contains(name)) {
             Log.error("Unrecognised entity name: " + name);
             return null;
         }

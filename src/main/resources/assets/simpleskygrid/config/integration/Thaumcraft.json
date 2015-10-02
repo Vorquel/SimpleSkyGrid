@@ -44,9 +44,90 @@
               "b_eyes": 0
             }
           },
-          "2,1,0": {}, //todo: add cultists here
-          "0,1,2": {},
-          "2,1,2": {},
+          "2,1,0": {
+            "type": "entity",
+            "name": "Thaumcraft.CultistCleric",
+            "nbt": {
+              "L_C_Equipment": [
+                {},
+                {},
+                {
+                  "S_id": "ItemLeggingsCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                },
+                {
+                  "S_id": "ItemChestplateCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                },
+                {
+                  "S_id": "ItemHelmetCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                }
+              ],
+              "s_Health": 30,
+              "f_HealF": 30.0,
+              "b_Flags": 1
+            }
+          },
+          "0,1,2": {
+            "type": "entity",
+            "name": "Thaumcraft.CultistCleric",
+            "nbt": {
+              "L_C_Equipment": [
+                {},
+                {},
+                {
+                  "S_id": "ItemLeggingsCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                },
+                {
+                  "S_id": "ItemChestplateCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                },
+                {
+                  "S_id": "ItemHelmetCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                }
+              ],
+              "s_Health": 30,
+              "f_HealF": 30.0,
+              "b_Flags": 1
+            }
+          },
+          "2,1,2": {
+            "type": "entity",
+            "name": "Thaumcraft.CultistCleric",
+            "nbt": {
+              "L_C_Equipment": [
+                {},
+                {},
+                {
+                  "S_id": "ItemLeggingsCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                },
+                {
+                  "S_id": "ItemChestplateCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                },
+                {
+                  "S_id": "ItemHelmetCultistRobe",
+                  "s_Damage": 0,
+                  "b_Count": 1
+                }
+              ],
+              "s_Health": 30,
+              "f_HealF": 30.0,
+              "b_Flags": 1
+            }
+          },
           "0,2,0": {
             "type": "block",
             "name": "Thaumcraft:blockAiry",
@@ -1445,7 +1526,7 @@
             ]
           }
         },
-        "weight": 3
+        "weight": 0
       }
     ]
   }
