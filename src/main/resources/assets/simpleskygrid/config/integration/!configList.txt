@@ -4,6 +4,7 @@ BuildCraft|Energy
 chisel
 DraconicEvolution
 exnihilo
+FoodPlus
 lucky
 magicalcrops
 MineFactoryReloaded

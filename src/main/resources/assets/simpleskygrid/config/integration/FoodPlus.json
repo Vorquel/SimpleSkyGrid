@@ -1,1 +1,215 @@
-{}
+{
+  "generation": {
+    "overworld_plant": [
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:candy_flower",
+            "meta": 7
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:blueberry_bush",
+            "meta": 7
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:strawberry_bush",
+            "meta": 7
+          }
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:tea_bush",
+            "meta": 7
+          }
+        },
+        "weight": 5
+      }
+    ],
+    "overworld_tree": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:banana_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:cherry_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:coconut_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:kiwi_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:orange_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:pear_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "FoodPlus:walnut_leaf"
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:banana_sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:cherry_sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:coconut_sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:kiwi_sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:orange_sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:pear_sapling"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "FoodPlus:walnut_sapling"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  }
+}
