@@ -10,6 +10,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 @IFMLLoadingPlugin.SortingIndex(1001)
 @IFMLLoadingPlugin.TransformerExclusions("vorquel.mod.simpleskygrid.asm.")
+@IFMLLoadingPlugin.MCVersion("1.7.10")
 public class Plugin implements IFMLLoadingPlugin {
 
     static {
