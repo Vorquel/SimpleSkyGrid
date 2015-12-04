@@ -1,0 +1,137 @@
+{
+  "generation": {
+    "overworld_rare": [
+      {
+        "object": {
+          "type": "label",
+          "subtype": "relative",
+          "name": "normal_chance_cube"
+        },
+        "weight": 25
+      }
+    ],
+    "normal_chance_cube": [
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": -100
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": -80
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": -60
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": -40
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": -20
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": 0
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": 20
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": 40
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": 60
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": 80
+          }
+        },
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "chancecubes:Chance_Cube",
+          "nbt": {
+            "S_id": "tileChanceCube",
+            "i_chance": 100
+          }
+        },
+        "weight": 1
+      }
+    ]
+  }
+}

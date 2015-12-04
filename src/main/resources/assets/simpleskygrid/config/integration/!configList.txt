@@ -1,6 +1,7 @@
 appliedenergistics2
 Botania
 BuildCraft|Energy
+chancecubes
 chisel
 DraconicEvolution
 exnihilo
