@@ -3,8 +3,13 @@ package vorquel.mod.simpleskygrid.asm;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.util.ASMifier;
+import org.objectweb.asm.util.CheckClassAdapter;
+import org.objectweb.asm.util.Printer;
+import org.objectweb.asm.util.TraceClassVisitor;
 import vorquel.mod.simpleskygrid.helper.Log;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -26,7 +31,11 @@ public class Transformer implements IClassTransformer {
         if(classData == null) return null;
         Set<String> matches = superClassMap.get(name);
         if(matches.contains(cBlock)) {
-            Log.info("Found block class: %s", transformedName);
+            ClassReader cr = new ClassReader(classData);
+            ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_FRAMES);
+            BlockAdapter ba = new BlockAdapter(cw);
+            cr.accept(ba, 0);
+            classData = cw.toByteArray();
         }
         if(matches.contains(cWorldProvider)) {
             ClassReader cr = new ClassReader(classData);
