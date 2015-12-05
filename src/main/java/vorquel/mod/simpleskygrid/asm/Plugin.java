@@ -35,7 +35,7 @@ public class Plugin implements IFMLLoadingPlugin {
     @Override
     public void injectData(Map<String, Object> data) {
         boolean isSrgNames = (Boolean) data.get("runtimeDeobfuscationEnabled");
-        WorldProviderAdapter.initialize(isSrgNames);
+        Mappings.initialize(isSrgNames);
         Transformer.initialize(isSrgNames);
     }
 
