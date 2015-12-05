@@ -508,6 +508,44 @@
         "weight": 20
       }
     ],
+    "nether_spawn": [
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Natura.FlameSpider"
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Natura.Imp"
+          }
+        },
+        "weight": 50
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "minecraft:mob_spawner",
+          "nbt": {
+            "S_id": "MobSpawner",
+            "s_delay": 0,
+            "S_EntityId": "Natura.NitroCreeper"
+          }
+        },
+        "weight": 50
+      }
+    ],
     "nether_tree": [
       {
         "object" : {
