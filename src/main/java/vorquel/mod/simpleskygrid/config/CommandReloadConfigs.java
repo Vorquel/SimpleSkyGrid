@@ -34,6 +34,6 @@ public class CommandReloadConfigs extends CommandBase {
         for(ChunkProviderSkyGrid provider : ChunkProviderSkyGrid.providers.keySet())
             provider.resetProperties();
         System.gc();
-        func_152373_a(commandSender, this, "commands.ssgReloadConfigs.success");
+        notifyOperators(commandSender, this, "commands.ssgReloadConfigs.success");
     }
 }

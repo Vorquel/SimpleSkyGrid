@@ -30,7 +30,7 @@ public class GeneratedBlock implements IGeneratedObject {
     public void provideObject(Random random, World world, int x, int y, int z) {
         Chunk chunk = world.getChunkFromBlockCoords(x, z);
         ExtendedBlockStorage ebs = chunk.getBlockStorageArray()[y >> 4];
-        ebs.func_150818_a(x & 15, y & 15, z & 15, block);
+        ebs.setExtBlockID(x & 15, y & 15, z & 15, block);
         ebs.setExtBlockMetadata(x & 15, y & 15, z & 15, meta);
         if(block.hasTileEntity(meta)) {
             TileEntity te = block.createTileEntity(world, meta);

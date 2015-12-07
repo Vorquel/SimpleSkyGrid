@@ -48,7 +48,7 @@ public class JSON2NBT {
     }
 
     public static void localizeItems(NBTTagCompound nbt) {
-        for(Object key : nbt.func_150296_c()) {
+        for(Object key : nbt.getKeySet()) {
             String label = (String) key;
             NBTBase tag = nbt.getTag(label);
             switch(tag.getId()) {

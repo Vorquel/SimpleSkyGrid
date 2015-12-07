@@ -79,7 +79,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         ExtendedBlockStorage extendedblockstorage = chunk.getBlockStorageArray()[0];
         for(int x=0; x<16; x+=4)
             for(int z=0; z<16; z+=4)
-                extendedblockstorage.func_150818_a(x, 0, z, bedrock);
+                extendedblockstorage.setExtBlockID(x, 0, z, bedrock);
 
         chunk.generateSkylightMap();
         BiomeGenBase[] biomeGenBase = world.getWorldChunkManager().loadBlockGeneratorData(null, xChunk * 16, zChunk * 16, 16, 16);
@@ -144,7 +144,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     }
 
     @Override
-    public ChunkPosition func_147416_a(World world, String structure, int x, int y, int z) {
+    public ChunkPosition findClosestStructure(World world, String structure, int x, int y, int z) {
         if(!structure.equals("Stronghold"))
             return null;
         double bestDistance = Double.POSITIVE_INFINITY;
