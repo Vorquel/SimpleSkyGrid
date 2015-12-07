@@ -165,6 +165,13 @@
       {
         "object" : {
           "type": "block",
+          "name": "minecraft:wool"
+        },
+        "weight": 10
+      },
+      {
+        "object" : {
+          "type": "block",
           "name": "minecraft:ice"
         },
         "weight": 5
