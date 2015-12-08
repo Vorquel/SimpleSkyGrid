@@ -3,13 +3,7 @@ package vorquel.mod.simpleskygrid.asm;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.util.ASMifier;
-import org.objectweb.asm.util.CheckClassAdapter;
-import org.objectweb.asm.util.Printer;
-import org.objectweb.asm.util.TraceClassVisitor;
-import vorquel.mod.simpleskygrid.helper.Log;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Set;
 
