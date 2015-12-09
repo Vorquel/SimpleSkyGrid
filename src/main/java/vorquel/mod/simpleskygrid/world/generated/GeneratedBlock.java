@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import vorquel.mod.simpleskygrid.entity.EntityStasis;
 import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
@@ -18,12 +19,14 @@ public class GeneratedBlock implements IGeneratedObject {
     private int meta;
     private NBTTagCompound nbt;
     private ILootSource lootSource;
+    private boolean stasis;
 
-    public GeneratedBlock(Block block, int meta, NBTTagCompound nbt, ILootSource lootSource) {
+    public GeneratedBlock(Block block, int meta, NBTTagCompound nbt, ILootSource lootSource, boolean stasis) {
         this.block = block;
         this.meta = meta;
         this.nbt = nbt;
         this.lootSource = lootSource;
+        this.stasis = stasis;
     }
 
     @Override
@@ -46,6 +49,11 @@ public class GeneratedBlock implements IGeneratedObject {
                 if(te instanceof IInventory && lootSource != null)
                     lootSource.provideLoot(random, (IInventory) world.getTileEntity(x, y, z));
             }
+        }
+        if(stasis) {
+            EntityStasis stasis = new EntityStasis(world);
+            stasis.setPosition(x + .5, y + .5, z + .5);
+            world.spawnEntityInWorld(stasis);
         }
     }
 }

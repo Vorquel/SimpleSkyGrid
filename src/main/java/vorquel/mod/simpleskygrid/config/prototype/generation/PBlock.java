@@ -21,6 +21,7 @@ public class PBlock extends Prototype<IGeneratedObject> {
     public int meta;
     public NBTTagCompound nbt;
     public IPrototype<ILootSource> loot;
+    public boolean stasis;
 
     public PBlock(SimpleSkyGridConfigReader reader) {
         super(reader);
@@ -31,10 +32,11 @@ public class PBlock extends Prototype<IGeneratedObject> {
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         switch(label) {
-            case "name": name = reader.nextString();             break;
-            case "meta": meta = reader.nextMetadata();           break;
-            case "nbt":  nbt  = reader.nextNBT();                break;
-            case "loot": loot = PFactory.readLootSource(reader); break;
+            case "name":   name   = reader.nextString();             break;
+            case "meta":   meta   = reader.nextMetadata();           break;
+            case "nbt":    nbt    = reader.nextNBT();                break;
+            case "loot":   loot   = PFactory.readLootSource(reader); break;
+            case "stasis": stasis = reader.nextBoolean();            break;
             default: reader.unknownOnce("label " + label, "block definition");
         }
     }
@@ -60,6 +62,6 @@ public class PBlock extends Prototype<IGeneratedObject> {
             else
                 Log.warn("Loot specified for block (" + name + ") without an inventory");
         }
-        return new GeneratedBlock(block, meta, nbt, lootSource);
+        return new GeneratedBlock(block, meta, nbt, lootSource, stasis);
     }
 }

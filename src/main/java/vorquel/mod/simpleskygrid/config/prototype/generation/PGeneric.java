@@ -20,6 +20,7 @@ public class PGeneric extends Prototype<IGeneratedObject> {
 
     private String name;
     private ArrayList<String> names;
+    private boolean stasis;
 
     public PGeneric(SimpleSkyGridConfigReader reader) {
         super(reader);
@@ -30,6 +31,7 @@ public class PGeneric extends Prototype<IGeneratedObject> {
         switch(label) {
             case "name": name = reader.nextString(); return;
             case "names": readNames(reader); return;
+            case "stasis": stasis = reader.nextBoolean(); return;
             default: reader.unknownOnce("label " + label, "generic block definition");
         }
     }
@@ -58,7 +60,7 @@ public class PGeneric extends Prototype<IGeneratedObject> {
                 if(block == Blocks.air)
                     continue;
                 int meta = item.getMetadata(stack.getMetadata());
-                return new GeneratedBlock(block, meta, null, null);
+                return new GeneratedBlock(block, meta, null, null, stasis);
             }
             if(names == null)
                 return null;
@@ -94,10 +96,10 @@ public class PGeneric extends Prototype<IGeneratedObject> {
                 if(!entry.getValue().contains(name))
                     iterator.remove();
                 if(blockMap.isEmpty())
-                    return new GeneratedBlock(pair.left, pair.right, null, null);
+                    return new GeneratedBlock(pair.left, pair.right, null, null, stasis);
             }
         }
         Pair<Block, Integer> pair = blockMap.keySet().iterator().next();
-        return new GeneratedBlock(pair.left, pair.right, null, null);
+        return new GeneratedBlock(pair.left, pair.right, null, null, stasis);
     }
 }

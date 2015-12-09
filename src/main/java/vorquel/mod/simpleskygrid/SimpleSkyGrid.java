@@ -45,10 +45,4 @@ public class SimpleSkyGrid {
     public void serverLoad(FMLServerStartingEvent event) {
         proxy.serverLoad(event);
     }
-
-    @NetworkCheckHandler
-    @SuppressWarnings("unused")
-    public boolean checkRemoteVersion(Map<String,String> mods, Side otherSide) {
-        return !mods.containsKey(Ref.MOD_ID) || mods.get(Ref.MOD_ID).equals("@MOD_VERSION@");
-    }
 }
