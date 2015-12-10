@@ -34,7 +34,8 @@
           },
           "0,1,0": {
             "type": "block",
-            "name": "MineFactoryReloaded:rubberwood.sapling"
+            "name": "MineFactoryReloaded:rubberwood.sapling",
+            "stasis": true
           }
         },
         "weight": 1

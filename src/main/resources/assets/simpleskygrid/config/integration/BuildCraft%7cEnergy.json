@@ -3,61 +3,17 @@
     "overworld_fluid": [
       {
         "object" : {
-          "type": "complex",
-          "1,1,1": {
-            "type": "block",
-            "name": "BuildCraft|Energy:blockOil"
-          },
-          "1,0,1": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "0,1,1": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "2,1,1": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "1,1,0": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "1,1,2": {
-            "type": "block",
-            "name": "minecraft:stone"
-          }
+          "type": "block",
+          "name": "BuildCraft|Energy:blockOil",
+          "stasis": true
         },
         "weight": 25
       },
       {
         "object" : {
-          "type": "complex",
-          "1,1,1": {
-            "type": "block",
-            "name": "BuildCraft|Energy:blockFuel"
-          },
-          "1,0,1": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "0,1,1": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "2,1,1": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "1,1,0": {
-            "type": "block",
-            "name": "minecraft:stone"
-          },
-          "1,1,2": {
-            "type": "block",
-            "name": "minecraft:stone"
-          }
+          "type": "block",
+          "name": "BuildCraft|Energy:blockFuel",
+          "stasis": true
         },
         "weight": 2
       }

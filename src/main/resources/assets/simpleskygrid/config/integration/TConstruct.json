@@ -131,7 +131,8 @@
           },
           "0,1,0": {
             "type": "block",
-            "name": "TConstruct:slime.sapling"
+            "name": "TConstruct:slime.sapling",
+            "stasis": true
           }
         },
         "weight": 1

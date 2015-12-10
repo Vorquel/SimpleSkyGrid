@@ -330,7 +330,8 @@
           },
           "0,1,0": {
             "type": "block",
-            "name": "Thaumcraft:blockCustomPlant"
+            "name": "Thaumcraft:blockCustomPlant",
+            "stasis": true
           }
         },
         "weight": 5
@@ -345,7 +346,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Thaumcraft:blockCustomPlant",
-            "meta": 1
+            "meta": 1,
+            "stasis": true
           }
         },
         "weight": 5

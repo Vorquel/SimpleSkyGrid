@@ -273,7 +273,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 1
+            "meta": 1,
+            "stasis": true
           }
         },
         "weight": 2
@@ -288,7 +289,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 2
+            "meta": 2,
+            "stasis": true
           }
         },
         "weight": 2
@@ -303,7 +305,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 3
+            "meta": 3,
+            "stasis": true
           }
         },
         "weight": 2
@@ -317,7 +320,8 @@
           },
           "0,1,0": {
             "type": "block",
-            "name": "Natura:Rare Sapling"
+            "name": "Natura:Rare Sapling",
+            "stasis": true
           }
         },
         "weight": 1
@@ -332,7 +336,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:Rare Sapling",
-            "meta": 1
+            "meta": 1,
+            "stasis": true
           }
         },
         "weight": 1
@@ -347,7 +352,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:Rare Sapling",
-            "meta": 2
+            "meta": 2,
+            "stasis": true
           }
         },
         "weight": 1
@@ -362,7 +368,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:Rare Sapling",
-            "meta": 3
+            "meta": 3,
+            "stasis": true
           }
         },
         "weight": 1
@@ -377,7 +384,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:Rare Sapling",
-            "meta": 4
+            "meta": 4,
+            "stasis": true
           }
         },
         "weight": 1
@@ -620,7 +628,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 4
+            "meta": 4,
+            "stasis": true
           }
         },
         "weight": 10
@@ -635,7 +644,8 @@
           "0,-1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 5
+            "meta": 5,
+            "stasis": true
           }
         },
         "weight": 10
@@ -650,7 +660,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 6
+            "meta": 6,
+            "stasis": true
           }
         },
         "weight": 10
@@ -665,7 +676,8 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
-            "meta": 7
+            "meta": 7,
+            "stasis": true
           }
         },
         "weight": 10

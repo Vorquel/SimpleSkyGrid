@@ -39,7 +39,7 @@
           "subtype": "absolute",
           "name": "overworld_loot"
         },
-        "weight": 0.2
+        "weight": 1
       },
       {
         "object": {
