@@ -1,5 +1,6 @@
 package vorquel.mod.simpleskygrid.asm;
 
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import org.objectweb.asm.ClassReader;
@@ -14,12 +15,15 @@ import java.util.Set;
 class SuperClassMap {
     
     private boolean useNotchNames;
-    private Set<String> toMatch;
+    private Map<String, String> toMatch;
     private Map<String, Set<String>> map = new HashMap<>();
     
     SuperClassMap(boolean useNotchNames, String... toMatch) {
         this.useNotchNames = useNotchNames;
-        this.toMatch = Sets.newHashSet(toMatch);
+        this.toMatch = Maps.newHashMap();
+        for(String className : toMatch) {
+            this.toMatch.put(getGoodClassName(className), className);
+        }
     }
     
     Set<String> get(String className) {
@@ -29,8 +33,8 @@ class SuperClassMap {
         else {
             InputStream classStream = this.getClass().getClassLoader().getResourceAsStream(className + ".class");
             Set<String> matching = Sets.newHashSet();
-            if(toMatch.contains(className))
-                matching.add(className);
+            if(toMatch.containsKey(className))
+                matching.add(toMatch.get(className));
             try {
                 String superClassName = new ClassReader(classStream).getSuperName();
                 classStream.close();
