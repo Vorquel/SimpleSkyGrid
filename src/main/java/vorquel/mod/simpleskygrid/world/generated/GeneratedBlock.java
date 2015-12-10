@@ -52,7 +52,7 @@ public class GeneratedBlock implements IGeneratedObject {
         }
         if(stasis) {
             EntityStasis stasis = new EntityStasis(world);
-            stasis.setPosition(x + .5, y + .5, z + .5);
+            stasis.setPosition(x + .5, y - .125, z + .5);
             world.spawnEntityInWorld(stasis);
         }
     }

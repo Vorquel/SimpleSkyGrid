@@ -202,14 +202,16 @@
       {
         "object" : {
           "type": "block",
-          "name": "minecraft:water"
+          "name": "minecraft:water",
+          "stasis": true
         },
         "weight": 100
       },
       {
         "object" : {
           "type": "block",
-          "name": "minecraft:lava"
+          "name": "minecraft:lava",
+          "stasis": true
         },
         "weight": 20
       }
@@ -632,7 +634,8 @@
           },
           "1,0,0": {
             "type": "block",
-            "name": "minecraft:water"
+            "name": "minecraft:water",
+            "stasis": true
           },
           "0,1,0": {
             "type": "block",
@@ -646,7 +649,8 @@
           "type": "complex",
           "0,0,0": {
             "type": "block",
-            "name": "minecraft:water"
+            "name": "minecraft:water",
+            "stasis": true
           },
           "0,1,0": {
             "type": "block",
@@ -795,7 +799,8 @@
           },
           "0,1,0": {
             "type": "block",
-            "name": "minecraft:sapling"
+            "name": "minecraft:sapling",
+            "stasis": true
           }
         },
         "weight": 10
@@ -810,7 +815,8 @@
           "0,1,0": {
             "type": "block",
             "name": "minecraft:sapling",
-            "meta": 1
+            "meta": 1,
+            "stasis": true
           }
         },
         "weight": 5
@@ -825,7 +831,8 @@
           "0,1,0": {
             "type": "block",
             "name": "minecraft:sapling",
-            "meta": 2
+            "meta": 2,
+            "stasis": true
           }
         },
         "weight": 5
@@ -840,7 +847,8 @@
           "0,1,0": {
             "type": "block",
             "name": "minecraft:sapling",
-            "meta": 3
+            "meta": 3,
+            "stasis": true
           }
         },
         "weight": 2.5
@@ -855,7 +863,8 @@
           "0,1,0": {
             "type": "block",
             "name": "minecraft:sapling",
-            "meta": 4
+            "meta": 4,
+            "stasis": true
           }
         },
         "weight": 2.5
@@ -870,7 +879,8 @@
           "0,1,0": {
             "type": "block",
             "name": "minecraft:sapling",
-            "meta": 5
+            "meta": 5,
+            "stasis": true
           }
         },
         "weight": 2.5
@@ -1270,7 +1280,8 @@
       {
         "object": {
           "type": "block",
-          "name": "minecraft:lava"
+          "name": "minecraft:lava",
+          "stasis": true
         },
         "weight": 100
       }

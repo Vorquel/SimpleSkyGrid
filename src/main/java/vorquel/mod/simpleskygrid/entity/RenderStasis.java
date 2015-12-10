@@ -13,6 +13,8 @@ public class RenderStasis extends Render {
     private ResourceLocation texture = new ResourceLocation("textures/blocks/glass.png");
     private double max = .625;
     private double min = -max;
+    private double maxY = max + .625;
+    private double minY = min + .625;
     private IIcon icon = Blocks.glass.getIcon(0, 0);
     private double minU = icon.getMinU();
     private double minV = icon.getMinV();
@@ -28,35 +30,35 @@ public class RenderStasis extends Render {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         
-        tessellator.addVertexWithUV(min, min, max, minU, minV);
-        tessellator.addVertexWithUV(min, max, max, maxU, minV);
-        tessellator.addVertexWithUV(min, max, min, maxU, maxV);
-        tessellator.addVertexWithUV(min, min, min, minU, maxV);
+        tessellator.addVertexWithUV(min, minY, max, minU, minV);
+        tessellator.addVertexWithUV(min, maxY, max, maxU, minV);
+        tessellator.addVertexWithUV(min, maxY, min, maxU, maxV);
+        tessellator.addVertexWithUV(min, minY, min, minU, maxV);
         
-        tessellator.addVertexWithUV(max, min, min, minU, minV);
-        tessellator.addVertexWithUV(max, max, min, maxU, minV);
-        tessellator.addVertexWithUV(max, max, max, maxU, maxV);
-        tessellator.addVertexWithUV(max, min, max, minU, maxV);
+        tessellator.addVertexWithUV(max, minY, min, minU, minV);
+        tessellator.addVertexWithUV(max, maxY, min, maxU, minV);
+        tessellator.addVertexWithUV(max, maxY, max, maxU, maxV);
+        tessellator.addVertexWithUV(max, minY, max, minU, maxV);
         
-        tessellator.addVertexWithUV(max, min, min, minU, minV);
-        tessellator.addVertexWithUV(max, min, max, maxU, minV);
-        tessellator.addVertexWithUV(min, min, max, maxU, maxV);
-        tessellator.addVertexWithUV(min, min, min, minU, maxV);
+        tessellator.addVertexWithUV(max, minY, min, minU, minV);
+        tessellator.addVertexWithUV(max, minY, max, maxU, minV);
+        tessellator.addVertexWithUV(min, minY, max, maxU, maxV);
+        tessellator.addVertexWithUV(min, minY, min, minU, maxV);
         
-        tessellator.addVertexWithUV(min, max, min, minU, minV);
-        tessellator.addVertexWithUV(min, max, max, maxU, minV);
-        tessellator.addVertexWithUV(max, max, max, maxU, maxV);
-        tessellator.addVertexWithUV(max, max, min, minU, maxV);
+        tessellator.addVertexWithUV(min, maxY, min, minU, minV);
+        tessellator.addVertexWithUV(min, maxY, max, maxU, minV);
+        tessellator.addVertexWithUV(max, maxY, max, maxU, maxV);
+        tessellator.addVertexWithUV(max, maxY, min, minU, maxV);
         
-        tessellator.addVertexWithUV(min, max, min, minU, minV);
-        tessellator.addVertexWithUV(max, max, min, maxU, minV);
-        tessellator.addVertexWithUV(max, min, min, maxU, maxV);
-        tessellator.addVertexWithUV(min, min, min, minU, maxV);
+        tessellator.addVertexWithUV(min, maxY, min, minU, minV);
+        tessellator.addVertexWithUV(max, maxY, min, maxU, minV);
+        tessellator.addVertexWithUV(max, minY, min, maxU, maxV);
+        tessellator.addVertexWithUV(min, minY, min, minU, maxV);
         
-        tessellator.addVertexWithUV(min, min, max, minU, minV);
-        tessellator.addVertexWithUV(max, min, max, maxU, minV);
-        tessellator.addVertexWithUV(max, max, max, maxU, maxV);
-        tessellator.addVertexWithUV(min, max, max, minU, maxV);
+        tessellator.addVertexWithUV(min, minY, max, minU, minV);
+        tessellator.addVertexWithUV(max, minY, max, maxU, minV);
+        tessellator.addVertexWithUV(max, maxY, max, maxU, maxV);
+        tessellator.addVertexWithUV(min, maxY, max, minU, maxV);
         
         tessellator.draw();
         
