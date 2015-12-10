@@ -48,6 +48,16 @@
         "weight": 1
       }
     ],
+    "overworld_fluid": [
+      {
+        "object": {
+          "type": "block",
+          "name": "TConstruct:liquid.slime",
+          "stasis": true
+        },
+        "weight": 1
+      }
+    ],
     "overworld_ore": [
       {
         "object": {

@@ -273,6 +273,21 @@
           "0,1,0": {
             "type": "block",
             "name": "Natura:florasapling",
+            "stasis": true
+          }
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Natura:florasapling",
             "meta": 1,
             "stasis": true
           }

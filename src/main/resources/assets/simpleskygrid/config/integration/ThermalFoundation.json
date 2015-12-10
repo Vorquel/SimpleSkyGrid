@@ -1,5 +1,31 @@
 {
   "generation": {
+    "overworld_fluid": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "ThermalFoundation:FluidRedstone",
+          "stasis": true
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "ThermalFoundation:FluidCoal",
+          "stasis": true
+        },
+        "weight": 2
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "ThermalFoundation:FluidEnder",
+          "stasis": true
+        },
+        "weight": 0.2
+      }
+    ],
     "overworld_spawn": [
       {
         "object": {
@@ -12,6 +38,16 @@
           }
         },
         "weight": 10
+      }
+    ],
+    "nether_fluid": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "ThermalFoundation:FluidGlowstone",
+          "stasis": true
+        },
+        "weight": 2
       }
     ]
   }

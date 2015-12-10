@@ -1174,7 +1174,7 @@
           "subtype": "absolute",
           "name": "nether_loot"
         },
-        "weight": 0.1
+        "weight": 1
       },
       {
         "object": {
@@ -1422,7 +1422,7 @@
           "subtype": "absolute",
           "name": "end_loot"
         },
-        "weight": 0.1
+        "weight": 1
       },
       {
         "object": {

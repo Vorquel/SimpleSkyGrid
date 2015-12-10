@@ -1,5 +1,39 @@
 {
   "generation": {
+    "overworld_fluid": [
+      {
+        "object" : {
+          "type": "block",
+          "name": "MineFactoryReloaded:sewage.still",
+          "stasis": true
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "MineFactoryReloaded:sludge.still",
+          "stasis": true
+        },
+        "weight": 20
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "MineFactoryReloaded:milk.still",
+          "stasis": true
+        },
+        "weight": 5
+      },
+      {
+        "object" : {
+          "type": "block",
+          "name": "MineFactoryReloaded:pinkslime.still",
+          "stasis": true
+        },
+        "weight": 0.001
+      }
+    ],
     "overworld_rare": [
       {
         "object": {
