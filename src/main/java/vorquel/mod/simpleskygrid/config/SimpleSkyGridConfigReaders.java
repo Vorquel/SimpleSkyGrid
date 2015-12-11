@@ -1,8 +1,6 @@
 package vorquel.mod.simpleskygrid.config;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.sun.xml.internal.ws.util.StreamUtils;
 import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.io.FileUtils;

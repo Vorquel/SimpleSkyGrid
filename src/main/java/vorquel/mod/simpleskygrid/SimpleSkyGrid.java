@@ -6,12 +6,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkCheckHandler;
-import cpw.mods.fml.relauncher.Side;
 import vorquel.mod.simpleskygrid.helper.Ref;
 import vorquel.mod.simpleskygrid.proxy.Proxy;
-
-import java.util.Map;
 
 @Mod(modid = Ref.MOD_ID, name = "Simple Sky Grid", version = "@MOD_VERSION@")
 public class SimpleSkyGrid {
