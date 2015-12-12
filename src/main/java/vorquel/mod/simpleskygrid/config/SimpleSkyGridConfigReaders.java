@@ -1,14 +1,17 @@
 package vorquel.mod.simpleskygrid.config;
 
 import com.google.common.base.Strings;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import vorquel.mod.simpleskygrid.helper.Log;
 
 import java.io.*;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -67,15 +70,69 @@ public class SimpleSkyGridConfigReaders implements Iterable<SimpleSkyGridConfigR
         String fileName = name + ".json";
         URL source = SimpleSkyGridConfigReader.class.getResource("/assets/simpleskygrid/config/" + path + "/" + fileName);
         File destination = new File(configHome, fileName);
-        if(destination.exists())
-            return;
         try {
-            FileUtils.copyURLToFile(source, destination);
+            String hash = getHash(source.openStream());
+            if(shouldOverwrite(destination, hash))
+                copy(source, destination, hash);
         } catch (IOException e) {
-            Log.kill("Unable to copy file %s: %s", name, e.getMessage());
+            Log.error("Unable to copy file %s: %s", name, e.getMessage());
         }
     }
-
+    
+    private static String getHash(InputStream stream) throws IOException {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            StringBuilder sb = new StringBuilder();
+            for(byte b : digest.digest(IOUtils.toByteArray(stream))) {
+                int a = b;
+                a = a < 0 ? a + 256 : a;
+                sb.append(Character.forDigit(a >> 4, 16));
+                sb.append(Character.forDigit(a & 15, 16));
+            }
+            return sb.toString();
+        } catch(NoSuchAlgorithmException ignore) {
+        } finally {
+            stream.close();
+        }
+        return "";
+    }
+    
+    private static boolean shouldOverwrite(File destination, String sourceHash) {
+        InputStream stream = null;
+        try {
+            stream = FileUtils.openInputStream(destination);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            String header = reader.readLine();
+            if(!header.startsWith("// sha256: "))
+                return true;
+            String declaredHash = header.substring(11, 76);
+            if(sourceHash.equals(declaredHash))
+                return false;
+            String destHash = getHash(stream);
+            return !sourceHash.equals(destHash) && declaredHash.equals(destHash);
+        } catch(IOException e) {
+            return true;
+        } finally {
+            IOUtils.closeQuietly(stream);
+        }
+    }
+    
+    private static void copy(URL source, File destination, String sha256) throws IOException {
+        BufferedReader reader = null;
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(destination);
+            writer.write(String.format("// sha256: %s *DO NOT ALTER OR REMOVE THIS LINE - YOUR CHANGES WILL BE LOST*\n", sha256));
+            reader = new BufferedReader(new InputStreamReader(source.openStream()));
+            String nextLine;
+            while((nextLine = reader.readLine()) != null)
+                writer.write(nextLine + "\n");
+        } finally {
+            IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(writer);
+        }
+    }
+    
     private static String encodeModId(String modId) {
         modId = modId.replace("%", encodeChar('%'));
         for(char c : modId.toCharArray()) {

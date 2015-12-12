@@ -1,7 +1,7 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.helper.Log;
@@ -30,8 +30,8 @@ public class PEndCrystal extends Prototype<IGeneratedObject> {
     @Override
     public IGeneratedObject getObject() {
         GeneratedComplex complex = new GeneratedComplex();
-        complex.put(new ChunkCoordinates(0, 0, 0), new GeneratedBlock(Blocks.bedrock, 0, null, null));
-        complex.put(new ChunkCoordinates(0, 1, 0), new GeneratedEntity("EnderCrystal", null));
+        complex.put(new BlockPos(0, 0, 0), new GeneratedBlock(Blocks.bedrock, 0, null, null, false));
+        complex.put(new BlockPos(0, 1, 0), new GeneratedEntity("EnderCrystal", null));
         return complex;
     }
 }

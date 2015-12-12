@@ -42,7 +42,7 @@
             "S_id": "Chest"
           }
         },
-        "weight": 25
+        "weight": 10
       },
       {
         "object" : {
@@ -60,7 +60,7 @@
             "S_id": "Chest"
           }
         },
-        "weight": 25
+        "weight": 10
       },
       {
         "object" : {
@@ -78,7 +78,7 @@
             "S_id": "Chest"
           }
         },
-        "weight": 25
+        "weight": 10
       },
       {
         "object" : {
@@ -96,7 +96,7 @@
             "S_id": "Chest"
           }
         },
-        "weight": 25
+        "weight": 10
       }
     ]
   }

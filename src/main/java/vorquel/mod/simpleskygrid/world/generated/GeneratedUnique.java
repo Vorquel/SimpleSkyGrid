@@ -1,6 +1,6 @@
 package vorquel.mod.simpleskygrid.world.generated;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
@@ -10,9 +10,9 @@ public class GeneratedUnique implements IGeneratedObject {
 
     private IGeneratedObject generatedObject;
     private IRandom<Integer> countSource;
-    private IRandom<ChunkCoordinates> locationSource;
+    private IRandom<BlockPos> locationSource;
 
-    public GeneratedUnique(IGeneratedObject generatedObject, IRandom<Integer> countSource, IRandom<ChunkCoordinates> locationSource) {
+    public GeneratedUnique(IGeneratedObject generatedObject, IRandom<Integer> countSource, IRandom<BlockPos> locationSource) {
         this.generatedObject = generatedObject;
         this.countSource = countSource;
         this.locationSource = locationSource;
@@ -26,7 +26,7 @@ public class GeneratedUnique implements IGeneratedObject {
         return countSource.next(random);
     }
 
-    public ChunkCoordinates getLocation(Random random) {
+    public BlockPos getLocation(Random random) {
         return locationSource.next(random);
     }
 

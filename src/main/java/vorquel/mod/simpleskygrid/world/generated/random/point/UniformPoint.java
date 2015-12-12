@@ -1,6 +1,6 @@
 package vorquel.mod.simpleskygrid.world.generated.random.point;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public class UniformPoint extends RandomPoint {
     }
 
     @Override
-    public ChunkCoordinates next(Random random) {
+    public BlockPos next(Random random) {
         double x = startX;
         double y = startY;
         double z = startZ;

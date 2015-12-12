@@ -1,6 +1,6 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class PComplex extends Prototype<IGeneratedObject> {
 
-    private HashMap<ChunkCoordinates, IPrototype<IGeneratedObject>> generationMap;
+    private HashMap<BlockPos, IPrototype<IGeneratedObject>> generationMap;
 
     public PComplex(SimpleSkyGridConfigReader reader) {
         super(reader);
@@ -22,7 +22,7 @@ public class PComplex extends Prototype<IGeneratedObject> {
     @Override
     protected void readLabel(SimpleSkyGridConfigReader reader, String label) {
         if(generationMap == null) generationMap = new HashMap<>();
-        ChunkCoordinates key = getChunkCoordinates(label);
+        BlockPos key = getBlockPos(label);
         if(key != null) {
             IPrototype<IGeneratedObject> value = PFactory.readGeneratedObject(reader);
             if(value.isComplete() && !(value instanceof PLabel))
@@ -32,7 +32,7 @@ public class PComplex extends Prototype<IGeneratedObject> {
             reader.unknownOnce("label " + label, "complex object definition");
     }
 
-    private ChunkCoordinates getChunkCoordinates(String label) {
+    private BlockPos getBlockPos(String label) {
         try {
             int xyPoint = label.indexOf(',');
             int yzPoint = label.indexOf(',', xyPoint + 1);
@@ -42,7 +42,7 @@ public class PComplex extends Prototype<IGeneratedObject> {
             int x = Integer.decode(xPart);
             int y = Integer.decode(yPart);
             int z = Integer.decode(zPart);
-            return new ChunkCoordinates(x, y, z);
+            return new BlockPos(x, y, z);
         } catch(NumberFormatException e) {
             return null;
         }
@@ -52,7 +52,7 @@ public class PComplex extends Prototype<IGeneratedObject> {
     public boolean isComplete() {
         if(generationMap.isEmpty())
             return false;
-        for(ChunkCoordinates key : generationMap.keySet())
+        for(BlockPos key : generationMap.keySet())
             if(!generationMap.get(key).isComplete())
                 return false;
         return true;
@@ -61,7 +61,7 @@ public class PComplex extends Prototype<IGeneratedObject> {
     @Override
     public IGeneratedObject getObject() {
         GeneratedComplex complex = new GeneratedComplex();
-        for(ChunkCoordinates key : generationMap.keySet()) {
+        for(BlockPos key : generationMap.keySet()) {
             IGeneratedObject generatedObject = generationMap.get(key).getObject();
             if(generatedObject == null)
                 return null;

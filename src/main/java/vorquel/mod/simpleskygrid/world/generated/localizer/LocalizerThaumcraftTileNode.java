@@ -11,7 +11,7 @@ public class LocalizerThaumcraftTileNode implements INBTLocalizer {
 
     @Override
     public void localize(NBTTagCompound tag, World world, int x, int y, int z) {
-        String nodeId = String.format("%d:%d:%d:%d",world.provider.dimensionId,x,y,z);
+        String nodeId = String.format("%d:%d:%d:%d",world.provider.getDimensionId(),x,y,z);
         tag.setString("nodeId", nodeId);
     }
 }

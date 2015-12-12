@@ -1,17 +1,17 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
-public abstract class PPoint extends Prototype<IRandom<ChunkCoordinates>> {
+public abstract class PPoint extends Prototype<IRandom<BlockPos>> {
 
     public PPoint(SimpleSkyGridConfigReader reader) {
         super(reader);
     }
 
-    protected ChunkCoordinates readPoint(SimpleSkyGridConfigReader reader) {
+    protected BlockPos readPoint(SimpleSkyGridConfigReader reader) {
         Integer x = null;
         Integer y = null;
         Integer z = null;
@@ -29,6 +29,6 @@ public abstract class PPoint extends Prototype<IRandom<ChunkCoordinates>> {
         if(x == null || y == null || z == null) {
             return null;
         }
-        return new ChunkCoordinates(x, y, z);
+        return new BlockPos(x, y, z);
     }
 }

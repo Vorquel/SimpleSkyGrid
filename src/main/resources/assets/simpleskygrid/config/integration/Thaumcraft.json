@@ -294,44 +294,32 @@
     "overworld_tree": [
       {
         "object": {
-          "type": "complex",
-          "0,0,0": {
-            "type": "block",
-            "name": "minecraft:grass"
-          },
-          "0,1,0": {
-            "type": "block",
-            "name": "Thaumcraft:blockMagicalLog"
-          }
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLog"
         },
         "weight": 10
       },
       {
         "object": {
-          "type": "complex",
-          "0,0,0": {
-            "type": "block",
-            "name": "minecraft:grass"
-          },
-          "0,1,0": {
-            "type": "block",
-            "name": "Thaumcraft:blockMagicalLog",
-            "meta": 1
-          }
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLog",
+          "meta": 1
         },
         "weight": 10
       },
       {
         "object": {
-          "type": "complex",
-          "0,0,0": {
-            "type": "block",
-            "name": "minecraft:grass"
-          },
-          "0,1,0": {
-            "type": "block",
-            "name": "Thaumcraft:blockCustomPlant"
-          }
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLeaves",
+          "meta": 4
+        },
+        "weight": 5
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Thaumcraft:blockMagicalLeaves",
+          "meta": 5
         },
         "weight": 5
       },
@@ -345,10 +333,26 @@
           "0,1,0": {
             "type": "block",
             "name": "Thaumcraft:blockCustomPlant",
-            "meta": 1
+            "stasis": true
           }
         },
-        "weight": 5
+        "weight": 1
+      },
+      {
+        "object": {
+          "type": "complex",
+          "0,0,0": {
+            "type": "block",
+            "name": "minecraft:grass"
+          },
+          "0,1,0": {
+            "type": "block",
+            "name": "Thaumcraft:blockCustomPlant",
+            "meta": 1,
+            "stasis": true
+          }
+        },
+        "weight": 1
       }
     ],
     "thaumcraft_node": [

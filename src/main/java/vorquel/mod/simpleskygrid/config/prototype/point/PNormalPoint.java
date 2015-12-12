@@ -1,13 +1,13 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 import vorquel.mod.simpleskygrid.world.generated.random.point.NormalPoint;
 
 public class PNormalPoint extends PPoint {
 
-    private ChunkCoordinates mean;
+    private BlockPos mean;
     private Double standardDeviationX;
     private Double standardDeviationY;
     private Double standardDeviationZ;
@@ -33,7 +33,7 @@ public class PNormalPoint extends PPoint {
     }
 
     @Override
-    public IRandom<ChunkCoordinates> getObject() {
+    public IRandom<BlockPos> getObject() {
         return new NormalPoint(mean, standardDeviationX, standardDeviationY, standardDeviationZ);
     }
 }

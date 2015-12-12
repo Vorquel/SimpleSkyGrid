@@ -1,6 +1,6 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
@@ -9,7 +9,7 @@ import vorquel.mod.simpleskygrid.world.generated.random.point.CirclePoint;
 public class PCirclePoint extends PPoint {
 
 
-    private ChunkCoordinates center;
+    private BlockPos center;
     private int radius;
     private CirclePoint.Axis axis;
 
@@ -45,7 +45,7 @@ public class PCirclePoint extends PPoint {
     }
 
     @Override
-    public IRandom<ChunkCoordinates> getObject() {
+    public IRandom<BlockPos> getObject() {
         return new CirclePoint(center, radius, axis);
     }
 }

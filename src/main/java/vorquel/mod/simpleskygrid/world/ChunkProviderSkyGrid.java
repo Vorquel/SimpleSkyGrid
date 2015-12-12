@@ -1,11 +1,11 @@
 package vorquel.mod.simpleskygrid.world;
 
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
@@ -30,8 +30,8 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private long seed;
     private Config.DimensionProperties dimensionProperties;
     private RandomList<IGeneratedObject> randomGenerator;
-    private HashMap<ChunkCoordinates, IGeneratedObject> uniqueGenerations = new HashMap<>();
-    private ArrayList<ChunkCoordinates> endPortalLocations = new ArrayList<>();
+    private HashMap<BlockPos, IGeneratedObject> uniqueGenerations = new HashMap<>();
+    private ArrayList<BlockPos> endPortalLocations = new ArrayList<>();
 
     public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
         providers.put(this, dimensionId);
@@ -45,7 +45,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
             for(int i=0; i<count; ++i) {
                 int j=0;
                 for(; j<1000; ++j) {
-                    ChunkCoordinates location = unique.getLocation(random);
+                    BlockPos location = unique.getLocation(random);
                     if(!uniqueGenerations.containsKey(location)) {
                         uniqueGenerations.put(location, unique);
                         if(unique.getGeneratedObject() instanceof GeneratedEndPortal)
@@ -75,11 +75,11 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         if(dimensionProperties.isFinite() && dimensionProperties.notInRadius(xChunk, zChunk))
             return chunk;
         for(int i=0; i< dimensionProperties.height>>4; ++i)
-            chunk.getBlockStorageArray()[i] = new ExtendedBlockStorage(i*16, !world.provider.hasNoSky);
+            chunk.getBlockStorageArray()[i] = new ExtendedBlockStorage(i*16, !world.provider.getHasNoSky());
         ExtendedBlockStorage extendedblockstorage = chunk.getBlockStorageArray()[0];
         for(int x=0; x<16; x+=4)
             for(int z=0; z<16; z+=4)
-                extendedblockstorage.setExtBlockID(x, 0, z, bedrock);
+                extendedblockstorage.set(x, 0, z, bedrock.getDefaultState());
 
         chunk.generateSkylightMap();
         BiomeGenBase[] biomeGenBase = world.getWorldChunkManager().loadBlockGeneratorData(null, xChunk * 16, zChunk * 16, 16, 16);
@@ -93,7 +93,6 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         return chunk;
     }
 
-    @Override
     public Chunk loadChunk(int xChunk, int zChunk) {
         return provideChunk(xChunk, zChunk);
     }
@@ -105,11 +104,11 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
 
-        ChunkCoordinates here = new ChunkCoordinates();
+        BlockPos here ;
         for(int y=4; y<dimensionProperties.height; y+=4)
             for(int x=xChunk*16; x<xChunk*16+16; x+=4)
                 for(int z=zChunk*16; z<zChunk*16+16; z+=4) {
-                    here.set(x, y, z);
+                    here = new BlockPos(x, y, z);
                     if(uniqueGenerations.containsKey(here))
                         uniqueGenerations.get(here).provideObject(random, world, x, y, z);
                     else
@@ -138,35 +137,53 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     }
 
     @Override
-    public List getPossibleCreatures(EnumCreatureType type, int x, int y, int z) {
-        BiomeGenBase biomeGenBase = world.getBiomeGenForCoords(x, z);
-        return biomeGenBase.getSpawnableList(type);
+    public int getLoadedChunkCount() {
+        return 0;
     }
 
+    public void recreateStructures(int xChunk, int zChunk) 
+    {}
+
     @Override
-    public ChunkPosition findClosestStructure(World world, String structure, int x, int y, int z) {
-        if(!structure.equals("Stronghold"))
+    public void saveExtraData() {}
+
+	@Override
+	public Chunk provideChunk(BlockPos blockPosIn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean func_177460_a(IChunkProvider p_177460_1_, Chunk p_177460_2_, int p_177460_3_, int p_177460_4_) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
+        BiomeGenBase biomeGenBase = world.getBiomeGenForCoords(pos);
+        return biomeGenBase.getSpawnableList(creatureType);
+    }
+
+	@Override
+	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position) {
+        if(!structureName.equals("Stronghold"))
             return null;
         double bestDistance = Double.POSITIVE_INFINITY;
-        ChunkCoordinates bestLocation = new ChunkCoordinates();
-        for(ChunkCoordinates location : endPortalLocations) {
-            double distance = location.getDistanceSquared(x, y, z);
+        BlockPos bestLocation = null;
+        for(BlockPos location : endPortalLocations) {
+            double distance = location.distanceSq(position);
             if(distance < bestDistance) {
                 bestDistance = distance;
                 bestLocation = location;
             }
         }
-        return new ChunkPosition(bestLocation.posX, bestLocation.posY, bestLocation.posZ);
-    }
-
-    @Override
-    public int getLoadedChunkCount() {
-        return 0;
-    }
-
-    @Override
-    public void recreateStructures(int xChunk, int zChunk) {}
-
-    @Override
-    public void saveExtraData() {}
+        return bestLocation;
+	}
+    
+	@Override
+	public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_) {
+		// TODO Auto-generated method stub
+		
+	}
 }

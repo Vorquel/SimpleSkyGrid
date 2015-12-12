@@ -50,8 +50,8 @@ public class Ref {
                 PLabel newLabel = (PLabel) entry;
                 if(config.size(newLabel.name) > 0)
                     randomList.add(makeRandomGenerator(newLabel.name, newLabel.subtype == PLabel.Subtype.relative), weight);
-                else
-                    Log.warn("Unused label in config: %s", newLabel.name);
+                else;
+//                    Log.warn("Unused label in config: %s", newLabel.name);
             } else {
                 randomList.add(entry.getObject(), weight);
             }

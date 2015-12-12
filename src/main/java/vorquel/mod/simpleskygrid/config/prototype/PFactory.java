@@ -1,7 +1,7 @@
 package vorquel.mod.simpleskygrid.config.prototype;
 
 import com.google.gson.stream.JsonToken;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.count.PNormalCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PSingleCount;
@@ -66,8 +66,8 @@ public class PFactory {
         return prototype;
     }
 
-    public static IPrototype<IRandom<ChunkCoordinates>> readPoint(SimpleSkyGridConfigReader reader) {
-        IPrototype<IRandom<ChunkCoordinates>> prototype = PNull.point;
+    public static IPrototype<IRandom<BlockPos>> readPoint(SimpleSkyGridConfigReader reader) {
+        IPrototype<IRandom<BlockPos>> prototype = PNull.point;
         reader.beginObject();
         reader.nextName("type");
         String type = reader.nextString();

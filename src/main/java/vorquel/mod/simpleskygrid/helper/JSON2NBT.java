@@ -1,9 +1,10 @@
 package vorquel.mod.simpleskygrid.helper;
 
 import com.google.gson.stream.JsonReader;
-import cpw.mods.fml.common.registry.GameData;
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vorquel.mod.simpleskygrid.world.generated.localizer.INBTLocalizer;
 
@@ -64,7 +65,7 @@ public class JSON2NBT {
             if(!compound.hasKey("id", 8))
                 continue;
             String name = compound.getString("id");
-            int id = GameData.getItemRegistry().getId(name);
+            int id = GameData.getItemRegistry().getId(new ResourceLocation(name));
             compound.setShort("id", (short) id);
         }
     }

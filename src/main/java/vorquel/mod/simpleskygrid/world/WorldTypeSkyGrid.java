@@ -19,7 +19,6 @@ public class WorldTypeSkyGrid extends WorldType {
         return Double.NEGATIVE_INFINITY;
     }
 
-    @Override
     public boolean hasVoidParticles(boolean flag) {
         return false;
     }

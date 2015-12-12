@@ -1,6 +1,6 @@
 package vorquel.mod.simpleskygrid.asm;
 
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.apache.logging.log4j.LogManager;
 import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.Ref;

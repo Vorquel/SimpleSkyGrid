@@ -1,29 +1,29 @@
 package vorquel.mod.simpleskygrid.world.generated.random.point;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
 
 import java.util.Random;
 
 public class CirclePoint extends RandomPoint {
 
-    private ChunkCoordinates center;
+    private BlockPos center;
     private int radius;
     private Axis axis;
 
-    public CirclePoint(ChunkCoordinates center, int radius, Axis axis) {
+    public CirclePoint(BlockPos center, int radius, Axis axis) {
         this.center = center;
         this.radius = radius;
         this.axis = axis;
     }
 
     @Override
-    public ChunkCoordinates next(Random random) {
+    public BlockPos next(Random random) {
         double angle = random.nextDouble() * Math.PI * 2;
         double cos = radius * Math.cos(angle);
         double sin = radius * Math.sin(angle);
-        double x = center.posX;
-        double y = center.posY;
-        double z = center.posZ;
+        double x = center.getX();
+        double y = center.getY();
+        double z = center.getZ();
         switch(axis) {
             case X: y += cos; z += sin; break;
             case Y: z += cos; x += sin; break;

@@ -2,7 +2,7 @@ package vorquel.mod.simpleskygrid.config;
 
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 import vorquel.mod.simpleskygrid.helper.Log;
