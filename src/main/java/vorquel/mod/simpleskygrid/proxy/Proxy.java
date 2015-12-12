@@ -17,7 +17,7 @@ public class Proxy {
 
     public void preInit() {
         Config.loadConfigs();
-        EntityRegistry.registerModEntity(EntityStasis.class, "stasis", 0, SimpleSkyGrid.instance, 80, 1, false);
+        EntityRegistry.registerModEntity(EntityStasis.class, "stasis", 0, SimpleSkyGrid.instance, 80, Integer.MAX_VALUE, false);
     }
 
     public void init() {
