@@ -1,0 +1,34 @@
+{
+  "generation": {
+    "overworld_rare": [
+      {
+        "object":
+        {
+          "type": "block",
+          "name": "Mekanism:BasicBlock",
+          "meta": 8
+        },
+        "weight": 10
+      },
+      {
+        "object": {
+          "type": "block",
+          "name": "Mekanism:GasTank",
+          "meta": 4,
+          "nbt": {
+            "i_dumping": 0,
+            "i_controlType": 0,
+            "C_gasTank": {
+              "i_maxGas": 96000
+            },
+            "i_facing": 0,
+            "L_e_Items": [],
+            "S_id": "GasTank",
+            "b_redstone": 0
+          }
+        },
+        "weight": 2
+      }
+    ]
+  }
+}

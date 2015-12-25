@@ -9,6 +9,7 @@ ExtraUtilities
 FoodPlus
 lucky
 magicalcrops
+Mekanism
 MineFactoryReloaded
 Natura
 ProjRed|Exploration

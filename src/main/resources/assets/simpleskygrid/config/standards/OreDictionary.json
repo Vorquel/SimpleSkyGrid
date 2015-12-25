@@ -41,6 +41,13 @@
       {
         "object": {
           "type": "generic",
+          "name": "oreOsmium"
+        },
+        "weight": 20
+      },
+      {
+        "object": {
+          "type": "generic",
           "name": "oreSilver"
         },
         "weight": 20
