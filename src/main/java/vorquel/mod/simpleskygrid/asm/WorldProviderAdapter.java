@@ -1,6 +1,5 @@
 package vorquel.mod.simpleskygrid.asm;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.minecraft.world.WorldProvider;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Label;
