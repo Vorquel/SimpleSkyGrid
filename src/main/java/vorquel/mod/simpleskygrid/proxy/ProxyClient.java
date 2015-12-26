@@ -10,11 +10,6 @@ import vorquel.mod.simpleskygrid.event.WorldTypeSelector;
 public class ProxyClient extends Proxy {
     
     @Override
-    public void preInit() {
-        super.preInit();
-    }
-    
-    @Override
     public void init() {
         super.init();
         MinecraftForge.EVENT_BUS.register(new WorldTypeSelector());

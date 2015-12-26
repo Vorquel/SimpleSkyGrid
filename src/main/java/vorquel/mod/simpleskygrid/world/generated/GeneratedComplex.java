@@ -10,8 +10,8 @@ public class GeneratedComplex implements IGeneratedObject {
 
     private HashMap<ChunkCoordinates, IGeneratedObject> generationMap = new HashMap<>();
 
-    public IGeneratedObject put(ChunkCoordinates key, IGeneratedObject value) {
-        return generationMap.put(key, value);
+    public void put(ChunkCoordinates key, IGeneratedObject value) {
+        generationMap.put(key, value);
     }
 
     @Override

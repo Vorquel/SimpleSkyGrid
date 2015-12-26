@@ -92,7 +92,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.hasNext();
         } catch (IOException e) {
-            return (boolean) handleIO(e);
+            handleIO(e);
+            return false;
         }
     }
 
@@ -100,7 +101,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.peek();
         } catch (IOException e) {
-            return (JsonToken) handleIO(e);
+            handleIO(e);
+            return null;
         }
     }
 
@@ -108,7 +110,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.nextName();
         } catch (IOException e) {
-            return (String) handleIO(e);
+            handleIO(e);
+            return null;
         }
     }
 
@@ -116,7 +119,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.nextString();
         } catch (IOException e) {
-            return (String) handleIO(e);
+            handleIO(e);
+            return null;
         }
     }
 
@@ -124,7 +128,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.nextBoolean();
         } catch (IOException e) {
-            return (boolean) handleIO(e);
+            handleIO(e);
+            return false;
         }
     }
 
@@ -140,7 +145,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.nextDouble();
         } catch (IOException e) {
-            return (double) handleIO(e);
+            handleIO(e);
+            return 0;
         }
     }
 
@@ -148,7 +154,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.nextLong();
         } catch (IOException e) {
-            return (long) handleIO(e);
+            handleIO(e);
+            return 0;
         }
     }
 
@@ -156,7 +163,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return jsonReader.nextInt();
         } catch (IOException e) {
-            return (int) handleIO(e);
+            handleIO(e);
+            return 0;
         }
     }
 
@@ -189,7 +197,8 @@ public class SimpleSkyGridConfigReader {
         try {
             return JSON2NBT.readCompound(jsonReader);
         } catch(IOException e) {
-            return (NBTTagCompound) handleIO(e);
+            handleIO(e);
+            return null;
         }
     }
 
@@ -203,9 +212,7 @@ public class SimpleSkyGridConfigReader {
         }
     }
 
-    private Object handleIO(IOException e) {
+    private void handleIO(IOException e) {
         Log.kill("Problem reading config file %s: %s", readerName, e.getMessage());
-        return null;
     }
-
 }
