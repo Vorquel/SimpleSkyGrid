@@ -43,7 +43,16 @@ public class SpawnFixer {
             z -= z%4;
             Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(x, z);
             int spawnHeight = Config.dimensionPropertiesMap.get(event.player.dimension).spawnHeight;
-            for(y=Math.min(chunk.getTopFilledSegment()+16, spawnHeight); y>0; --y) {
+            int airs = 0;
+            for(y=Math.min(chunk.getTopFilledSegment()+16, spawnHeight)+2; y>0; --y) {
+                if(airs < 2) {
+                    if(chunk.getBlock(x&15, y-1, z&15).getMaterial().blocksMovement()) {
+                        airs = 0;
+                        continue;
+                    }
+                    airs++;
+                    continue;
+                }
                 if(chunk.getBlock(x&15, y-1, z&15).getMaterial().blocksMovement())
                     break;
             }
