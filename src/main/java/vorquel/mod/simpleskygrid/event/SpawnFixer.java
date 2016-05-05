@@ -1,11 +1,11 @@
 package vorquel.mod.simpleskygrid.event;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.Ref;
 
@@ -34,14 +34,12 @@ public class SpawnFixer {
     public void playerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if(event.player.worldObj.getWorldInfo().getTerrainType() != Ref.worldType || !Config.dimensionPropertiesMap.containsKey(event.player.dimension))
             return;
-        int x = (int) event.player.posX;
-        int y = (int) event.player.posY;
-        int z = (int) event.player.posZ;
-        ChunkCoordinates bedCoordinates = event.player.getBedLocation(event.player.dimension);
-        if(y <= 1 || bedCoordinates == null || bedCoordinates.getDistanceSquared(x, y, z) > 10) {
+        BlockPos pos = event.player.playerLocation;
+        BlockPos bedCoordinates = event.player.getBedLocation(event.player.dimension);
+        if(pos.getY() <= 1 || bedCoordinates == null || bedCoordinates.distanceSq(pos) > 10) {
             x -= x%4;
             z -= z%4;
-            Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(x, z);
+            Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(pos);
             int spawnHeight = Config.dimensionPropertiesMap.get(event.player.dimension).spawnHeight;
             int airs = 0;
             for(y=Math.min(chunk.getTopFilledSegment()+16, spawnHeight)+2; y>0; --y) {

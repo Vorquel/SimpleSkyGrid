@@ -1,12 +1,12 @@
 package vorquel.mod.simpleskygrid.config.prototype.point;
 
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.BlockPos;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.Prototype;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 import vorquel.mod.simpleskygrid.world.generated.random.point.UniformPoint;
 
-public class PUniformPoint extends Prototype<IRandom<ChunkCoordinates>> {
+public class PUniformPoint extends Prototype<IRandom<BlockPos>> {
 
     private Double minX;
     private Double minY;
@@ -38,7 +38,7 @@ public class PUniformPoint extends Prototype<IRandom<ChunkCoordinates>> {
     }
 
     @Override
-    public IRandom<ChunkCoordinates> getObject() {
+    public IRandom<BlockPos> getObject() {
         return new UniformPoint(minX, minY, minZ, maxX, maxY, maxZ);
     }
 }

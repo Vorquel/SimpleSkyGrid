@@ -1,27 +1,22 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
+apply plugin: 'net.minecraftforge.gradle.forge'
 
-apply plugin: 'forge'
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
-def mcVersion = "1.7.10"
-def modVersion = "2.5.3"
+def mcVersion = "1.9.0"
+def modVersion = "3.dev"
 
 version = mcVersion + "-" + modVersion
 group= "vorquel.mod.simpleskygrid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -34,11 +29,11 @@ jar {
 }
 
 minecraft {
-    version = "1.7.10-10.13.4.1558-1.7.10"
-    mappings = "stable_12"
+    version = "1.9-12.16.1.1889"
+    mappings = "snapshot_20160505"
 
-	replace("@MOD_VERSION@", modVersion)
-	replace("@MC_VERSION@", mcVersion)
+    replace("@MOD_VERSION@", modVersion)
+    replace("@MC_VERSION@", mcVersion)
 }
 
 processResources {
@@ -54,5 +49,3 @@ processResources {
         exclude 'mcmod.info'
     }
 }
-
-idea { module { inheritOutputDirs = true } }

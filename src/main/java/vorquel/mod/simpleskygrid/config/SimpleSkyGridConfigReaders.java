@@ -1,8 +1,8 @@
 package vorquel.mod.simpleskygrid.config;
 
 import com.google.common.base.Strings;
-import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;

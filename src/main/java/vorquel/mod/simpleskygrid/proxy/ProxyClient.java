@@ -1,7 +1,7 @@
 package vorquel.mod.simpleskygrid.proxy;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import vorquel.mod.simpleskygrid.entity.EntityStasis;
 import vorquel.mod.simpleskygrid.entity.RenderStasis;
 import vorquel.mod.simpleskygrid.event.WorldTypeSelector;

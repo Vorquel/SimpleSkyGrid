@@ -1,9 +1,8 @@
 package vorquel.mod.simpleskygrid.world;
 
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IProgressUpdate;
-import net.minecraft.world.ChunkPosition;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
@@ -19,7 +18,7 @@ import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 
 import java.util.*;
 
-import static net.minecraft.init.Blocks.bedrock;
+import static net.minecraft.init.Blocks.BEDROCK;
 
 public class ChunkProviderSkyGrid implements IChunkProvider {
 
@@ -30,8 +29,8 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
     private long seed;
     private Config.DimensionProperties dimensionProperties;
     private RandomList<IGeneratedObject> randomGenerator;
-    private HashMap<ChunkCoordinates, IGeneratedObject> uniqueGenerations = new HashMap<>();
-    private ArrayList<ChunkCoordinates> endPortalLocations = new ArrayList<>();
+    private HashMap<BlockPos, IGeneratedObject> uniqueGenerations = new HashMap<>();
+    private ArrayList<BlockPos> endPortalLocations = new ArrayList<>();
 
     public ChunkProviderSkyGrid(World world, long seed, int dimensionId) {
         providers.put(this, dimensionId);
@@ -45,7 +44,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
             for(int i=0; i<count; ++i) {
                 int j=0;
                 for(; j<1000; ++j) {
-                    ChunkCoordinates location = unique.getLocation(random);
+                    BlockPos location = unique.getLocation(random);
                     if(!uniqueGenerations.containsKey(location)) {
                         uniqueGenerations.put(location, unique);
                         if(unique.getGeneratedObject() instanceof GeneratedEndPortal)
@@ -105,7 +104,7 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
 
         Random random = new Random(seed+xChunk*1340661669L+zChunk*345978359L);
 
-        ChunkCoordinates here = new ChunkCoordinates();
+        BlockPos here = new BlockPos();
         for(int y=4; y<dimensionProperties.height; y+=4)
             for(int x=xChunk*16; x<xChunk*16+16; x+=4)
                 for(int z=zChunk*16; z<zChunk*16+16; z+=4) {
@@ -148,8 +147,8 @@ public class ChunkProviderSkyGrid implements IChunkProvider {
         if(!structure.equals("Stronghold"))
             return null;
         double bestDistance = Double.POSITIVE_INFINITY;
-        ChunkCoordinates bestLocation = new ChunkCoordinates();
-        for(ChunkCoordinates location : endPortalLocations) {
+        BlockPos bestLocation = new BlockPos();
+        for(BlockPos location : endPortalLocations) {
             double distance = location.getDistanceSquared(x, y, z);
             if(distance < bestDistance) {
                 bestDistance = distance;

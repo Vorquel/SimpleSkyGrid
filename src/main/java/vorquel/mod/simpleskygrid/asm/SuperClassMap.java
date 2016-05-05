@@ -2,7 +2,7 @@ package vorquel.mod.simpleskygrid.asm;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import cpw.mods.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
+import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import org.objectweb.asm.ClassReader;
 import vorquel.mod.simpleskygrid.helper.Log;
 

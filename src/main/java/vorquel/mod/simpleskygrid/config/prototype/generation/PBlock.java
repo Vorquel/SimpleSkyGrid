@@ -1,10 +1,11 @@
 package vorquel.mod.simpleskygrid.config.prototype.generation;
 
-import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vorquel.mod.simpleskygrid.config.SimpleSkyGridConfigReader;
 import vorquel.mod.simpleskygrid.config.prototype.IPrototype;
 import vorquel.mod.simpleskygrid.config.prototype.PFactory;
@@ -48,8 +49,8 @@ public class PBlock extends Prototype<IGeneratedObject> {
 
     @Override
     public IGeneratedObject getObject() {
-        Block block = GameData.getBlockRegistry().getObject(name);
-        if(block == Blocks.air && !name.equals("minecraft:air")) {
+        Block block = Block.REGISTRY.getObject(new ResourceLocation(name));
+        if(block == Blocks.AIR && !name.equals("minecraft:air")) {
             Log.error("Unrecognised block name: " + name);
             return null;
         }

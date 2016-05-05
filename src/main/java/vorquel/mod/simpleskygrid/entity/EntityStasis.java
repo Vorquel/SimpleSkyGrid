@@ -1,13 +1,13 @@
 package vorquel.mod.simpleskygrid.entity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityStasis extends Entity {
     
@@ -18,7 +18,7 @@ public class EntityStasis extends Entity {
     @SuppressWarnings("unused")
     public static boolean shouldCancelUpdate(World world, int x, int y, int z) {
         return !world.getEntitiesWithinAABB(EntityStasis.class,
-                AxisAlignedBB.getBoundingBox(x + .25, y + .25, z + .25, x + .75, y + .75, z + .75)).isEmpty();
+                new AxisAlignedBB(x + .25, y + .25, z + .25, x + .75, y + .75, z + .75)).isEmpty();
     }
     
     @Override
@@ -36,7 +36,7 @@ public class EntityStasis extends Entity {
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
         if(source.damageType.equals("player")) {
-            playSound(Blocks.glass.stepSound.getDigResourcePath(), 1f, .75f + rand.nextFloat() * .5f);
+            playSound(Blocks.GLASS.getSoundType().getBreakSound(), 1f, .75f + rand.nextFloat() * .5f);
             this.kill();
         }
         return false;
