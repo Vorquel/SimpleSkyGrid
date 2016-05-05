@@ -1,6 +1,9 @@
 package vorquel.mod.simpleskygrid.asm;
 
+import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldType;
+import net.minecraftforge.common.DimensionManager;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -8,7 +11,7 @@ import org.objectweb.asm.Opcodes;
 import vorquel.mod.simpleskygrid.config.Config;
 import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.helper.Ref;
-import vorquel.mod.simpleskygrid.world.ChunkProviderSkyGrid;
+import vorquel.mod.simpleskygrid.world.ChunkGeneratorSkyGrid;
 
 import static vorquel.mod.simpleskygrid.asm.Mappings.*;
 
@@ -42,7 +45,7 @@ public class WorldProviderAdapter extends ClassVisitor implements Opcodes{
             Label label = new Label();
             mv.visitJumpInsn(IFEQ, label);
             mv.visitVarInsn(ALOAD, 0);
-            mv.visitMethodInsn(INVOKESTATIC, "vorquel/mod/simpleskygrid/asm/WorldProviderAdapter", "createChunkProviderSkyGrid", "(L" + cWorldProvider + ";)Lvorquel/mod/simpleskygrid/world/ChunkProviderSkyGrid;", false);
+            mv.visitMethodInsn(INVOKESTATIC, "vorquel/mod/simpleskygrid/asm/WorldProviderAdapter", "createChunkProviderSkyGrid", "(L" + cWorldProvider + ";)Lvorquel/mod/simpleskygrid/world/ChunkGeneratorSkyGrid;", false);
             mv.visitInsn(ARETURN);
             mv.visitLabel(label);
         }
@@ -50,12 +53,13 @@ public class WorldProviderAdapter extends ClassVisitor implements Opcodes{
     
     @SuppressWarnings("unused")
     public static boolean useMyChunkProvider(WorldProvider provider) {
-        return provider.worldObj.getWorldInfo().getTerrainType() == Ref.worldType
-                       && Config.dimensionPropertiesMap.containsKey(provider.dimensionId);
+        WorldType type = DimensionManager.getWorld(provider.getDimension()).getWorldType();
+        return type == Ref.worldType && Config.dimensionPropertiesMap.containsKey(provider.getDimension());
     }
     
     @SuppressWarnings("unused")
-    public static ChunkProviderSkyGrid createChunkProviderSkyGrid(WorldProvider provider) {
-        return new ChunkProviderSkyGrid(provider.worldObj, provider.getSeed(), provider.dimensionId);
+    public static ChunkGeneratorSkyGrid createChunkProviderSkyGrid(WorldProvider provider) {
+        World world = DimensionManager.getWorld(provider.getDimension());
+        return new ChunkGeneratorSkyGrid(world, provider.getSeed(), provider.getDimension());
     }
 }

@@ -3,7 +3,7 @@ package vorquel.mod.simpleskygrid.config;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import vorquel.mod.simpleskygrid.helper.Ref;
-import vorquel.mod.simpleskygrid.world.ChunkProviderSkyGrid;
+import vorquel.mod.simpleskygrid.world.ChunkGeneratorSkyGrid;
 
 public class CommandReloadConfigs extends CommandBase {
 
@@ -31,7 +31,7 @@ public class CommandReloadConfigs extends CommandBase {
     public void processCommand(ICommandSender commandSender, String[] options) {
         Config.loadConfigs();
         Ref.createGenerators();
-        for(ChunkProviderSkyGrid provider : ChunkProviderSkyGrid.providers.keySet())
+        for(ChunkGeneratorSkyGrid provider : ChunkGeneratorSkyGrid.providers.keySet())
             provider.resetProperties();
         System.gc();
         notifyOperators(commandSender, this, "commands.ssgReloadConfigs.success");

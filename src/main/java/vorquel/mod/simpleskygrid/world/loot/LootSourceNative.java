@@ -3,7 +3,6 @@ package vorquel.mod.simpleskygrid.world.loot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraftforge.common.ChestGenHooks;
 import vorquel.mod.simpleskygrid.helper.Log;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
 
