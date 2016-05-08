@@ -29,20 +29,16 @@ public class GeneratedBlock implements IGeneratedObject {
 
     @Override
     public void provideObject(Random random, World world, BlockPos pos) {
-        Chunk chunk = world.getChunkFromBlockCoords(pos);
-        ExtendedBlockStorage ebs = chunk.getBlockStorageArray()[pos.getY() >> 4];
         IBlockState state = block.getStateFromMeta(meta);
-        ebs.set(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, state);
         if(block.hasTileEntity(state)) {
-            TileEntity te = block.createTileEntity(world, state);
-            if(te != null) {
-                if(nbt != null) {
-                    te.readFromNBT(JSON2NBT.localizeBlock(nbt, world, pos));
-                } else {
-                    te.setPos(pos.toImmutable());
-                }
-                chunk.addTileEntity(te);
-            }
+            world.setBlockState(pos, state);
+            TileEntity te = world.getTileEntity(pos);
+            if(nbt != null)
+                te.deserializeNBT(nbt);
+        } else {
+            Chunk chunk = world.getChunkFromBlockCoords(pos);
+            ExtendedBlockStorage ebs = chunk.getBlockStorageArray()[pos.getY() >> 4];
+            ebs.set(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, state);
         }
         if(stasis) {
             EntityStasis stasis = new EntityStasis(world);
