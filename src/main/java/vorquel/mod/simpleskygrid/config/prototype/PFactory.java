@@ -7,14 +7,12 @@ import vorquel.mod.simpleskygrid.config.prototype.count.PNormalCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PSingleCount;
 import vorquel.mod.simpleskygrid.config.prototype.count.PUniformCount;
 import vorquel.mod.simpleskygrid.config.prototype.generation.*;
-import vorquel.mod.simpleskygrid.config.prototype.lootsource.PNative;
 import vorquel.mod.simpleskygrid.config.prototype.point.PCirclePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PNormalPoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PSinglePoint;
 import vorquel.mod.simpleskygrid.config.prototype.point.PUniformPoint;
 import vorquel.mod.simpleskygrid.world.generated.IGeneratedObject;
 import vorquel.mod.simpleskygrid.world.generated.random.IRandom;
-import vorquel.mod.simpleskygrid.world.loot.ILootSource;
 
 public class PFactory {
 
@@ -77,19 +75,6 @@ public class PFactory {
             case "normal":  prototype = new PNormalPoint(reader);  break;
             case "uniform": prototype = new PUniformPoint(reader); break;
             default: reader.unknownAll("random location type " + type, "random location definition");
-        }
-        reader.endObject();
-        return prototype;
-    }
-
-    public static IPrototype<ILootSource> readLootSource(SimpleSkyGridConfigReader reader) {
-        IPrototype<ILootSource> prototype = PNull.lootSource;
-        reader.beginObject();
-        reader.nextName("type");
-        String type = reader.nextString();
-        switch(type) {
-            case "native": prototype = new PNative(reader); break;
-            default: reader.unknownAll("loot source type " + type, "loot source definition");
         }
         reader.endObject();
         return prototype;

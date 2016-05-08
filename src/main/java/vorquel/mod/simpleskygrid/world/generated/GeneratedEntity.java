@@ -3,6 +3,7 @@ package vorquel.mod.simpleskygrid.world.generated;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vorquel.mod.simpleskygrid.helper.JSON2NBT;
 
@@ -18,14 +19,14 @@ public class GeneratedEntity implements IGeneratedObject {
     }
 
     @Override
-    public void provideObject(Random random, World world, int x, int y, int z) {
+    public void provideObject(Random random, World world, BlockPos pos) {
         Entity entity = EntityList.createEntityByName(name, world);
-        double realX = x + .5;
-        double realZ = z + .5;
+        double realX = pos.getX() + .5;
+        double realZ = pos.getZ() + .5;
         if(nbt != null) {
-            entity.readFromNBT(JSON2NBT.localizeEntity(nbt, realX, y, realZ));
+            entity.readFromNBT(JSON2NBT.localizeEntity(nbt, realX, pos.getY(), realZ));
         }
-        entity.setPosition(realX, y, realZ);
+        entity.setPosition(realX, pos.getY(), realZ);
         world.spawnEntityInWorld(entity);
     }
 }

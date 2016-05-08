@@ -16,7 +16,7 @@ public class WorldTypeSelector {
     public void changeWorldType(GuiScreenEvent.InitGuiEvent.Post event) {
         if(event.getGui() instanceof GuiCreateWorld) {
             if(SimpleSkyGridConfigReaders.skyGridDefault) {
-                ReflectionHelper.setPrivateValue(GuiCreateWorld.class, (GuiCreateWorld) event.getGui(), Ref.worldType.getWorldTypeID(), "field_146331_K");
+                ReflectionHelper.setPrivateValue(GuiCreateWorld.class, (GuiCreateWorld) event.getGui(), Ref.worldType.getWorldTypeID(), "selectedIndex", "field_146331_K");
                 for(Object object : event.getButtonList()) {
                     GuiButton button = (GuiButton) object;
                     if(button.id != 5)

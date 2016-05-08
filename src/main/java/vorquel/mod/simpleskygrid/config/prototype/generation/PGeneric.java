@@ -57,10 +57,10 @@ public class PGeneric extends Prototype<IGeneratedObject> {
                     continue;
                 Item item = stack.getItem();
                 Block block = Block.getBlockFromItem(item);
-                if(block == Blocks.air)
+                if(block == Blocks.AIR)
                     continue;
                 int meta = item.getMetadata(stack.getMetadata());
-                return new GeneratedBlock(block, meta, null, null, stasis);
+                return new GeneratedBlock(block, meta, null, stasis);
             }
             if(names == null)
                 return null;
@@ -74,7 +74,7 @@ public class PGeneric extends Prototype<IGeneratedObject> {
                     continue;
                 Item item = stack.getItem();
                 Block block = Block.getBlockFromItem(item);
-                if(block == Blocks.air)
+                if(block == Blocks.AIR)
                     continue;
                 int meta = item.getMetadata(stack.getMetadata());
                 Pair<Block, Integer> pair = new Pair<>(block, meta);
@@ -96,10 +96,10 @@ public class PGeneric extends Prototype<IGeneratedObject> {
                 if(!entry.getValue().contains(name))
                     iterator.remove();
                 if(blockMap.isEmpty())
-                    return new GeneratedBlock(pair.left, pair.right, null, null, stasis);
+                    return new GeneratedBlock(pair.left, pair.right, null, stasis);
             }
         }
         Pair<Block, Integer> pair = blockMap.keySet().iterator().next();
-        return new GeneratedBlock(pair.left, pair.right, null, null, stasis);
+        return new GeneratedBlock(pair.left, pair.right, null, stasis);
     }
 }

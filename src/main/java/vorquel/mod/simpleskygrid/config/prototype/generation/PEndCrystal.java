@@ -30,7 +30,7 @@ public class PEndCrystal extends Prototype<IGeneratedObject> {
     @Override
     public IGeneratedObject getObject() {
         GeneratedComplex complex = new GeneratedComplex();
-        complex.put(new BlockPos(0, 0, 0), new GeneratedBlock(Blocks.BEDROCK, 0, null, null, false));
+        complex.put(new BlockPos(0, 0, 0), new GeneratedBlock(Blocks.BEDROCK, 0, null, false));
         complex.put(new BlockPos(0, 1, 0), new GeneratedEntity("EnderCrystal", null));
         return complex;
     }

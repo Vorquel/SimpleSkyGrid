@@ -99,9 +99,9 @@ public class ChunkGeneratorSkyGrid implements IChunkGenerator {
                 for(int z=zChunk*16; z<zChunk*16+16; z+=4) {
                     here.set(x, y, z);
                     if(uniqueGenerations.containsKey(here))
-                        uniqueGenerations.get(here).provideObject(random, world, x, y, z);
+                        uniqueGenerations.get(here).provideObject(random, world, here);
                     else
-                        randomGenerator.getNext(random).provideObject(random, world, x, y, z);
+                        randomGenerator.getNext(random).provideObject(random, world, here);
                 }
     }
     

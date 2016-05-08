@@ -1,5 +1,6 @@
 package vorquel.mod.simpleskygrid.world.generated;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -35,9 +36,10 @@ public class GeneratedEndPortal extends GeneratedComplex {
         }
 
         @Override
-        public void provideObject(Random random, World world, int x, int y, int z) {
+        public void provideObject(Random random, World world, BlockPos pos) {
             int meta = random.nextDouble() < filledChance ? direction + 4 : direction;
-            world.setBlock(x, y, z, Blocks.end_portal_frame, meta, 3);
+            IBlockState state = Blocks.END_PORTAL_FRAME.getStateFromMeta(meta);
+            world.setBlockState(pos, state);
         }
     }
 }

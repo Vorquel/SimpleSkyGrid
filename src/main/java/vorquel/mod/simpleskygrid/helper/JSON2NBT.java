@@ -1,11 +1,12 @@
 package vorquel.mod.simpleskygrid.helper;
 
 import com.google.gson.stream.JsonReader;
-import cpw.mods.fml.common.registry.GameData;
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vorquel.mod.simpleskygrid.world.generated.localizer.INBTLocalizer;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,26 +14,12 @@ import java.util.List;
 
 public class JSON2NBT {
 
-    private static ArrayList<INBTLocalizer> blockLocalizers = new ArrayList<>();
-
-
-    public static void addBlockLocalizer(INBTLocalizer blockLocalizer) {
-        blockLocalizers.add(blockLocalizer);
-    }
-
-    private static void localizeBlockFromLocalizers(NBTTagCompound tagCopy, World world, int x, int y, int z) {
-        for(INBTLocalizer localizer : blockLocalizers)
-            if(localizer.isNeeded(tagCopy))
-                localizer.localize(tagCopy, world, x, y, z);
-    }
-
-    public static NBTTagCompound localizeBlock(NBTTagCompound tag, World world, int x, int y, int z) {
+    public static NBTTagCompound localizeBlock(NBTTagCompound tag, World world, BlockPos pos) {
         NBTTagCompound tagCopy = (NBTTagCompound) tag.copy();
-        tagCopy.setInteger("x", x);
-        tagCopy.setInteger("y", y);
-        tagCopy.setInteger("z", z);
+        tagCopy.setInteger("x", pos.getX());
+        tagCopy.setInteger("y", pos.getY());
+        tagCopy.setInteger("z", pos.getZ());
         localizeItems(tagCopy);
-        localizeBlockFromLocalizers(tagCopy, world, x, y, z);
         return tagCopy;
     }
 
@@ -64,7 +51,7 @@ public class JSON2NBT {
             if(!compound.hasKey("id", 8))
                 continue;
             String name = compound.getString("id");
-            int id = GameData.getItemRegistry().getId(name);
+            int id = Item.REGISTRY.getIDForObject(Item.REGISTRY.getObject(new ResourceLocation(name)));
             compound.setShort("id", (short) id);
         }
     }

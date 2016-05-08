@@ -4,6 +4,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldType;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -26,7 +27,7 @@ public class WorldProviderAdapter extends ClassVisitor implements Opcodes{
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
         MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
-        if(name.equals(mCreateChunkGenerator) && desc.equals("()L" + cIChunkProvider + ";"))
+        if(name.equals(mCreateChunkGenerator) && desc.equals("()L" + cIChunkGenerator + ";"))
             mv = new CreateChunkGeneratorAdapter(mv);
         return mv;
     }
@@ -53,13 +54,13 @@ public class WorldProviderAdapter extends ClassVisitor implements Opcodes{
     
     @SuppressWarnings("unused")
     public static boolean useMyChunkProvider(WorldProvider provider) {
-        WorldType type = DimensionManager.getWorld(provider.getDimension()).getWorldType();
-        return type == Ref.worldType && Config.dimensionPropertiesMap.containsKey(provider.getDimension());
+        World world = ReflectionHelper.getPrivateValue(WorldProvider.class, provider, "worldObj", "field_76579_a");
+        return world.getWorldInfo().getTerrainType() == Ref.worldType && Config.dimensionPropertiesMap.containsKey(provider.getDimension());
     }
     
     @SuppressWarnings("unused")
     public static ChunkGeneratorSkyGrid createChunkProviderSkyGrid(WorldProvider provider) {
-        World world = DimensionManager.getWorld(provider.getDimension());
+        World world = ReflectionHelper.getPrivateValue(WorldProvider.class, provider, "worldObj", "field_76579_a");
         return new ChunkGeneratorSkyGrid(world, provider.getSeed(), provider.getDimension());
     }
 }

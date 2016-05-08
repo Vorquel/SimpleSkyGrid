@@ -1,13 +1,6 @@
 package vorquel.mod.simpleskygrid.entity;
 
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-
+/*
 public class RenderStasis extends Render {
     
     private ResourceLocation texture = new ResourceLocation("textures/blocks/glass.png");
@@ -70,3 +63,4 @@ public class RenderStasis extends Render {
         return texture;
     }
 }
+*/

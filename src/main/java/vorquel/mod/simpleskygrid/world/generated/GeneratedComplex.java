@@ -15,12 +15,12 @@ public class GeneratedComplex implements IGeneratedObject {
     }
 
     @Override
-    public void provideObject(Random random, World world, int x, int y, int z) {
+    public void provideObject(Random random, World world, BlockPos pos) {
         int max = world.provider.getHeight();
         for(BlockPos key : generationMap.keySet()) {
-            int newY = y + key.getY();
+            int newY = pos.getY() + key.getY();
             if(newY >= 0 && newY < max)
-                generationMap.get(key).provideObject(random, world, x + key.getX(), newY, z + key.getY());
+                generationMap.get(key).provideObject(random, world, key.add(pos));
         }
     }
 }

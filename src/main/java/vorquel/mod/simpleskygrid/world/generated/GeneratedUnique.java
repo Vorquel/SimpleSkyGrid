@@ -31,7 +31,7 @@ public class GeneratedUnique implements IGeneratedObject {
     }
 
     @Override
-    public void provideObject(Random random, World world, int x, int y, int z) {
-        generatedObject.provideObject(random, world, x, y, z);
+    public void provideObject(Random random, World world, BlockPos pos) {
+        generatedObject.provideObject(random, world, pos);
     }
 }

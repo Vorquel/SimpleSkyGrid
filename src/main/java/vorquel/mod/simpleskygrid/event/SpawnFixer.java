@@ -34,24 +34,24 @@ public class SpawnFixer {
     public void playerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if(event.player.worldObj.getWorldInfo().getTerrainType() != Ref.worldType || !Config.dimensionPropertiesMap.containsKey(event.player.dimension))
             return;
-        BlockPos pos = event.player.playerLocation;
         BlockPos bedCoordinates = event.player.getBedLocation(event.player.dimension);
-        if(pos.getY() <= 1 || bedCoordinates == null || bedCoordinates.distanceSq(pos) > 10) {
-            x -= x%4;
-            z -= z%4;
-            Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(pos);
+        if(event.player.posY <= 1 || bedCoordinates == null || bedCoordinates.distanceSq(event.player.posX, event.player.posY, event.player.posZ) > 10) {
+            int x = (int) (event.player.posX - event.player.posX%4);
+            int z = (int) (event.player.posX - event.player.posX%4);
+            Chunk chunk = event.player.worldObj.getChunkFromBlockCoords(new BlockPos(x, 0, z));
             int spawnHeight = Config.dimensionPropertiesMap.get(event.player.dimension).spawnHeight;
             int airs = 0;
+            int y;
             for(y=Math.min(chunk.getTopFilledSegment()+16, spawnHeight)+2; y>0; --y) {
                 if(airs < 2) {
-                    if(chunk.getBlock(x&15, y-1, z&15).getMaterial().blocksMovement()) {
+                    if(chunk.getBlockState(x&15, y-1, z&15).getMaterial().blocksMovement()) {
                         airs = 0;
                         continue;
                     }
                     airs++;
                     continue;
                 }
-                if(chunk.getBlock(x&15, y-1, z&15).getMaterial().blocksMovement())
+                if(chunk.getBlockState(x&15, y-1, z&15).getMaterial().blocksMovement())
                     break;
             }
             event.player.setPositionAndUpdate(x + .5, y, z + .5);
